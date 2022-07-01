@@ -1,16 +1,5 @@
 # GA_Project_3
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-# TESTING!
-
-# TESTING SECURITY
-
-=======
-
-=======
->>>>>>> main
 # Potential Ideas
 
 Job search that pairs applicants with the right jobs (replace searching/recruiting).
@@ -25,10 +14,5 @@ Featured jobs section where applicants qualitifications are paired with job spec
 Strech goal - push/email notifications for high fitting jobs.
 
 Chron jobs - daily updates
-<<<<<<< HEAD
 
-> > > > > > > 1c32ee4726fed4113b980e6c2bcaa1dd0c1dd8b8
-
-# TEST PUSH TO Jim BRANCH
-=======
->>>>>>> main
+# TESTING
