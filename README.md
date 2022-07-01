@@ -17,8 +17,4 @@ Strech goal - push/email notifications for high fitting jobs.
 
 Chron jobs - daily updates
 
-<<<<<<< HEAD
-//fdsljfldks
-=======
 # TESTING
->>>>>>> 81fe5f398cb94278cc3899b7ed9c89ad21976f35
