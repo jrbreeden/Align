@@ -5,7 +5,7 @@
 # Potential Ideas
 
 Job search that pairs applicants with the right jobs (replace searching/recruiting).
-        Recruiters take a job and search for applicants. Applicants go on line and search for many jobs. Have program do the applicant->job search to function as a personalized recruiter (their agent).
+Recruiters take a job and search for applicants. Applicants go on line and search for many jobs. Have program do the applicant->job search to function as a personalized recruiter (their agent).
 
 # General Idea Interpretation
 
@@ -17,4 +17,8 @@ Strech goal - push/email notifications for high fitting jobs.
 
 Chron jobs - daily updates
 
+<<<<<<< HEAD
 //fdsljfldks
+=======
+# TESTING
+>>>>>>> 81fe5f398cb94278cc3899b7ed9c89ad21976f35
