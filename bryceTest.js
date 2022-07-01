@@ -1,6 +1,6 @@
 //This is a test
 
-bryce's file
+// bryce's file
 
 //test 2
 
@@ -8,3 +8,4 @@ bryce's file
 
 // TESTING for Jim.
 
+// Able to commit
