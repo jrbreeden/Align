@@ -23,7 +23,7 @@ export default function LoginForm({ setUser }) {
       const user = await usersService.login(credentials);
       setUser(user);
     } catch {
-      setError('Log In Failed - Try Again');
+      setError('Log In Failed - Try Again!');
     }
   }
 
@@ -32,7 +32,11 @@ export default function LoginForm({ setUser }) {
       <div className="bg-grey-lighter min-h-screen flex flex-col">
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div className="bg-gray-100 px-6 py-8 rounded shadow-md text-black w-full">
-            <p className="error-message">&nbsp;{error}</p>
+            {error && (
+              <p className="error-message  mb-4 text-center bg-red-400 p-2 text-white rounded font-bold">
+                &nbsp;{error}
+              </p>
+            )}
             <h1 className="mb-8 text-3xl text-center">Sign In</h1>
             <form onSubmit={handleSubmit}>
               <input
@@ -62,7 +66,7 @@ export default function LoginForm({ setUser }) {
           </div>
 
           <div className="text-grey-dark mt-6">
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <a
               className="no-underline border-b border-blue text-blue"
               href="../login/"
