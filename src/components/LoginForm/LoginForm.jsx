@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as usersService from '../../utilities/users-service';
 
 export default function LoginForm({ setUser }) {
@@ -67,12 +68,12 @@ export default function LoginForm({ setUser }) {
 
           <div className="text-grey-dark mt-6">
             Don't have an account?{' '}
-            <a
-              className="no-underline border-b border-blue text-blue"
-              href="../login/"
+            <Link
+              to="/signup"
+              className="no-underline border-b border-blue text-purple-800 font-semibold"
             >
               Register
-            </a>
+            </Link>
             .
           </div>
         </div>
