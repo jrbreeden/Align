@@ -6,6 +6,8 @@ import AuthPage from '../AuthPage/AuthPage';
 import NewOrderPage from '../NewOrderPage/NewOrderPage';
 import OrderHistoryPage from '../OrderHistoryPage/OrderHistoryPage';
 import HomePage from '../HomePage/HomePage';
+import SignUpForm from '../../components/SignUpForm/SignUpForm';
+import LoginForm from '../../components/LoginForm/LoginForm';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -24,7 +26,11 @@ export default function App() {
         </Routes>
       ) : (
         // <AuthPage setUser={setUser} />
-        <HomePage />
+        <Routes>
+          <Route path="/" element={<HomePage />}/>
+          <Route path="/signup" element={<SignUpForm setUser={setUser}/>}/>
+          <Route path="/login" element={<LoginForm setUser={setUser}/>}/>
+        </Routes>
       )}
     </main>
   );
