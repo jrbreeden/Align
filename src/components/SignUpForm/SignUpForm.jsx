@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react';
 import { signUp } from '../../utilities/users-service';
+import {Link} from 'react-router-dom'
 
 export default function SignUpForm({ setUser }) {
   const [data, setData] = useState({
@@ -115,12 +116,11 @@ export default function SignUpForm({ setUser }) {
 
           <div className="text-grey-dark mt-6">
             Already have an account?{' '}
-            <a
-              className="no-underline border-b border-blue text-blue"
-              href="../login/"
+            <Link to="/login"
+              className="no-underline border-b border-blue text-purple-800 font-semibold"
             >
               Log in
-            </a>
+            </Link>
             .
           </div>
         </div>
