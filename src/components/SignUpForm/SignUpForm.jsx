@@ -50,7 +50,7 @@ export default function SignUpForm({ setUser }) {
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
+                className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring-1 focus:ring-sky-500"
                 name="name"
                 placeholder="Full Name"
                 value={data.name}
@@ -60,7 +60,7 @@ export default function SignUpForm({ setUser }) {
 
               <input
                 type="text"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
+                className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring-1 focus:ring-sky-500"
                 name="email"
                 placeholder="Email"
                 value={data.email}
@@ -70,7 +70,7 @@ export default function SignUpForm({ setUser }) {
 
               <input
                 type="password"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
+                className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring-1 focus:ring-sky-500"
                 name="password"
                 placeholder="Password"
                 value={data.password}
@@ -79,7 +79,7 @@ export default function SignUpForm({ setUser }) {
               />
               <input
                 type="password"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
+                className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring-1 focus:ring-sky-500"
                 name="confirm"
                 placeholder="Confirm Password"
                 value={data.confirm}

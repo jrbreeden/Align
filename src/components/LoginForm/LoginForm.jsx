@@ -42,7 +42,7 @@ export default function LoginForm({ setUser }) {
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
+                className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring-1 focus:ring-sky-500"
                 name="email"
                 placeholder="Email"
                 value={credentials.email}
@@ -51,7 +51,7 @@ export default function LoginForm({ setUser }) {
 
               <input
                 type="password"
-                className="block border border-grey-light w-full p-3 rounded mb-4"
+                className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-none focus:ring-1 focus:ring-sky-500"
                 name="password"
                 placeholder="Password"
                 value={credentials.password}
