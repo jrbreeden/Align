@@ -68,7 +68,7 @@ export default function NavBar({active}) {
                     to="/"
                     className={`${active === 'home' ? 'bg-gray-900' : null} text-white px-3 py-2 rounded-md text-sm font-medium`}
                   >
-                    HomePage
+                    Home
                   </Link>
                 </div>
               </div>
