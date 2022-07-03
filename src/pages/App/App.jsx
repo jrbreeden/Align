@@ -28,12 +28,12 @@ export default function App() {
           <Route path="/" element={<HomePage />} exact />
           <Route
             path="/signup"
-            element={<SignUpPage setUser={setUser} />}
+            element={<SignUpPage user={user} setUser={setUser} />}
             exact
           />
           <Route
             path="/login"
-            element={<LoginPage setUser={setUser} />}
+            element={<LoginPage user={user} setUser={setUser} />}
             exact
           />
         </Routes>
