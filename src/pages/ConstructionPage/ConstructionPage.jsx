@@ -13,6 +13,12 @@ export default function ConstructionPage({ user }) {
   const [step, setStep] = useState(0);
   const steps = ['Objective', 'Skills', 'Experience', 'Education'];
   const [currentSection, setCurrentSection] = useState(steps[step]);
+  const [sections, setSections] = useState({
+    Objective: true,
+    Skills: false,
+    Experience: false,
+    Education: false,
+  });
 
   return (
     <Layout active={'construction'} user={user}>
@@ -28,6 +34,8 @@ export default function ConstructionPage({ user }) {
                   step={step}
                   steps={steps}
                   section={currentSection}
+                  setSections={setSections}
+                  sections={sections}
                 />
               </div>
               <div className="flex items-center justify-center gap-x-96 mt-24">
@@ -37,7 +45,11 @@ export default function ConstructionPage({ user }) {
               <StepperNav
                 step={step}
                 setStep={setStep}
+                setCurrentSection={setCurrentSection}
                 steps={steps}
+                currentSection={currentSection}
+                setSections={setSections}
+                sections={sections}
               />
             </div>
           </animated.div>

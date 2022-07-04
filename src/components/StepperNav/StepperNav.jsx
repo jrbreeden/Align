@@ -1,10 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
 
 export default function StepperNav({
   step,
   setStep,
+  currentSection,
+  setCurrentSection,
   steps,
+  sections,
+  setSections,
 }) {
+  useEffect(() => {
+    setCurrentSection(steps[step]);
+    console.log(steps[step]);
+  }, [step, currentSection]);
+
+  useEffect(() => {
+    console.log(sections);
+  }, [sections]);
+
   return (
     <div className="mx-8 mt-40">
       <div className="flex p-2 justify-between">
@@ -18,8 +32,14 @@ export default function StepperNav({
         border-gray-600 transition ${step === 0 && 'cursor-not-allowed'}`}
             onClick={() => {
               setStep((prevStep) => prevStep - 1);
+              console.log('bogo', steps[step]);
+              setSections((prevSections) => ({
+                ...prevSections,
+                [`${steps[step]}`]: false,
+              }));
             }}
-          disabled={step === 0}>
+            disabled={step === 0}
+          >
             Previous
           </button>
         </div>
@@ -48,7 +68,13 @@ export default function StepperNav({
         text-teal-100 
         border duration-200 ease-in-out 
         border-teal-600 transition"
-              onClick={() => setStep((prevStep) => prevStep + 1)}
+              onClick={() => {
+                setStep((prevStep) => prevStep + 1);
+                setSections((prevSections) => ({
+                  ...prevSections,
+                  [`${steps[step + 1]}`]: true,
+                }));
+              }}
             >
               Next
             </button>

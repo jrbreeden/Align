@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 
 export default function Stepper({
   step,
@@ -7,6 +8,12 @@ export default function Stepper({
   setSections,
   sections,
 }) {
+  const [stepperSection, setStepperSection] = useState({});
+
+  useEffect(() => {
+    setStepperSection(sections);
+  }, [section]);
+
   return (
     <>
       <div className="mx-4 p-4">
@@ -34,17 +41,17 @@ export default function Stepper({
           </div>
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              steps[step] === 'Skills' ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Skills ? 'border-teal-600' : 'border-gray-300'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              steps[step] === 'Skills' ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Skills ? 'text-teal-600' : 'text-gray-500'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                steps[step] === 'Skills' ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Skills ? 'border-teal-600' : 'border-gray-300'
               }`}
             >
               <svg
@@ -67,7 +74,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                steps[step] === 'Skills' ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Skills ? 'text-teal-600' : 'text-gray-600'
               }`}
             >
               Skills
@@ -75,17 +82,17 @@ export default function Stepper({
           </div>
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              steps[step] === 'Experience' ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Experience ? 'border-teal-600' : 'border-gray-300'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              steps[step] === 'Experience' ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Experience ? 'text-teal-600' : 'text-gray-500'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                steps[step] === 'Experience' ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Experience ? 'border-teal-600' : 'border-gray-300'
               }`}
             >
               <svg
@@ -106,7 +113,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                steps[step] === 'Experience' ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Experience ? 'text-teal-600' : 'text-gray-600'
               }`}
             >
               Experience
@@ -114,17 +121,17 @@ export default function Stepper({
           </div>
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              steps[step] === 'Education'? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Education ? 'border-teal-600' : 'border-gray-300'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              steps[step] === 'Education' ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Education ? 'text-teal-600' : 'text-gray-500'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                steps[step] === 'Education' ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Education ? 'border-teal-600' : 'border-gray-300'
               }`}
             >
               <svg
@@ -146,7 +153,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                steps[step] === 'Education' ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Education ? 'text-teal-600' : 'text-gray-600'
               }`}
             >
               Education
