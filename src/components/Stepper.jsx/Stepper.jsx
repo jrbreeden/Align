@@ -1,6 +1,12 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 
-export default function Stepper() {
+export default function Stepper({
+  step,
+  steps,
+  section,
+  setSections,
+  sections,
+}) {
   return (
     <>
       <div className="mx-4 p-4">
@@ -17,7 +23,7 @@ export default function Stepper() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="feather feather-bookmark "
+                className="feather feather-bookmark"
               >
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
               </svg>
@@ -26,9 +32,21 @@ export default function Stepper() {
               Objective
             </div>
           </div>
-          <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-teal-600"></div>
-          <div className="flex items-center text-white relative">
-            <div className="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 bg-teal-600 border-teal-600">
+          <div
+            className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
+              steps[step] === 'Skills' ? 'border-teal-600' : 'border-gray-300'
+            }`}
+          ></div>
+          <div
+            className={`flex items-center ${
+              steps[step] === 'Skills' ? 'text-teal-600' : 'text-gray-500'
+            } relative`}
+          >
+            <div
+              className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
+                steps[step] === 'Skills' ? 'border-teal-600' : 'border-gray-300'
+              }`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
@@ -47,13 +65,29 @@ export default function Stepper() {
                 <line x1="23" y1="11" x2="17" y2="11"></line>
               </svg>
             </div>
-            <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-600">
+            <div
+              className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
+                steps[step] === 'Skills' ? 'text-teal-600' : 'text-gray-600'
+              }`}
+            >
               Skills
             </div>
           </div>
-          <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-teal-600"></div>
-          <div className="flex items-center text-white relative">
-            <div className="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 bg-teal-600 border-teal-600">
+          <div
+            className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
+              steps[step] === 'Experience' ? 'border-teal-600' : 'border-gray-300'
+            }`}
+          ></div>
+          <div
+            className={`flex items-center ${
+              steps[step] === 'Experience' ? 'text-teal-600' : 'text-gray-500'
+            } relative`}
+          >
+            <div
+              className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
+                steps[step] === 'Experience' ? 'border-teal-600' : 'border-gray-300'
+              }`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
@@ -70,13 +104,29 @@ export default function Stepper() {
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
             </div>
-            <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-600">
+            <div
+              className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
+                steps[step] === 'Experience' ? 'text-teal-600' : 'text-gray-600'
+              }`}
+            >
               Experience
             </div>
           </div>
-          <div className="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
-          <div className="flex items-center text-gray-500 relative">
-            <div className="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300">
+          <div
+            className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
+              steps[step] === 'Education'? 'border-teal-600' : 'border-gray-300'
+            }`}
+          ></div>
+          <div
+            className={`flex items-center ${
+              steps[step] === 'Education' ? 'text-teal-600' : 'text-gray-500'
+            } relative`}
+          >
+            <div
+              className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
+                steps[step] === 'Education' ? 'border-teal-600' : 'border-gray-300'
+              }`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
@@ -94,7 +144,11 @@ export default function Stepper() {
                 <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
               </svg>
             </div>
-            <div className="absolute top-0 -ml-8 text-center mt-16 w-28 text-xs font-medium uppercase text-gray-500">
+            <div
+              className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
+                steps[step] === 'Education' ? 'text-teal-600' : 'text-gray-600'
+              }`}
+            >
               Education
             </div>
           </div>

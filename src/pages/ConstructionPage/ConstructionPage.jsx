@@ -7,8 +7,13 @@ import SectionInput from '../../components/SectionInput/SectionInput';
 import Stepper from '../../components/Stepper.jsx/Stepper';
 import Layout from '../../components/Layout/Layout';
 import StepperNav from '../../components/StepperNav/StepperNav';
+import { useState } from 'react';
 
 export default function ConstructionPage({ user }) {
+  const [step, setStep] = useState(0);
+  const steps = ['Objective', 'Skills', 'Experience', 'Education'];
+  const [currentSection, setCurrentSection] = useState(steps[step]);
+
   return (
     <Layout active={'construction'} user={user}>
       <Spring
@@ -19,13 +24,21 @@ export default function ConstructionPage({ user }) {
           <animated.div style={props}>
             <div className="bg-gray-200 h-screen">
               <div>
-                <Stepper />
+                <Stepper
+                  step={step}
+                  steps={steps}
+                  section={currentSection}
+                />
               </div>
               <div className="flex items-center justify-center gap-x-96 mt-24">
-                <SectionInput />
+                <SectionInput section={currentSection} />
                 <ResumeViewer />
               </div>
-              <StepperNav />
+              <StepperNav
+                step={step}
+                setStep={setStep}
+                steps={steps}
+              />
             </div>
           </animated.div>
         )}

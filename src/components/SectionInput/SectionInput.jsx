@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SectionInput() {
+export default function SectionInput({ section }) {
   return (
     <div className="h-auto min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl w-1/4 rounded">
       <div>
@@ -10,7 +10,7 @@ export default function SectionInput() {
       </div>
       <ul className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-white">
         <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
-          Technical Experience
+          {section}
         </li>
       </ul>
       <div className="items mt-4">
@@ -24,7 +24,9 @@ export default function SectionInput() {
           <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600 bg-green-400 text-white">
             Developed Full-Stack web application
           </li>
-          <li className="w-full px-4 py-2 rounded-b-lg bg-green-400 text-white">Used JWT for Auth</li>
+          <li className="w-full px-4 py-2 rounded-b-lg bg-green-400 text-white">
+            Used JWT for Auth
+          </li>
         </ul>
       </div>
       <div className="my-2 mt-8">
