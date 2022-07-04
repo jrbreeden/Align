@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function NavBar({active}) {
+export default function NavBar({ active, user }) {
   return (
     <>
       <nav className="bg-gray-800">
@@ -66,7 +66,13 @@ export default function NavBar({active}) {
                 <div className="flex space-x-4">
                   <Link
                     to="/"
-                    className={`${active === 'home' ? 'bg-gray-900' : null} text-white px-3 py-2 rounded-md text-sm font-medium`}
+                    className={`${
+                      active === 'home' ? 'bg-gray-900' : null
+                    } text-white px-3 py-2 rounded-md text-sm font-medium ${
+                      active === 'construction' || active === 'dashboard'
+                        ? 'hidden'
+                        : null
+                    }`}
                   >
                     Home
                   </Link>
@@ -76,16 +82,40 @@ export default function NavBar({active}) {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <Link
                 to="/login"
-                className={`${active === 'login' ? 'bg-gray-900' : null} text-white px-3 py-2 rounded-md text-sm font-medium`}
+                className={`${
+                  active === 'login' ? 'bg-gray-900' : null
+                } text-white px-3 py-2 rounded-md text-sm font-medium ${
+                  active === 'construction' || active === 'dashboard'
+                    ? 'hidden'
+                    : null
+                }`}
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className={`${active === 'signup' ? 'bg-gray-900' : null} text-white px-3 py-2 rounded-md text-sm font-medium`}
+                className={`${
+                  active === 'signup' ? 'bg-gray-900' : null
+                } text-white px-3 py-2 rounded-md text-sm font-medium ${
+                  active === 'construction' || active === 'dashboard'
+                    ? 'hidden'
+                    : null
+                }`}
               >
                 Signup
               </Link>
+              {user ? (
+                <h2
+                  to="/signup"
+                  className={`${
+                    active === 'signup' ? 'bg-gray-900' : null
+                  } text-white px-3 py-2 rounded-md text-sm font-medium ${
+                    active === 'construction' ? 'hidden' : null
+                  }`}
+                >
+                  Welcome, {user.name}
+                </h2>
+              ) : null}
             </div>
           </div>
         </div>

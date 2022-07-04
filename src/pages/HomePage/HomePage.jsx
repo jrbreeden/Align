@@ -1,12 +1,13 @@
-import React from 'react'
-import Carousel from '../../components/Carousel/Carousel'
-import NavBar from '../../components/NavBar/NavBar'
+import React from 'react';
+import Carousel from '../../components/Carousel/Carousel';
+import Layout from '../../components/Layout/Layout';
 
-export default function HomePage() {
+export default function HomePage({user}) {
   return (
-    <>
-    <NavBar active={'home'}/>
-    <Carousel />
-    </>
-  )
+    <Layout active={'home'} user={user}>
+      <div className="h-screen">
+        <Carousel />
+      </div>
+    </Layout>
+  );
 }

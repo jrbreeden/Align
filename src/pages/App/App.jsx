@@ -6,6 +6,7 @@ import HomePage from '../HomePage/HomePage';
 import SignUpPage from '../SignUpPage/SignUpPage';
 import LoginPage from '../LoginPage/LoginPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
+import ConstructionPage from '../ConstructionPage/ConstructionPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -13,18 +14,28 @@ export default function App() {
     <main className="App">
       {user ? (
         <Routes>
-          {/* client-side route that renders the component instance if the path matches the url in the address bar */}
           <Route
             path="/dashboard"
-            element={<DashboardPage user={user} setUser={setUser} />}
+            element={<DashboardPage user={user} setUser={setUser} exact />}
+          />
+          <Route
+            path="/construction"
+            element={<ConstructionPage user={user} setUser={setUser} exact />}
           />
         </Routes>
       ) : (
-        // <AuthPage setUser={setUser} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/signup" element={<SignUpPage setUser={setUser} />} />
-          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+          <Route path="/" element={<HomePage />} exact />
+          <Route
+            path="/signup"
+            element={<SignUpPage user={user} setUser={setUser} />}
+            exact
+          />
+          <Route
+            path="/login"
+            element={<LoginPage user={user} setUser={setUser} />}
+            exact
+          />
         </Routes>
       )}
     </main>
