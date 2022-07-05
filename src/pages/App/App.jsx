@@ -14,6 +14,7 @@ export default function App() {
     <main className="App">
       {user ? (
         <Routes>
+          <Route path="/" element={<HomePage />} exact />
           <Route
             path="/dashboard"
             element={<DashboardPage user={user} setUser={setUser} exact />}
