@@ -1,6 +1,6 @@
 //pulled from https://remotive.com/api/remote-jobs?search=javascript
 
-module.exports =[
+module.exports = [
 {
 id: 1224255,
 url: "https://remotive.com/remote-jobs/software-dev/full-stack-engineer-customer-solutions-team-1224255",

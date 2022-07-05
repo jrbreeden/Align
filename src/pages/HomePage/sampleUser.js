@@ -1,11 +1,11 @@
-const testData = {
+module.exports = {
     personal: {
       name: 'Bryce Henderson',
       email: 'Bruce@CheezeSnail.yum',
       phone: '360-551-5555',
       link1: 'gothub.com/bhenderson',
       link2: 'Blinkedin.com/bhenderson',
-      link3: 'chuzzle.herokuapp.com',
+      link3: 'CornHub.com',
     },
     statement: {
       header: 'Software Engineer',
@@ -27,8 +27,8 @@ const testData = {
         {skill: 'sleeping',priority: 0} ,
         {skill: 'writing code',priority: 0} ,
         {skill: 'procrastinating',priority: 0},
-        {skill: 'RESTful sleeping',priority: 0},
-        {skill: 'Routeful GETting',priority: 0},
+        {skill: 'RESTful sleeping',priority: 2},
+        {skill: 'Routeful GETting',priority: 1},
         {skill: 'API',priority: 0},
       ],
     },
@@ -113,12 +113,3 @@ const testData = {
       ],
     },
   };
-
-export default function optimizeResume( keywordList , resume , spaceConstraints){
-    const { personal, statement, skills, projects, workHistory, education } = resume
-    const sectionList = [projects, workHistory, education]
-
-
-
-
-}
