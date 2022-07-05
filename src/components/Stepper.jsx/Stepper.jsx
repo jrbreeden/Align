@@ -35,7 +35,7 @@ export default function Stepper({
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
               </svg>
             </div>
-            <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-600">
+            <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-600 font-bold">
               Personal Info
             </div>
           </div>
@@ -75,7 +75,7 @@ export default function Stepper({
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
                 stepperSection.Objective ? 'text-teal-600' : 'text-gray-600'
-              }`}
+              } font-bold`}
             >
               Objective
             </div>
@@ -114,7 +114,7 @@ export default function Stepper({
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
                 stepperSection.Skills ? 'text-teal-600' : 'text-gray-600'
-              }`}
+              } font-bold`}
             >
               Skills
             </div>
@@ -154,7 +154,7 @@ export default function Stepper({
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
                 stepperSection.Projects ? 'text-teal-600' : 'text-gray-600'
-              }`}
+              } font-bold`}
             >
               Projects
             </div>
@@ -195,7 +195,7 @@ export default function Stepper({
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
                 stepperSection.History ? 'text-teal-600' : 'text-gray-600'
-              }`}
+              } font-bold`}
             >
               Work History
             </div>
@@ -236,7 +236,7 @@ export default function Stepper({
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
                 stepperSection.Education ? 'text-teal-600' : 'text-gray-600'
-              }`}
+              } font-bold`}
             >
               Education
             </div>

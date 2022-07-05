@@ -3,7 +3,6 @@ import { Spring, animated } from 'react-spring';
 import { useState } from 'react';
 
 // ! Components
-import ResumeViewer from '../../components/ResumeViewer/ResumeViewer';
 import Stepper from '../../components/Stepper.jsx/Stepper';
 import Layout from '../../components/Layout/Layout';
 import StepperNav from '../../components/StepperNav/StepperNav';
@@ -34,16 +33,55 @@ export default function ConstructionPage({ user }) {
     Education: false,
   });
 
+  // SECTIONS STATES
+  const [personal, setPersonal] = useState({
+    email: '',
+    phone: '',
+    linkedIn: '',
+    github: '',
+    portfolio: '',
+  });
+
+  // OBJECTIVE/STATEMENT STATES
+  const [objective, setObjective] = useState({
+    title: '',
+    body: '',
+  });
+
+  // SKILLS STATES
+  const [skills, setSkills] = useState([]);
+  const [skill, setSkill] = useState({ id: '', skill: '', priority: 'normal' });
+
   const renderSection = (section) => {
     switch (section) {
       case 'PersonalInfo':
-        return <PersonalInfoSection section={section} />;
+        return (
+          <PersonalInfoSection
+            section={section}
+            personal={personal}
+            setPersonal={setPersonal}
+          />
+        );
 
       case 'Objective':
-        return <ObjectiveSection section={section} />;
+        return (
+          <ObjectiveSection
+            section={section}
+            objective={objective}
+            setObjective={setObjective}
+          />
+        );
 
       case 'Skills':
-        return <SkillsSection section={section} />;
+        return (
+          <SkillsSection
+            section={section}
+            skills={skills}
+            setSkills={setSkills}
+            skill={skill}
+            setSkill={setSkill}
+          />
+        );
 
       case 'Projects':
         return <ProjectsSection section={section} />;
@@ -77,9 +115,8 @@ export default function ConstructionPage({ user }) {
                   sections={sections}
                 />
               </div>
-              <div className="flex items-center justify-center gap-x-96 mt-24">
+              <div className="flex items-center justify-center gap-x-96 mt-20">
                 {renderSection(currentSection)}
-                <ResumeViewer />
               </div>
               <StepperNav
                 step={step}

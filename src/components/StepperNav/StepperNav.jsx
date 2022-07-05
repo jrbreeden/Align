@@ -20,7 +20,7 @@ export default function StepperNav({
   }, [sections]);
 
   return (
-    <div className="mx-8 mt-40">
+    <div className="mx-8 mt-24">
       <div className="flex p-2 justify-between">
         <div>
           <button
