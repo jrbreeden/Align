@@ -17,15 +17,18 @@ function optimizeResume( keywordList , resume , spaceConstraints){
         statement:statement,
     }
     //console.log('my skills are ' , skills)
-    let skillList = {
-      header:'Skills',
-      skills:[]
+    const createSkills = ()=>{
+      let skillList = {
+        header:'Skills',
+        skills:[]
+      }
+      
+      skills.skills.forEach((skill)=>skill.priority===2 && skillList.skills.push(skill))
+      skills.skills.forEach((skill)=>((skill.priority===1 || keywordList.includes(skill.skill))&& skillList.skills.length < 2) && skillList.skills.push(skill))
+  
+      output.skills=skillList
     }
-    
-    skills.skills.forEach((skill)=>skill.priority===2 && skillList.skills.push(skill))
-    skills.skills.forEach((skill)=>((skill.priority===1 || keywordList.includes(skill.skill))&& skillList.skills.length < 2) && skillList.skills.push(skill))
-
-    output.skills=skillList
+    createSkills()
     return output
 }
 
