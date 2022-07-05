@@ -7,7 +7,7 @@ export default function resumeConstructor(resume) {
     //will need to include some sort of algorithmic scoring logic for each line within the docx.
     //alert('in resume constructor')
     
-    console.log('Constructing from... ', personal, statement, skills, projects, workHistory, education)
+    //console.log('Constructing from... ', personal, statement, skills, projects, workHistory, education)
     
     const PROPERTIES = {
         page: {
@@ -157,12 +157,11 @@ export default function resumeConstructor(resume) {
         children: createSectionSubSections(education)
     }
 
-
-
     const doc = new Document({
 
         sections: [sectPersonal, sectStatement , sectSkills , sectProjects, sectWorkHistory , sectEducation]
     })
+    
     Packer.toBlob(doc).then((blob) => {
         saveAs(blob, 'blob.docx')
         console.log('Document created')

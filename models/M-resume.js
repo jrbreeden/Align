@@ -44,8 +44,7 @@ const sectionSchema = new Schema({
 
 const conditionSchema = new Schema({
     priority: {type:Number , required:true, default:0 , min:0 , max:2},
-    minItems:{type:Number , required:true , default:2 , min:0 , max:10},
-    maxItems:{type:Number , required:true , default: 5 , min:0 , max:10},
+    items:{type:Number , required:true , min:1 , max:5},
 })
 
 const subSectionSchema = new Schema({
