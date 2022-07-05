@@ -22,3 +22,7 @@ The app, Align, is a job agent that searches for jobs for a user based on the us
 * Heroku
 * Remotive API
 * Tailwindcss
+
+# ERD
+
+# Icebox
