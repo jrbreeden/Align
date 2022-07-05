@@ -7,7 +7,7 @@ import Stepper from '../../components/Stepper.jsx/Stepper';
 import Layout from '../../components/Layout/Layout';
 import StepperNav from '../../components/StepperNav/StepperNav';
 import PersonalInfoSection from '../../components/Sections/PersonalInfoSection/PersonalInfoSection';
-import ObjectiveSection from '../../components/Sections/ObjectiveSection/ObjectiveSection';
+import StatementSection from '../../components/Sections/StatementSection/StatementSection';
 import SkillsSection from '../../components/Sections/SkillsSection/SkillsSection';
 import ProjectsSection from '../../components/Sections/ProjectsSection/ProjectSection';
 import HistorySection from '../../components/Sections/HistorySection/HistorySection';
@@ -17,7 +17,7 @@ export default function ConstructionPage({ user }) {
   const [step, setStep] = useState(0);
   const steps = [
     'PersonalInfo',
-    'Objective',
+    'Statement',
     'Skills',
     'Projects',
     'History',
@@ -26,7 +26,7 @@ export default function ConstructionPage({ user }) {
   const [currentSection, setCurrentSection] = useState(steps[step]);
   const [sections, setSections] = useState({
     PersonalInfo: true,
-    Objective: false,
+    Statement: false,
     Skills: false,
     Projects: false,
     History: false,
@@ -43,7 +43,7 @@ export default function ConstructionPage({ user }) {
   });
 
   // OBJECTIVE/STATEMENT STATES
-  const [objective, setObjective] = useState({
+  const [statement, setStatement] = useState({
     title: '',
     body: '',
   });
@@ -51,6 +51,36 @@ export default function ConstructionPage({ user }) {
   // SKILLS STATES
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState({ id: '', skill: '', priority: 'normal' });
+
+  // PROJECTS STATES
+  const [project, setProject] = useState({
+    header: '',
+    priority: 'normal',
+    subSections: [{ subHeader: 'Time Travel Tour Guide', dateState: '' }],
+  });
+
+  const [projects, setProjects] = useState([]);
+  const [projectSubSection, setProjectSubSection] = useState({
+    subHeader: '',
+    dateStart: '',
+    dateEnd: '',
+    lineItems: [],
+  });
+  const [projectLineItem, setProjectLineItem] = useState({
+    body: '',
+    priority: 'normal',
+  });
+
+  const projectSectionProps = {
+    project,
+    setProject,
+    projects,
+    setProjects,
+    projectSubSection,
+    setProjectSubSection,
+    projectLineItem,
+    setProjectLineItem,
+  };
 
   const renderSection = (section) => {
     switch (section) {
@@ -63,12 +93,12 @@ export default function ConstructionPage({ user }) {
           />
         );
 
-      case 'Objective':
+      case 'Statement':
         return (
-          <ObjectiveSection
+          <StatementSection
             section={section}
-            objective={objective}
-            setObjective={setObjective}
+            statement={statement}
+            setStatement={setStatement}
           />
         );
 
@@ -84,7 +114,7 @@ export default function ConstructionPage({ user }) {
         );
 
       case 'Projects':
-        return <ProjectsSection section={section} />;
+        return <ProjectsSection section={section} {...projectSectionProps} />;
 
       case 'History':
         return <HistorySection section={section} />;

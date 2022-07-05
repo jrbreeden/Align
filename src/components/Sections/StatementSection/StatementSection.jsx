@@ -1,10 +1,10 @@
 // import SectionInput from '../../SectionInput/SectionInput';
 import { Spring, animated } from 'react-spring';
-import ObjectiveView from '../../Review/ObjectiveView/ObjectiveView';
+import StatementView from '../../Review/StatementView/StatementView';
 
-export default function ObjectiveSection({ section, objective, setObjective }) {
+export default function StatementSection({ section, statement, setStatement }) {
   const handleChange = (e) => {
-    setObjective((prevState) => ({
+    setStatement((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -39,7 +39,7 @@ export default function ObjectiveSection({ section, objective, setObjective }) {
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="title"
-                    value={objective.title}
+                    value={statement.title}
                     onChange={handleChange}
                     id="title"
                     type="text"
@@ -56,7 +56,7 @@ export default function ObjectiveSection({ section, objective, setObjective }) {
                   <textarea
                     className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
                     name="body"
-                    value={objective.body}
+                    value={statement.body}
                     onChange={handleChange}
                     rows="10"
                     placeholder="Enter Body"
@@ -69,7 +69,7 @@ export default function ObjectiveSection({ section, objective, setObjective }) {
                   Submit
                 </button>
               </div>
-              <ObjectiveView section={section} objective={objective} />
+              <StatementView section={section} statement={statement} />
             </div>
           </animated.div>
         )}
