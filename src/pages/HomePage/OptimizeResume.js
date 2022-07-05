@@ -28,6 +28,14 @@ function optimizeResume( keywordList , resume , spaceConstraints){
   
       output.skills=skillList
     }
+
+    const createSection = (section) =>{
+      let section = {
+        cond:section.cond,
+        header:section.header,
+      }
+    }
+
     createSkills()
     return output
 }

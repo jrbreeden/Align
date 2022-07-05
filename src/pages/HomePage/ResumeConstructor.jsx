@@ -1,4 +1,4 @@
-import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, SectionType, TextRun } from 'docx'
+import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, SectionType, tabStops, TabStopType, TextRun , TabStopPosition } from 'docx'
 import { saveAs } from 'file-saver'
 
 export default function resumeConstructor(resume) {
@@ -6,9 +6,9 @@ export default function resumeConstructor(resume) {
 
     //will need to include some sort of algorithmic scoring logic for each line within the docx.
     //alert('in resume constructor')
-    
+
     //console.log('Constructing from... ', personal, statement, skills, projects, workHistory, education)
-    
+
     const PROPERTIES = {
         page: {
             margin: {
@@ -21,59 +21,82 @@ export default function resumeConstructor(resume) {
         type: SectionType.CONTINUOUS,
     }
 
-    const HEADER = (headerText) =>{
+    const HEADER = (headerText) => {
         return new Paragraph({
             alignment: AlignmentType.CENTER,
-            children:[
+            children: [
                 new TextRun({
+                    font: 'Garamond',
                     text: headerText,
-                    size: 48,
+                    size: 28,
                     bold: true,
-                    color: '009dff',
-                    break: 1,
+                    color: '76a5af',
                 })
             ]
         })
     }
 
-    const SUBHEADER = (subheaderText , dateStart, dateEnd) =>{
+    const SUBHEADER = (subheaderText, dateStart, dateEnd) => {
         return new Paragraph({
             alignment: AlignmentType.LEFT,
-            children:[
+            children: [
                 new TextRun({
+                    font: 'Garamond',
                     text: subheaderText,
-                    size: 28,
+                    size: 24,
                     bold: true,
                 }),
                 /////put math in here to align dates and paragraph on same line.
                 new TextRun({
-                    text: `${dateStart}-${dateEnd}`,
-                    size: 28,
+                    font: 'Garamond',
+                    text: `\t${dateStart}-${dateEnd}`,
+                    size: 24,
                 })
-            ]
+            ],
+            tabStops:[{
+                type: TabStopType.RIGHT,
+                position:TabStopPosition.MAX
+            }]
         })
     }
 
-    const BULLET = (bodyText) =>{
+    const BULLET = (bodyText) => {
         return new Paragraph({
-            children:[
+            children: [
                 new TextRun({
-                    text:bodyText,
-                    size:24,
+                    font: 'Garamond',
+                    text: bodyText,
+                    size: 22,
                 })
             ],
-            bullet:{
-                level:0
+            bullet: {
+                level: 0
             }
         })
     }
 
-    const createSectionSubSections = (section)=>{
+    const SPACER = new TextRun({
+        font: 'Garamond',
+        text: '',
+        size: 14,
+        break: 1,
+    })
+
+    const MICROSPACER = new TextRun({
+        font: 'Garamond',
+        text: '',
+        size: 4,
+        break: 1,
+    })
+
+
+    const createSectionSubSections = (section) => {
         let output = [HEADER(section.header)]
 
-        for(let subsect of section.subsections){
+        for (let subsect of section.subsections) {
             output.push(SUBHEADER(subsect.subheader, subsect.dateStart, subsect.dateEnd))
-            subsect.lines.forEach((line)=>output.push(BULLET(line.body)))
+            subsect.lines.forEach((line) => output.push(BULLET(line.body)))
+            output.push(SPACER)
         }
 
         return output
@@ -86,39 +109,45 @@ export default function resumeConstructor(resume) {
                 alignment: AlignmentType.CENTER,
                 children: [
                     new TextRun({
+                        font: 'Garamond',
                         text: personal.name,
-                        size: 72,
+                        size: 56,
                         bold: true,
-                        color: '009dff',
+                        color: '76a5af',
+                    }),
+                    MICROSPACER,
+                    new TextRun({
+                        font: 'Garamond',
+                        text: `${personal.email} | ${personal.phone}`,
+                        size: 22,
                     }),
                     new TextRun({
-                        text: `${personal.email}        |        ${personal.phone}`,
-                        size: 24,
+                        font: 'Garamond',
+                        text: `${personal.link1} | ${personal.link2} | ${personal.link3}`,
+                        size: 22,
                         break: 1,
                     }),
-                    new TextRun({
-                        text: `${personal.link1}    |    ${personal.link2}    |    ${personal.link3}`,
-                        size: 24,
-                        break: 1,
-                    })
+                    SPACER
                 ]
             })
         ]
     }
 
     const sectStatement = {
-        properties:PROPERTIES,
+        properties: PROPERTIES,
         children: [
-            HEADER(statement.header), 
+            HEADER(statement.header),
             new Paragraph({
                 alignment: AlignmentType.JUSTIFIED,
-                children:[
+                children: [
+                    SPACER,
                     new TextRun({
+                        font: 'Garamond',
                         text: statement.body,
-                        size: 24,
+                        size: 22,
                         break: 0,
-                        color:'ff0000'
-                    })
+                    }),
+                    SPACER
                 ]
             })
         ]
@@ -126,17 +155,17 @@ export default function resumeConstructor(resume) {
 
     const sectSkills = {
         properties: PROPERTIES,
-        children:[
+        children: [
             HEADER(skills.header),
             new Paragraph({
                 alignment: AlignmentType.JUSTIFIED,
-                children:[
+                children: [
                     new TextRun({
-                        text: skills.skills.map((sk)=>sk.skill).join(' | '),
-                        size: 24,
-                        break: 0,
-                        color:'ff0000'
-                    })
+                        font: 'Garamond',
+                        text: skills.skills.map((sk) => sk.skill).join(' | '),
+                        size: 22,
+                    }),
+                    SPACER
                 ]
             })
         ]
@@ -158,8 +187,7 @@ export default function resumeConstructor(resume) {
     }
 
     const doc = new Document({
-
-        sections: [sectPersonal, sectStatement , sectSkills , sectProjects, sectWorkHistory , sectEducation]
+        sections: [sectPersonal, sectStatement, sectSkills, sectProjects, sectWorkHistory, sectEducation]
     })
 
     Packer.toBlob(doc).then((blob) => {
