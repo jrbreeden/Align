@@ -16,3 +16,9 @@ The app, Align, is a job agent that searches for jobs for a user based on the us
 
 # Wireframes
 <img width="1616" src="src/assets/images/Screen Shot 2022-07-05 at 4.18.10 PM copy.png" >
+
+# Technologies Used
+* Express
+* Heroku
+* Remotive API
+* Tailwindcss
