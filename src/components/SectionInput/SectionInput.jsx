@@ -2,15 +2,15 @@ import React from 'react';
 
 export default function SectionInput({ section }) {
   return (
-    <div className="h-auto min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl w-1/4 rounded">
+    <div className="h-auto w-full min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
       <div>
         <h1 className="text-center font-bold mb-4 text-gray-500">
-          Info - Creating Section
+        {section === 'PersonalInfo' ? 'Personal Info' : section}
         </h1>
       </div>
       <ul className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-white">
         <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
-          {section}
+          {section === 'PersonalInfo' ? 'Personal Info' : section}
         </li>
       </ul>
       <div className="items mt-4">

@@ -20,7 +20,7 @@ export default function StepperNav({
   }, [sections]);
 
   return (
-    <div className="mx-8 mt-40">
+    <div className="mx-8 mt-24">
       <div className="flex p-2 justify-between">
         <div>
           <button
@@ -45,11 +45,12 @@ export default function StepperNav({
         </div>
         <div className="flex items-center">
           <h1 className="text-gray-500 font-semibold text-xl">
-            Step {step + 1}/4 - {steps[step]}
+            Step {step + 1}/6 -{' '}
+            {steps[step] === 'PersonalInfo' ? 'Personal Info' : steps[step]}
           </h1>
         </div>
         <div className="flex">
-          {step === 3 ? (
+          {step === 5 ? (
             <button
               className="text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
         hover:bg-blue-600  

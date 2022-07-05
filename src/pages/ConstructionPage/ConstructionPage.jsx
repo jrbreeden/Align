@@ -1,24 +1,101 @@
 // ! Modules
 import { Spring, animated } from 'react-spring';
+import { useState } from 'react';
 
 // ! Components
-import ResumeViewer from '../../components/ResumeViewer/ResumeViewer';
-import SectionInput from '../../components/SectionInput/SectionInput';
 import Stepper from '../../components/Stepper.jsx/Stepper';
 import Layout from '../../components/Layout/Layout';
 import StepperNav from '../../components/StepperNav/StepperNav';
-import { useState } from 'react';
+import PersonalInfoSection from '../../components/Sections/PersonalInfoSection/PersonalInfoSection';
+import ObjectiveSection from '../../components/Sections/ObjectiveSection/ObjectiveSection';
+import SkillsSection from '../../components/Sections/SkillsSection/SkillsSection';
+import ProjectsSection from '../../components/Sections/ProjectsSection/ProjectSection';
+import HistorySection from '../../components/Sections/HistorySection/HistorySection';
+import EducationSection from '../../components/Sections/EducationSection/EducationSection';
 
 export default function ConstructionPage({ user }) {
   const [step, setStep] = useState(0);
-  const steps = ['Objective', 'Skills', 'Experience', 'Education'];
+  const steps = [
+    'PersonalInfo',
+    'Objective',
+    'Skills',
+    'Projects',
+    'History',
+    'Education',
+  ];
   const [currentSection, setCurrentSection] = useState(steps[step]);
   const [sections, setSections] = useState({
-    Objective: true,
+    PersonalInfo: true,
+    Objective: false,
     Skills: false,
-    Experience: false,
+    Projects: false,
+    History: false,
     Education: false,
   });
+
+  // SECTIONS STATES
+  const [personal, setPersonal] = useState({
+    email: '',
+    phone: '',
+    linkedIn: '',
+    github: '',
+    portfolio: '',
+  });
+
+  // OBJECTIVE/STATEMENT STATES
+  const [objective, setObjective] = useState({
+    title: '',
+    body: '',
+  });
+
+  // SKILLS STATES
+  const [skills, setSkills] = useState([]);
+  const [skill, setSkill] = useState({ id: '', skill: '', priority: 'normal' });
+
+  const renderSection = (section) => {
+    switch (section) {
+      case 'PersonalInfo':
+        return (
+          <PersonalInfoSection
+            section={section}
+            personal={personal}
+            setPersonal={setPersonal}
+          />
+        );
+
+      case 'Objective':
+        return (
+          <ObjectiveSection
+            section={section}
+            objective={objective}
+            setObjective={setObjective}
+          />
+        );
+
+      case 'Skills':
+        return (
+          <SkillsSection
+            section={section}
+            skills={skills}
+            setSkills={setSkills}
+            skill={skill}
+            setSkill={setSkill}
+          />
+        );
+
+      case 'Projects':
+        return <ProjectsSection section={section} />;
+
+      case 'History':
+        return <HistorySection section={section} />;
+
+      case 'Education':
+        return <EducationSection section={section} />;
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <Layout active={'construction'} user={user}>
@@ -38,9 +115,8 @@ export default function ConstructionPage({ user }) {
                   sections={sections}
                 />
               </div>
-              <div className="flex items-center justify-center gap-x-96 mt-24">
-                <SectionInput section={currentSection} />
-                <ResumeViewer />
+              <div className="flex items-center justify-center gap-x-96 mt-20">
+                {renderSection(currentSection)}
               </div>
               <StepperNav
                 step={step}

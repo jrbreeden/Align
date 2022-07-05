@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ResumeViewer({
+export default function PersonalInfoView({
   section,
   email,
   phone,
@@ -13,7 +13,7 @@ export default function ResumeViewer({
       <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
         <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
           {section === 'PersonalInfo' ? 'Personal Info'.toUpperCase() : section}{' '}
-          REVIEW
+          DATA
         </li>
       </ul>
       <div className="font-sans flex items-center justify-center bg-blue-darker w-full py-8 drop-shadow-2xl">
@@ -54,25 +54,6 @@ export default function ResumeViewer({
           )}
         </div>
       </div>
-      {/* <div className="items mt-4">
-        <ul className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-100 dark:border-gray-400 dark:text-gray-500">
-          <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600 bg-gray-300 text-black">
-            Email: {email}
-          </li>
-          <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600 bg-gray-300 text-black">
-            Phone: {phone}
-          </li>
-          <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600 bg-gray-300 text-black">
-            LinkedIn: {linkedIn}
-          </li>
-          <li className="w-full px-4 py-2 rounded-b-lg bg-gray-300 text-black">
-            Github: {github}
-          </li>
-          <li className="w-full px-4 py-2 rounded-b-lg bg-gray-300 text-black">
-            Portfolio: {portfolio}
-          </li>
-        </ul>
-      </div> */}
     </div>
   );
 }

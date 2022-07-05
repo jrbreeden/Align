@@ -6,13 +6,15 @@ import Footer from '../Footer/Footer';
 export default function Layout({ children, active, user }) {
   return (
     <>
-      <header>
-        <NavBar active={active} user={user}/>
-      </header>
-      <main>{children}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <div className='bg-gray-200'>
+        <header>
+          <NavBar active={active} user={user} />
+        </header>
+        <main>{children}</main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
     </>
   );
 }
