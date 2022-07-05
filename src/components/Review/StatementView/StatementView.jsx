@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ObjectiveView({ section, objective: { title, body } }) {
+export default function ObjectiveView({ section, statement: { title, body } }) {
   return (
     <div className="h-auto w-96 min-h-full bg-gray-100 p-4 border border-2 border-gray-300 drop-shadow-2xl rounded">
       <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
