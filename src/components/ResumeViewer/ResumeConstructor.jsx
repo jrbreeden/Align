@@ -132,7 +132,7 @@ export default function resumeConstructor(resume) {
                 alignment: AlignmentType.JUSTIFIED,
                 children:[
                     new TextRun({
-                        text: skills.skills.join(' | '),
+                        text: skills.skills.map((sk)=>sk.skill).join(' | '),
                         size: 24,
                         break: 0,
                         color:'ff0000'
@@ -161,7 +161,7 @@ export default function resumeConstructor(resume) {
 
         sections: [sectPersonal, sectStatement , sectSkills , sectProjects, sectWorkHistory , sectEducation]
     })
-    
+
     Packer.toBlob(doc).then((blob) => {
         saveAs(blob, 'blob.docx')
         console.log('Document created')

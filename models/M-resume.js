@@ -57,7 +57,8 @@ const subSectionSchema = new Schema({
 
 const lineSchema = new Schema({
     priority:{type:Number , required:true, default:0 , min:0 , max:2},
-    body:{type:String , required:true, min:[5 , 'Line must be at least 5 characters.'] , max:[80, 'Line cannot exceed 80 characters.']}
+    body:{type:String , required:true, min:[5 , 'Line must be at least 5 characters.'] , max:[80, 'Line cannot exceed 80 characters.']},
+    tags:[{type:String}]
 })
 
 module.exports = mongoose.model('Resume' , resumeSchema)
