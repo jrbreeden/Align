@@ -26,7 +26,7 @@ export default function App() {
             element={<ConstructionPage user={user} setUser={setUser} exact />}
           />
           <Route
-            path="/featuredJobs"
+            path="/featured-jobs"
             element={<FeaturedJobs user={user} setUser={setUser} exact />}
           />
           <Route
