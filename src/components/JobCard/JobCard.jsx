@@ -1,7 +1,6 @@
 export default function JobCard({job , status}) {
     return (
-        <div className="flex gap-x-60">
-            <div className="h-96 w-full min-h-full bg-gray-200 p-8 border border-1 border-gray-300 drop-shadow-2xl rounded">
+            <div className="w-full flex flex-col justify-between items-left justify-around min-h-full bg-gray-200 p-8 border border-1 border-gray-300 drop-shadow-2xl rounded" style={{height:'25rem'}}>
                 <div className="header flex items-base justify-between">
                     <h1 className="text-xl font-bold text-center mb-10">
                         {job.title}
@@ -35,6 +34,5 @@ export default function JobCard({job , status}) {
                     </button>
                 </div>
             </div>
-        </div>
     )
 }
