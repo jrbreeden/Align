@@ -56,7 +56,7 @@ export default function NavBar({ active, user }) {
                   src={Logo}
                   alt="Align"
                 /></Link>
-                
+                <Link to='/profile' ><button>Button to Applied Jobs</button></Link>
               </div>
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4">
@@ -71,6 +71,7 @@ export default function NavBar({ active, user }) {
                     }`}
                   >
                     Home
+                    
                   </Link>
                 </div>
               </div>
