@@ -52,7 +52,9 @@ export default function ConstructionPage({ user }) {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState({ id: '', skill: '', priority: 0 });
 
-  // PROJECTS STATES
+  //* -------------------------------------------------------------------------- */
+  //*                               PROJECTS STATES                              */
+  //* -------------------------------------------------------------------------- */
   const [project, setProject] = useState({
     cond: { priority: 0, items: 0 },
     header: 'Projects',
@@ -73,6 +75,21 @@ export default function ConstructionPage({ user }) {
     priority: 'normal',
   });
 
+  const projectSectionProps = {
+    project,
+    setProject,
+    projects,
+    setProjects,
+    projectSubSection,
+    setProjectSubSection,
+    projectLineItem,
+    setProjectLineItem,
+  };
+
+  //* -------------------------------------------------------------------------- */
+  //*                               RESUME STATE                                 */
+  //* -------------------------------------------------------------------------- */
+
   // ! RESUME STATE
   const [resume, setResume] = useState({
     personal,
@@ -85,16 +102,15 @@ export default function ConstructionPage({ user }) {
     },
   });
 
-  const projectSectionProps = {
-    project,
-    setProject,
-    projects,
-    setProjects,
-    projectSubSection,
-    setProjectSubSection,
-    projectLineItem,
-    setProjectLineItem,
-  };
+  //* -------------------------------------------------------------------------- */
+  //*                             WORK HISTORY STATE                             */
+  //* -------------------------------------------------------------------------- */
+
+  const [work, setWork] = useState({
+    cond: { priority: 0, items: 0 },
+    header: 'Work History',
+    subSections: [],
+  });
 
   const renderSection = (section) => {
     switch (section) {
@@ -149,6 +165,11 @@ export default function ConstructionPage({ user }) {
       skills,
       projects: {
         cond: { priority: project.cond.priority, items: projects.length },
+        header: project.header,
+        subsections: [...projects],
+      },
+      workHistory: {
+        cond: { priority: 0, items: 0 },
         header: project.header,
         subsections: [...projects],
       },

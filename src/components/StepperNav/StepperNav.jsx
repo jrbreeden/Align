@@ -45,12 +45,12 @@ export default function StepperNav({
         </div>
         <div className="flex items-center">
           <h1 className="text-gray-500 font-semibold text-xl">
-            Step {step + 1}/6 -{' '}
+            Step {step + 1}/{steps.length} -{' '}
             {steps[step] === 'PersonalInfo' ? 'Personal Info' : steps[step]}
           </h1>
         </div>
         <div className="flex">
-          {step === 5 ? (
+          {step === steps.length - 1 ? (
             <button
               className="text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
         hover:bg-blue-600  

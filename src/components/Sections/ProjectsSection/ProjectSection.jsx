@@ -293,6 +293,7 @@ export default function ProjectsSection({
                 section={section}
                 project={project}
                 projects={projects}
+                setProjects={setProjects}
               />
             </div>
           </div>
