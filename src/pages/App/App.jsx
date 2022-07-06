@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route , Navigate} from 'react-router-dom';
 import './App.css';
 import { getUser } from '../../utilities/users-service';
 import HomePage from '../HomePage/HomePage';
@@ -14,7 +14,6 @@ export default function App() {
     <main className="App">
       {user ? (
         <Routes>
-          <Route path="/" element={<HomePage />} exact />
           <Route
             path="/dashboard"
             element={<DashboardPage user={user} setUser={setUser} exact />}
@@ -23,6 +22,7 @@ export default function App() {
             path="/construction"
             element={<ConstructionPage user={user} setUser={setUser} exact />}
           />
+          <Route path="/*" element={<Navigate to='/dashboard'/>} exact />
         </Routes>
       ) : (
         <Routes>
@@ -37,6 +37,7 @@ export default function App() {
             element={<LoginPage user={user} setUser={setUser} />}
             exact
           />
+          <Route path="/*" element={<Navigate to='/'/>} exact />
         </Routes>
       )}
     </main>
