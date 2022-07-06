@@ -1,6 +1,6 @@
 // ! Modules
 import { Spring, animated } from 'react-spring';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // ! Components
 import Stepper from '../../components/Stepper.jsx/Stepper';
@@ -50,13 +50,14 @@ export default function ConstructionPage({ user }) {
 
   // SKILLS STATES
   const [skills, setSkills] = useState([]);
-  const [skill, setSkill] = useState({ id: '', skill: '', priority: 'normal' });
+  const [skill, setSkill] = useState({ id: '', skill: '', priority: 0 });
 
   // PROJECTS STATES
   const [project, setProject] = useState({
-    header: '',
+    header: 'Projects',
     priority: 'normal',
-    subSections: [{ subHeader: 'Time Travel Tour Guide', dateState: '' }],
+    subSections: [],
+    // subSections: [{subHeader: 'Time Travel Tour Guide', dateStart: '07/05/2022', dateEnd:'06/02/2202', lineItems: ['Traveled in time to tickle a walrus which with rich sponsors', 'Was impaled and had to give up on mission early']}],
   });
 
   const [projects, setProjects] = useState([]);
@@ -126,6 +127,32 @@ export default function ConstructionPage({ user }) {
         return null;
     }
   };
+
+  const [resume, setResume] = useState({
+    personal,
+    statement,
+    skills,
+    projects: {
+      cond: { priority: 0, items: 1 },
+      header: project.header,
+      subsections: [...projects],
+    },
+  });
+
+  useEffect(() => {
+    setResume((prevResume) => ({
+      ...prevResume,
+      personal,
+      statement,
+      skills,
+      projects: {
+        cond: { priority: 0, items: 1 },
+        header: project.header,
+        subsections: [...projects],
+      },
+    }));
+    console.log(resume);
+  }, [personal, statement, skills, step, projects]);
 
   return (
     <Layout active={'construction'} user={user}>
