@@ -59,7 +59,7 @@ export default function resumeConstructor(resume) {
             ],
             tabStops: [{
                             type: TabStopType.RIGHT,
-                            position: TabStopPosition.MAX,
+                            position: '7.4in'
                         }],
         })
     }
