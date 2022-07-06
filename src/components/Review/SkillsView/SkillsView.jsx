@@ -3,14 +3,14 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 export default function SkillsView({ section, skills, setSkills }) {
   const checkPriority = (priority) => {
-    switch (priority) {
-      case 'normal':
+    switch (parseInt(priority)) {
+      case 0:
         return '[#169ed9]';
 
-      case 'essential':
+      case 1:
         return '[#FFB627]';
 
-      case 'high':
+      case 2:
         return '[#FF4000]';
 
       default:

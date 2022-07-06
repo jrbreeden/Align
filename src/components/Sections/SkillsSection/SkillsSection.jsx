@@ -51,9 +51,9 @@ export default function PersonalInfoSection({
                     value={skill.priority}
                     onChange={handleChange}
                   >
-                    <option value="normal">Normal</option>
-                    <option value="essential">Essential</option>
-                    <option value="high">High Priority</option>
+                    <option value={0}>Normal</option>
+                    <option value={1}>Essential</option>
+                    <option value={2}>High Priority</option>
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
@@ -74,10 +74,10 @@ export default function PersonalInfoSection({
                       {
                         id: uuidv4(),
                         skill: skill.skill,
-                        priority: skill.priority,
+                        priority: parseInt(skill.priority),
                       },
                     ]);
-                    setSkill({ id: '', skill: '', priority: 'normal' });
+                    setSkill({ id: '', skill: '', priority: 0 });
                   }}
                 >
                   Add Skill
