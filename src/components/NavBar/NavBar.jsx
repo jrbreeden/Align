@@ -65,7 +65,7 @@ export default function NavBar({ active, user }) {
                     className={`${
                       active === 'home' ? 'bg-gray-900' : null
                     } text-white px-3 py-2 rounded-md text-sm font-medium ${
-                      active === 'construction' || active === 'dashboard'
+                      active === 'construction' || active === 'dashboard' || active === 'featuredJobs'
                         ? 'hidden'
                         : null
                     }`}
@@ -82,7 +82,7 @@ export default function NavBar({ active, user }) {
                 className={`${
                   active === 'login' ? 'bg-gray-900' : null
                 } text-white px-3 py-2 rounded-md text-sm font-medium ${
-                  active === 'construction' || active === 'dashboard'
+                  active === 'construction' || active === 'dashboard'|| active === 'featuredJobs'
                     ? 'hidden'
                     : null
                 }`}
@@ -94,7 +94,7 @@ export default function NavBar({ active, user }) {
                 className={`${
                   active === 'signup' ? 'bg-gray-900' : null
                 } text-white px-3 py-2 rounded-md text-sm font-medium ${
-                  active === 'construction' || active === 'dashboard'
+                  active === 'construction' || active === 'dashboard' || active === 'featuredJobs'
                     ? 'hidden'
                     : null
                 }`}
