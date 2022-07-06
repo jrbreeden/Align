@@ -145,7 +145,7 @@ export default function Footer() {
       >
         © 2022 Copyright: {" "}
         <a className="text-whitehite" href="https://tailwind-elements.com/">
-          EasyHunt
+          Align
         </a>
       </div>
     </footer>

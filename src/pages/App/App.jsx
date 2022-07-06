@@ -25,7 +25,7 @@ export default function App() {
           />
           <Route
             path="/profile"
-            element={<AppliedJobsPage />}
+            element={<AppliedJobsPage user={user} />}
           />
           <Route path="/*" element={<Navigate to='/dashboard'/>} exact />
         </Routes>
