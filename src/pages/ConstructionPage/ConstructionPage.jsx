@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ! Modules
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
@@ -70,10 +71,10 @@ export default function ConstructionPage({ user }) {
     dateEnd: '',
     lineItems: [],
   });
-  const [projectLineItem, setProjectLineItem] = useState({
-    body: '',
-    priority: 'normal',
-  });
+  // const [projectLineItem, setProjectLineItem] = useState({
+  //   body: '',
+  //   priority: 'normal',
+  // });
 
   const projectSectionProps = {
     project,
@@ -82,8 +83,72 @@ export default function ConstructionPage({ user }) {
     setProjects,
     projectSubSection,
     setProjectSubSection,
-    projectLineItem,
-    setProjectLineItem,
+    // projectLineItem,
+    // setProjectLineItem,
+  };
+
+  //* -------------------------------------------------------------------------- */
+  //*                             WORK HISTORY STATE                             */
+  //* -------------------------------------------------------------------------- */
+
+  const [workHistory, setWorkHistory] = useState({
+    cond: { priority: 0, items: 0 },
+    header: 'Work History',
+    subSections: [],
+  });
+
+  const [workHistories, setWorkHistories] = useState([]);
+  const [workHistorySubSection, setWorkHistorySubSection] = useState({
+    cond: { priority: 0, items: 0 },
+    subHeader: '',
+    dateStart: '',
+    dateEnd: '',
+    lineItems: [],
+  });
+
+  // const [workHistoryLineItem, SetWorkHistoryLineItem] = useState({
+  //   body: '',
+  //   priority: 'normal',
+  // });
+
+  const workHistorySectionProps = {
+    workHistory,
+    setWorkHistory,
+    workHistories,
+    setWorkHistories,
+    workHistorySubSection,
+    setWorkHistorySubSection,
+    // workHistoryLineItem,
+    // SetWorkHistoryLineItem,
+  };
+
+  //* -------------------------------------------------------------------------- */
+  //*                               EDUCATION STATE                              */
+  //* -------------------------------------------------------------------------- */
+  const [education, setEducation] = useState({
+    cond: { priority: 0, items: 0 },
+    header: 'Education',
+    subSections: [],
+  });
+
+  const [educations, setEducations] = useState([]);
+  const [educationSubSection, setEducationSubSection] = useState({
+    cond: { priority: 0, items: 0 },
+    subHeader: '',
+    dateStart: '',
+    dateEnd: '',
+    lineItems: [],
+  });
+
+  const educationSectionProps = {
+    education,
+    setEducation,
+    educations,
+    setEducations,
+    educationSubSection,
+    setEducationSubSection,
+    // workHistoryLineItem,
+    // SetWorkHistoryLineItem,
   };
 
   //* -------------------------------------------------------------------------- */
@@ -100,16 +165,22 @@ export default function ConstructionPage({ user }) {
       header: project.header,
       subsections: [...projects],
     },
-  });
-
-  //* -------------------------------------------------------------------------- */
-  //*                             WORK HISTORY STATE                             */
-  //* -------------------------------------------------------------------------- */
-
-  const [work, setWork] = useState({
-    cond: { priority: 0, items: 0 },
-    header: 'Work History',
-    subSections: [],
+    workHistory: {
+      cond: {
+        priority: workHistory.cond.priority,
+        items: workHistories.length,
+      },
+      header: workHistory.header,
+      subsections: [...workHistories],
+    },
+    education: {
+      cond: {
+        priority: education.cond.priority,
+        items: educations.length,
+      },
+      header: education.header,
+      subsections: [...educations],
+    },
   });
 
   const renderSection = (section) => {
@@ -147,10 +218,14 @@ export default function ConstructionPage({ user }) {
         return <ProjectsSection section={section} {...projectSectionProps} />;
 
       case 'History':
-        return <HistorySection section={section} />;
+        return (
+          <HistorySection section={section} {...workHistorySectionProps} />
+        );
 
       case 'Education':
-        return <EducationSection section={section} />;
+        return (
+          <EducationSection section={section} {...educationSectionProps} />
+        );
 
       default:
         return null;
@@ -169,13 +244,38 @@ export default function ConstructionPage({ user }) {
         subsections: [...projects],
       },
       workHistory: {
-        cond: { priority: 0, items: 0 },
-        header: project.header,
-        subsections: [...projects],
+        cond: {
+          priority: workHistory.cond.priority,
+          items: workHistories.length,
+        },
+        header: workHistory.header,
+        subsections: [...workHistories],
+      },
+      education: {
+        cond: {
+          priority: education.cond.priority,
+          items: educations.length,
+        },
+        header: education.header,
+        subsections: [...educations],
       },
     }));
     console.log(resume);
-  }, [personal, statement, skills, step, project, projects, projectSubSection]);
+  }, [
+    personal,
+    statement,
+    skills,
+    step,
+    project,
+    projects,
+    projectSubSection,
+    workHistory,
+    workHistories,
+    workHistorySubSection,
+    education,
+    educations,
+    educationSubSection,
+  ]);
 
   return (
     <Layout active={'construction'} user={user}>

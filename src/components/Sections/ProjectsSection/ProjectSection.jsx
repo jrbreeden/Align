@@ -10,17 +10,10 @@ export default function ProjectsSection({
   setProjects,
   projectSubSection,
   setProjectSubSection,
-  projectLineItem,
-  setProjectLineItem,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState('');
-  // const handleChange = (e) => {
-  //   setProject((prevProject) => ({
-  //     ...prevProject,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
