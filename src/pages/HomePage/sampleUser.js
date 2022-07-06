@@ -12,7 +12,7 @@ module.exports = {
       body: `This is my text body. It's a long body because I want to see the page breaks. I'm interested in a job as a software engineer and think that I would do well in that role. So far, I'm enjoying thinking through all these things and seeing my work pop up on a page. This is a long and pointless statement speckled with real thoughts because I'm just writing things so I can see how the text wraps. The end.`,
     },
     skills: {
-      header: 'Skills',
+      header: 'Skills and Expertise',
       skills: [
         {skill: 'skill1',priority: 0},
         {skill: 'skill2',priority: 0},
@@ -33,7 +33,7 @@ module.exports = {
       ],
     },
     projects: {
-      header: 'Projects',
+      header: 'Technical Project Experience',
       subsections: [
         {
           subheader: 'Software Engineering Apprentice at General Assembly',

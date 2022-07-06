@@ -1,4 +1,4 @@
-import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, SectionType, tabStops, TabStopType, TextRun , TabStopPosition } from 'docx'
+import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, SectionType, maxRightTabStop, TabStopType, TextRun , TabStopPosition } from 'docx'
 import { saveAs } from 'file-saver'
 
 export default function resumeConstructor(resume) {
@@ -21,14 +21,14 @@ export default function resumeConstructor(resume) {
         type: SectionType.CONTINUOUS,
     }
 
-    const HEADER = (headerText) => {
+    const HEADER = (headerText , alignment) => {
         return new Paragraph({
-            alignment: AlignmentType.CENTER,
+            alignment: alignment,
             children: [
                 new TextRun({
                     font: 'Garamond',
-                    text: headerText,
-                    size: 28,
+                    text: headerText.toUpperCase(),
+                    size: 24,
                     bold: true,
                     color: '76a5af',
                 })
@@ -77,9 +77,13 @@ export default function resumeConstructor(resume) {
 
     const SPACER = new TextRun({
         font: 'Garamond',
-        text: '',
+        text: 'Spacer',
         size: 14,
         break: 1,
+    })
+
+    const PARASPACER = new Paragraph({
+        children:[SPACER]
     })
 
     const MICROSPACER = new TextRun({
@@ -91,14 +95,14 @@ export default function resumeConstructor(resume) {
 
 
     const createSectionSubSections = (section) => {
-        let output = [HEADER(section.header)]
+        let output = [HEADER(section.header , AlignmentType.LEFT)]
 
         for (let subsect of section.subsections) {
             output.push(SUBHEADER(subsect.subheader, subsect.dateStart, subsect.dateEnd))
             subsect.lines.forEach((line) => output.push(BULLET(line.body)))
-            output.push(SPACER)
+            output.push(PARASPACER)
         }
-
+        console.log('my output is ' , output)
         return output
     }
 
@@ -114,7 +118,7 @@ export default function resumeConstructor(resume) {
                         size: 56,
                         bold: true,
                         color: '76a5af',
-                    }),
+                    }), 
                     MICROSPACER,
                     new TextRun({
                         font: 'Garamond',
@@ -136,11 +140,10 @@ export default function resumeConstructor(resume) {
     const sectStatement = {
         properties: PROPERTIES,
         children: [
-            HEADER(statement.header),
+            HEADER(statement.header , AlignmentType.CENTER),
             new Paragraph({
                 alignment: AlignmentType.JUSTIFIED,
                 children: [
-                    SPACER,
                     new TextRun({
                         font: 'Garamond',
                         text: statement.body,
@@ -156,9 +159,9 @@ export default function resumeConstructor(resume) {
     const sectSkills = {
         properties: PROPERTIES,
         children: [
-            HEADER(skills.header),
+            HEADER(skills.header , AlignmentType.CENTER),
             new Paragraph({
-                alignment: AlignmentType.JUSTIFIED,
+                alignment: AlignmentType.CENTER,
                 children: [
                     new TextRun({
                         font: 'Garamond',
