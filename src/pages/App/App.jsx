@@ -7,6 +7,7 @@ import SignUpPage from '../SignUpPage/SignUpPage';
 import LoginPage from '../LoginPage/LoginPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import ConstructionPage from '../ConstructionPage/ConstructionPage';
+import FeaturedJobs from '../FeaturedJobs/FeaturedJobs';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -22,6 +23,11 @@ export default function App() {
           <Route
             path="/construction"
             element={<ConstructionPage user={user} setUser={setUser} exact />}
+          />
+
+          <Route
+            path="/featuredJobs"
+            element={<FeaturedJobs user={user} setUser={setUser} exact />}
           />
         </Routes>
       ) : (
