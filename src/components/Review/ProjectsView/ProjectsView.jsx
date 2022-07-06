@@ -13,30 +13,47 @@ export default function ProjectsView({
         </ul>
         <div className="font-sans flex flex-col items-center justify-center bg-blue-darker w-full py-8 drop-shadow-2xl gap-y-4">
           {projects?.length !== 0 &&
-            projects?.map((project) => (
-              <div
-                className="overflow-hidden bg-white rounded max-w-xs w-full shadow-lg  leading-normal bg-red-400 cursor-pointer"
-                onClick={() => {
-                  console.log(project);
-                }}
-              >
-                <div className="block group hover:bg-blue p-4 border-b">
-                  <p className="font-bold text-lg mb-1 text-black ">
-                    {project.subHeader}
-                  </p>
-                  <div className="flex justify-center">
-                    <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-                      {project?.lineItems?.length !== 0 &&
-                        project?.lineItems?.map((item) => (
-                          <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                            - {item}
-                          </li>
-                        ))}
-                    </ul>
+            projects?.map((project) => {
+              const checkPriority = (priority) => {
+                switch (parseInt(priority)) {
+                  case 0:
+                    return '[#169ed9]';
+
+                  case 1:
+                    return '[#FFB627]';
+
+                  case 2:
+                    return '[#FF4000]';
+
+                  default:
+                    return null;
+                }
+              };
+              return (
+                <div
+                  className={`overflow-hidden bg-white rounded max-w-xs w-full shadow-lg  leading-normal bg-${checkPriority(project.cond.priority)} cursor-pointer`}
+                  onClick={() => {
+                    console.log(project);
+                  }}
+                >
+                  <div className="block group hover:bg-blue p-4 border-b">
+                    <p className="font-bold text-lg mb-1 text-black ">
+                      {project.subHeader}
+                    </p>
+                    <div className="flex justify-center">
+                      <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+                        {project?.lineItems?.length !== 0 &&
+                          project?.lineItems?.map((item) => (
+                            <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                              - {item}
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
         </div>
       </div>
     </div>

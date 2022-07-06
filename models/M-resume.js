@@ -20,7 +20,7 @@ const lineSchema = new Schema({
   tags: [{ type: String }],
 });
 
-// TODO: CONDITION SCHEMA
+//TODO: CONDITION SCHEMA
 const conditionSchema = new Schema({
   priority: { type: Number, required: true, default: 0, min: 0, max: 2 },
   items: { type: Number, required: true, min: 1, max: 5 },

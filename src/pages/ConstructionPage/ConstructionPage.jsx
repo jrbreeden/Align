@@ -54,14 +54,15 @@ export default function ConstructionPage({ user }) {
 
   // PROJECTS STATES
   const [project, setProject] = useState({
+    cond: { priority: 0, items: 0 },
     header: 'Projects',
-    priority: 'normal',
     subSections: [],
     // subSections: [{subHeader: 'Time Travel Tour Guide', dateStart: '07/05/2022', dateEnd:'06/02/2202', lineItems: ['Traveled in time to tickle a walrus which with rich sponsors', 'Was impaled and had to give up on mission early']}],
   });
 
   const [projects, setProjects] = useState([]);
   const [projectSubSection, setProjectSubSection] = useState({
+    cond: { priority: 0, items: 0 },
     subHeader: '',
     dateStart: '',
     dateEnd: '',
@@ -70,6 +71,18 @@ export default function ConstructionPage({ user }) {
   const [projectLineItem, setProjectLineItem] = useState({
     body: '',
     priority: 'normal',
+  });
+
+  // ! RESUME STATE
+  const [resume, setResume] = useState({
+    personal,
+    statement,
+    skills,
+    projects: {
+      cond: { priority: project.cond.priority, items: projects.length },
+      header: project.header,
+      subsections: [...projects],
+    },
   });
 
   const projectSectionProps = {
@@ -128,17 +141,6 @@ export default function ConstructionPage({ user }) {
     }
   };
 
-  const [resume, setResume] = useState({
-    personal,
-    statement,
-    skills,
-    projects: {
-      cond: { priority: 0, items: 1 },
-      header: project.header,
-      subsections: [...projects],
-    },
-  });
-
   useEffect(() => {
     setResume((prevResume) => ({
       ...prevResume,
@@ -146,13 +148,13 @@ export default function ConstructionPage({ user }) {
       statement,
       skills,
       projects: {
-        cond: { priority: 0, items: projects.length },
+        cond: { priority: project.cond.priority, items: projects.length },
         header: project.header,
         subsections: [...projects],
       },
     }));
     console.log(resume);
-  }, [personal, statement, skills, step, projects]);
+  }, [personal, statement, skills, step, project, projects, projectSubSection]);
 
   return (
     <Layout active={'construction'} user={user}>
