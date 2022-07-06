@@ -51,11 +51,12 @@ export default function NavBar({ active, user }) {
             </div>
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex-shrink-0 flex items-center">
-                <img
+                <Link to='/'><img
                   className="hidden lg:block h-8 w-auto"
                   src={Logo}
-                  alt="Workflow"
-                />
+                  alt="Align"
+                /></Link>
+                <Link to='/profile' ><button>Button to Applied Jobs</button></Link>
               </div>
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4">
@@ -70,6 +71,7 @@ export default function NavBar({ active, user }) {
                     }`}
                   >
                     Home
+                    
                   </Link>
                 </div>
               </div>

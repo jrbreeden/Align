@@ -7,11 +7,11 @@ export default function Layout({ children, active, user }) {
   return (
     <>
       <div className='bg-gray-200'>
-        <header>
+        <header style={{minHeight:'10vh'}}>
           <NavBar active={active} user={user} />
         </header>
-        <main>{children}</main>
-        <footer>
+        <main style={{minHeight:'80vh'}}>{children}</main>
+        <footer style={{minHeight:'10vh'}}>
           <Footer />
         </footer>
       </div>
