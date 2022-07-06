@@ -15,8 +15,8 @@ export default function FeaturedJobs() {
       {(props) => (
         <animated.div style={props}>
           <Layout active="featuredJobs">
-          <div className="flex-col w-full justify-center items-center">
-                <div className="p-16">
+            <div className="flex-col w-full justify-center items-center">
+              <div className="p-16">
                 <div className="flex justify-center">
                   <div className="mb-3 xl:w-96">
                     <div className="input-group relative flex items-stretch w-full mb-4">
@@ -63,13 +63,15 @@ export default function FeaturedJobs() {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-4xl font-bold text-center">
-                  Featured Jobs
-                </h1>
+                {featuredJobs.length > 0 && (
+                  <h1 className="text-4xl font-bold text-center mt-8">
+                    Featured Jobs
+                  </h1>
+                )}
 
                 <div className="jobs-div grid grid-cols-4 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                   {featuredJobs.map((job) => (
-                 <JobCard job={job} />
+                    <JobCard job={job} />
                   ))}
                 </div>
               </div>
