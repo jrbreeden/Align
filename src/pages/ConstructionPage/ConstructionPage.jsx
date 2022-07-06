@@ -260,7 +260,7 @@ export default function ConstructionPage({ user }) {
         subsections: [...educations],
       },
     }));
-    console.log(resume);
+    // console.log(resume);
   }, [
     personal,
     statement,
