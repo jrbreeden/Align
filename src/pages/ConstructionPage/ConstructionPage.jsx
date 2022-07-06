@@ -146,7 +146,7 @@ export default function ConstructionPage({ user }) {
       statement,
       skills,
       projects: {
-        cond: { priority: 0, items: 1 },
+        cond: { priority: 0, items: projects.length },
         header: project.header,
         subsections: [...projects],
       },

@@ -100,10 +100,10 @@ export default function ProjectsSection({
                     type="date"
                   />
                   {projectSubSection?.lineItems?.length > 0 && (
-                    <div class="flex justify-center mt-4">
-                      <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+                    <div className="flex justify-center mt-4">
+                      <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
                         {projectSubSection?.lineItems?.map((item) => (
-                          <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                          <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
                             {item}
                           </li>
                         ))}
