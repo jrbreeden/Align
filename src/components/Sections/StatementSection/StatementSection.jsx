@@ -62,12 +62,12 @@ export default function StatementSection({ section, statement, setStatement }) {
                     placeholder="Enter Body"
                   ></textarea>
                 </div>
-                <button
+                {/* <button
                   className="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
                 >
                   Submit
-                </button>
+                </button> */}
               </div>
               <StatementView section={section} statement={statement} />
             </div>
