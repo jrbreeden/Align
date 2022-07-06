@@ -1,4 +1,4 @@
-import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, SectionType, maxRightTabStop, TabStopType, TextRun , TabStopPosition } from 'docx'
+import { AlignmentType, Document, TabStop, HeadingLevel, Packer, Paragraph, SectionType, maxRightTabStop, TabStopType, TextRun , TabStopPosition } from 'docx'
 import { saveAs } from 'file-saver'
 
 export default function resumeConstructor(resume) {
@@ -17,6 +17,10 @@ export default function resumeConstructor(resume) {
                 bottom: '0.5in',
                 left: '0.5in',
             },
+            size:{
+                width:'8.5in',
+                height:'11in'
+            } 
         },
         type: SectionType.CONTINUOUS,
     }
@@ -51,12 +55,12 @@ export default function resumeConstructor(resume) {
                     font: 'Garamond',
                     text: `\t${dateStart}-${dateEnd}`,
                     size: 24,
-                })
+                }),
             ],
-            tabStops:[{
-                type: TabStopType.RIGHT,
-                position:TabStopPosition.MAX
-            }]
+            tabStops: [{
+                            type: TabStopType.RIGHT,
+                            position: TabStopPosition.MAX,
+                        }],
         })
     }
 
@@ -77,13 +81,19 @@ export default function resumeConstructor(resume) {
 
     const SPACER = new TextRun({
         font: 'Garamond',
-        text: 'Spacer',
+        text: '',
         size: 14,
         break: 1,
     })
 
     const PARASPACER = new Paragraph({
-        children:[SPACER]
+        children:[
+            new TextRun({
+                font: 'Garamond',
+                text: '',
+                size: 14,
+            })
+        ]
     })
 
     const MICROSPACER = new TextRun({
