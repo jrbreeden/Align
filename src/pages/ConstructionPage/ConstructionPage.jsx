@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ! Modules
 import { Spring, animated } from 'react-spring';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // ! Components
 import Stepper from '../../components/Stepper.jsx/Stepper';
@@ -50,26 +51,30 @@ export default function ConstructionPage({ user }) {
 
   // SKILLS STATES
   const [skills, setSkills] = useState([]);
-  const [skill, setSkill] = useState({ id: '', skill: '', priority: 'normal' });
+  const [skill, setSkill] = useState({ id: '', skill: '', priority: 0 });
 
-  // PROJECTS STATES
+  //* -------------------------------------------------------------------------- */
+  //*                               PROJECTS STATES                              */
+  //* -------------------------------------------------------------------------- */
   const [project, setProject] = useState({
-    header: '',
-    priority: 'normal',
-    subSections: [{ subHeader: 'Time Travel Tour Guide', dateState: '' }],
+    cond: { priority: 0, items: 0 },
+    header: 'Projects',
+    subSections: [],
+    // subSections: [{subHeader: 'Time Travel Tour Guide', dateStart: '07/05/2022', dateEnd:'06/02/2202', lineItems: ['Traveled in time to tickle a walrus which with rich sponsors', 'Was impaled and had to give up on mission early']}],
   });
 
   const [projects, setProjects] = useState([]);
   const [projectSubSection, setProjectSubSection] = useState({
+    cond: { priority: 0, items: 0 },
     subHeader: '',
     dateStart: '',
     dateEnd: '',
     lineItems: [],
   });
-  const [projectLineItem, setProjectLineItem] = useState({
-    body: '',
-    priority: 'normal',
-  });
+  // const [projectLineItem, setProjectLineItem] = useState({
+  //   body: '',
+  //   priority: 'normal',
+  // });
 
   const projectSectionProps = {
     project,
@@ -78,9 +83,105 @@ export default function ConstructionPage({ user }) {
     setProjects,
     projectSubSection,
     setProjectSubSection,
-    projectLineItem,
-    setProjectLineItem,
+    // projectLineItem,
+    // setProjectLineItem,
   };
+
+  //* -------------------------------------------------------------------------- */
+  //*                             WORK HISTORY STATE                             */
+  //* -------------------------------------------------------------------------- */
+
+  const [workHistory, setWorkHistory] = useState({
+    cond: { priority: 0, items: 0 },
+    header: 'Work History',
+    subSections: [],
+  });
+
+  const [workHistories, setWorkHistories] = useState([]);
+  const [workHistorySubSection, setWorkHistorySubSection] = useState({
+    cond: { priority: 0, items: 0 },
+    subHeader: '',
+    dateStart: '',
+    dateEnd: '',
+    lineItems: [],
+  });
+
+  // const [workHistoryLineItem, SetWorkHistoryLineItem] = useState({
+  //   body: '',
+  //   priority: 'normal',
+  // });
+
+  const workHistorySectionProps = {
+    workHistory,
+    setWorkHistory,
+    workHistories,
+    setWorkHistories,
+    workHistorySubSection,
+    setWorkHistorySubSection,
+    // workHistoryLineItem,
+    // SetWorkHistoryLineItem,
+  };
+
+  //* -------------------------------------------------------------------------- */
+  //*                               EDUCATION STATE                              */
+  //* -------------------------------------------------------------------------- */
+  const [education, setEducation] = useState({
+    cond: { priority: 0, items: 0 },
+    header: 'Education',
+    subSections: [],
+  });
+
+  const [educations, setEducations] = useState([]);
+  const [educationSubSection, setEducationSubSection] = useState({
+    cond: { priority: 0, items: 0 },
+    subHeader: '',
+    dateStart: '',
+    dateEnd: '',
+    lineItems: [],
+  });
+
+  const educationSectionProps = {
+    education,
+    setEducation,
+    educations,
+    setEducations,
+    educationSubSection,
+    setEducationSubSection,
+    // workHistoryLineItem,
+    // SetWorkHistoryLineItem,
+  };
+
+  //* -------------------------------------------------------------------------- */
+  //*                               RESUME STATE                                 */
+  //* -------------------------------------------------------------------------- */
+
+  // ! RESUME STATE
+  const [resume, setResume] = useState({
+    personal,
+    statement,
+    skills,
+    projects: {
+      cond: { priority: project.cond.priority, items: projects.length },
+      header: project.header,
+      subsections: [...projects],
+    },
+    workHistory: {
+      cond: {
+        priority: workHistory.cond.priority,
+        items: workHistories.length,
+      },
+      header: workHistory.header,
+      subsections: [...workHistories],
+    },
+    education: {
+      cond: {
+        priority: education.cond.priority,
+        items: educations.length,
+      },
+      header: education.header,
+      subsections: [...educations],
+    },
+  });
 
   const renderSection = (section) => {
     switch (section) {
@@ -117,15 +218,64 @@ export default function ConstructionPage({ user }) {
         return <ProjectsSection section={section} {...projectSectionProps} />;
 
       case 'History':
-        return <HistorySection section={section} />;
+        return (
+          <HistorySection section={section} {...workHistorySectionProps} />
+        );
 
       case 'Education':
-        return <EducationSection section={section} />;
+        return (
+          <EducationSection section={section} {...educationSectionProps} />
+        );
 
       default:
         return null;
     }
   };
+
+  useEffect(() => {
+    setResume((prevResume) => ({
+      ...prevResume,
+      personal,
+      statement,
+      skills,
+      projects: {
+        cond: { priority: project.cond.priority, items: projects.length },
+        header: project.header,
+        subsections: [...projects],
+      },
+      workHistory: {
+        cond: {
+          priority: workHistory.cond.priority,
+          items: workHistories.length,
+        },
+        header: workHistory.header,
+        subsections: [...workHistories],
+      },
+      education: {
+        cond: {
+          priority: education.cond.priority,
+          items: educations.length,
+        },
+        header: education.header,
+        subsections: [...educations],
+      },
+    }));
+    console.log(resume);
+  }, [
+    personal,
+    statement,
+    skills,
+    step,
+    project,
+    projects,
+    projectSubSection,
+    workHistory,
+    workHistories,
+    workHistorySubSection,
+    education,
+    educations,
+    educationSubSection,
+  ]);
 
   return (
     <Layout active={'construction'} user={user}>

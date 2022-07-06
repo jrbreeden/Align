@@ -1,9 +1,9 @@
 import { FiDelete } from 'react-icons/fi';
-export default function ProjectsView({
+export default function HistoryView({
   section,
-  project,
-  projects,
-  setProjects,
+  workHistory,
+  workHistories,
+  setWorkHistories,
 }) {
   return (
     <div className="h-auto w-96 min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
@@ -14,8 +14,8 @@ export default function ProjectsView({
           </li>
         </ul>
         <div className="font-sans flex flex-col items-center justify-center bg-blue-darker w-full py-8 drop-shadow-2xl gap-y-4">
-          {projects?.length !== 0 &&
-            projects?.map((project, index) => {
+          {workHistories?.length !== 0 &&
+            workHistories?.map((work, index) => {
               const checkPriority = (priority) => {
                 switch (parseInt(priority)) {
                   case 0:
@@ -34,18 +34,18 @@ export default function ProjectsView({
               return (
                 <div
                   className={`overflow-hidden bg-white rounded max-w-xs w-full shadow-lg  leading-normal bg-${checkPriority(
-                    project.cond.priority
+                    work.cond.priority
                   )}`}
                 >
                   <div className="block group hover:bg-blue p-4 border-b">
                     <div className="flex items-center justify-between">
                       <p className="font-bold text-lg mb-1 text-black ">
-                        {project.subHeader}
+                        {work.subHeader}
                       </p>
                       <button
                         onClick={() => {
-                          setProjects((prevProjects) =>
-                            [...prevProjects].filter(
+                          setWorkHistories((prevState) =>
+                            [...prevState].filter(
                               (project, idx) => idx !== index
                             )
                           );
@@ -56,8 +56,8 @@ export default function ProjectsView({
                     </div>
                     <div className="flex justify-center">
                       <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-                        {project?.lineItems?.length !== 0 &&
-                          project?.lineItems?.map((item) => (
+                        {work?.lineItems?.length !== 0 &&
+                          work?.lineItems?.map((item) => (
                             <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
                               - {item}
                             </li>
