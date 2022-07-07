@@ -44,7 +44,7 @@ export default function AppliedJobsPage({ user }) {
                   <h1 className="text-4xl font-bold text-center">
                     Tracked Jobs
                   </h1>
-                  <div className="jobs-div grid grid-cols-4 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
+                  <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                     {[1, 2, 3, 4,6,7,8,9,9,9,9,9,9].map((test) => (
                       <JobCard job={job}  status={1}/>
                     ))}
@@ -56,7 +56,7 @@ export default function AppliedJobsPage({ user }) {
                   <h1 className="text-4xl font-bold text-center">
                     Applied Jobs
                   </h1>
-                  <div className="jobs-div grid grid-cols-4 grid-rows-auto mt-8 justify-between gap-y-10 gap-x-8">
+                  <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-between gap-y-10 gap-x-8">
                     {[1, 2, 3, 4 ].map((test) => (
                      <JobCard job={job}  status={2}/>
                     ))}

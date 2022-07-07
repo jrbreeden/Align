@@ -41,7 +41,7 @@ export default function JobCard({ job, status }) {
             </div>
             <div>
               <button className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14">
-                Apply Job
+                Track Button
               </button>
             </div>
           </div>
