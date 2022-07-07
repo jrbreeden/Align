@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { fetchTrackedJobs , appliedJobs} = require('../../controllers/api/C-jobs');
+const {
+  appliedJobs,
+  markJobAsApplied,
+} = require('../../controllers/api/C-jobs');
 // const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-// POST /api/resume
-router.get('/trackedJobs/:id', fetchTrackedJobs);
-
-router.post('/get-applied-jobs' , appliedJobs)
+router.post('/get-applied-jobs', appliedJobs);
+router.patch('/mark-as-applied/:job_id', markJobAsApplied);
 
 module.exports = router;

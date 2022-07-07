@@ -1,8 +1,7 @@
 import Layout from '../../components/Layout/Layout';
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
-import { getAppliedJobs } from '../../utilities/jobs-service';
-import { getTrackedJobs } from '../../utilities/jobs-service';
+import { getAppliedJobs, markJobAsApplied } from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
 
 export default function AppliedJobsPage({ user }) {
@@ -11,18 +10,27 @@ export default function AppliedJobsPage({ user }) {
     applied: [],
   });
 
+  const markAsApplied = async (job_id, user_id) => {
+    const jobsApplied = await markJobAsApplied(job_id, user_id);
+    console.log(jobsApplied);
+  };
+
   useEffect(() => {
     (async function populateJobs() {
       const jobsWatched = await getAppliedJobs({ id: user._id });
 
       if (jobsWatched) {
-        const tracked = jobsWatched.appliedJobList.filter((job) => !job.date_applied)
-        const applied = jobsWatched.appliedJobList.filter((job) => job.date_applied)
+        const tracked = jobsWatched.appliedJobList.filter(
+          (job) => !job.date_applied
+        );
+        const applied = jobsWatched.appliedJobList.filter(
+          (job) => job.date_applied
+        );
         setJobsWatched({ tracked: tracked, applied: applied });
       }
       console.log('my applied jobs are ', jobsWatched);
     })();
-  }, []);
+  }, [jobsWatched]);
 
   return (
     <Spring
@@ -36,9 +44,16 @@ export default function AppliedJobsPage({ user }) {
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
-                  {jobsWatched.tracked ? jobsWatched.tracked.map((tj) => 
-                    <JobCard job={tj} status={1} />
-                  ) : null}
+                  {jobsWatched.tracked
+                    ? jobsWatched.tracked.map((tj) => (
+                        <JobCard
+                          job={tj}
+                          status={1}
+                          markJobAsApplied={markAsApplied}
+                          user={user}
+                        />
+                      ))
+                    : null}
                 </div>
               </div>
               <br />
@@ -47,9 +62,16 @@ export default function AppliedJobsPage({ user }) {
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Applied Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-between gap-y-10 gap-x-8">
-                  {jobsWatched.applied ? jobsWatched.applied.map((aj) => 
-                    <JobCard job={aj} status={2} />
-                  ) : null}
+                  {jobsWatched.applied
+                    ? jobsWatched.applied.map((aj) => (
+                        <JobCard
+                          job={aj}
+                          status={2}
+                          markJobAsApplied={markAsApplied}
+                          user={user}
+                        />
+                      ))
+                    : null}
                 </div>
               </div>
             </div>
