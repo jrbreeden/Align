@@ -13,10 +13,10 @@ export default function AppliedJobsPage({ user }) {
   useEffect(() => {
     (async function populateJobs() {
       const jobs = await getAppliedJobs({ id: user._id });
-      // const trackedJobs = await getTrackedJobs(user._id);
-      // console.log('wtf',trackedJobs)
+      const trackedJobs = await getTrackedJobs(user._id);
+      console.log('wtf',trackedJobs)
       // console.log('my applied jobs are ', jobs);
-      // console.log(trackedJobs)
+      console.log(trackedJobs)
       // setAppliedJobs({
       //   //tracked:jobs.appliedJobList.filter((job)=>!job.date_applied),
       //   //applied:jobs.appliedJobList.filter((job)=> job.date_applied),

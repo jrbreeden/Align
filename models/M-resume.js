@@ -14,8 +14,6 @@ const lineSchema = new Schema({
   body: {
     type: String,
     required: true,
-    min: [5, 'Line must be at least 5 characters.'],
-    max: [80, 'Line cannot exceed 80 characters.'],
   },
   tags: [{ type: String }],
 });
