@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getAppliedJobs } from '../../utilities/jobs-service';
 import { getTrackedJobs } from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
+
 export default function AppliedJobsPage({ user }) {
   const [jobsWatched, setJobsWatched] = useState({
     tracked: [],
@@ -12,7 +13,6 @@ export default function AppliedJobsPage({ user }) {
 
   useEffect(() => {
     (async function populateJobs() {
-
       const jobsWatched = await getAppliedJobs({ id: user._id });
 
       if (jobsWatched) {
@@ -21,23 +21,8 @@ export default function AppliedJobsPage({ user }) {
         setJobsWatched({ tracked: tracked, applied: applied });
       }
       console.log('my applied jobs are ', jobsWatched);
-      //const trackedJobs = await getTrackedJobs(user._id);
-      // console.log('wtf',trackedJobs)
-
-      // console.log(trackedJobs)
-
-      // setAppliedJobs((prevState) => ({ ...prevState, tracked: [...trackedJobs] }));
     })();
   }, []);
-
-  const job = {
-    title: 'Software eng',
-    company_logo: 'https://remotive.com/job/1224255/logo',
-    company_name: 'Google',
-    candidate_required_location: 'Seattle, WA',
-    job_type: 'FT',
-    publication_date: 'Tomorrow',
-  };
 
   return (
     <Spring

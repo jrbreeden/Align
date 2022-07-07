@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import LineItems from '../../LineItems/LineItems';
-import ProjectsView from '../../Review/ProjectsView/ProjectsView';
+// import ProjectsView from '../../Review/ProjectsView/ProjectsView';
+import SectionView from '../../SectionView/SectionView';
 
 export default function ProjectsSection({
   section,
@@ -13,14 +14,14 @@ export default function ProjectsSection({
   setProjectSubSection,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
-  const [lineItem, setLineItem] = useState('');
+  const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
     setShowLineItemInput(false);
     setProjectSubSection((prevState) => ({
       ...prevState,
-      lineItems: [...prevState.lineItems, lineItem],
+      lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
     }));
     setLineItem('');
   };
@@ -74,7 +75,11 @@ export default function ProjectsSection({
               </div>
             </div>
             {/* MAIN DIV !!! */}
-            <div className={`grid grid-cols-${projectSubSection?.lineItems?.length > 0 ? '3' : '2'} bg-green-200 gap-x-20 justify-center`}>
+            <div
+              className={`grid grid-cols-${
+                projectSubSection?.lineItems?.length > 0 ? '3' : '2'
+              } bg-green-200 gap-x-20 justify-center`}
+            >
               <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
                   <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
@@ -205,8 +210,10 @@ export default function ProjectsSection({
                           <textarea
                             className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
                             name="lineItem"
-                            value={lineItem}
-                            onChange={(e) => setLineItem(e.target.value)}
+                            value={lineItem.body}
+                            onChange={(e) =>
+                              setLineItem({ body: e.target.value, priority: 0 })
+                            }
                             rows="4"
                             placeholder="Enter Line item"
                             required={true}
@@ -263,16 +270,16 @@ export default function ProjectsSection({
               </div>
 
               {/* LINE ITEMS */}
-                {projectSubSection?.lineItems?.length > 0 && (
-                  <LineItems items={projectSubSection.lineItems} />
-                )}
+              {projectSubSection?.lineItems?.length > 0 && (
+                <LineItems items={projectSubSection.lineItems} />
+              )}
 
-              <div className='order-1'>
-                <ProjectsView
+              <div className="order-1">
+                <SectionView
                   section={section}
-                  project={project}
-                  projects={projects}
-                  setProjects={setProjects}
+                  sectionVar={project}
+                  sectionList={projects}
+                  sectionListSetter={setProjects}
                 />
               </div>
             </div>

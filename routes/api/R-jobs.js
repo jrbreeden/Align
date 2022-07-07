@@ -4,7 +4,7 @@ const { fetchTrackedJobs , appliedJobs} = require('../../controllers/api/C-jobs'
 // const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // POST /api/resume
-router.post('/tracked-jobs', fetchTrackedJobs);
+router.get('/trackedJobs/:id', fetchTrackedJobs);
 
 router.post('/get-applied-jobs' , appliedJobs)
 
