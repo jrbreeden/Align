@@ -30,6 +30,19 @@ export default function FeaturedJobs() {
   }
     , [remotiveJobs])
 
+  async function handleSubmit(e){
+    e.preventDefault()
+      const jobs = await fetch(
+        `https://remotive.com/api/remote-jobs?search=${search}&limit=9`
+      );
+      
+      const response = await jobs.json();
+      setRemotiveJobs(response.jobs);
+      // const jobs = await getFeaturedJobs(search);
+      // const response = await jobs.json();
+      // console.log(response)
+  }
+
   function trackJob() {
 
     console.log("clicked")
@@ -47,6 +60,7 @@ export default function FeaturedJobs() {
                 <div className="flex justify-center">
                   <div className="mb-3 xl:w-96">
                     <div className="input-group relative flex items-stretch w-full mb-4">
+                      <form onSubmit={handleSubmit} className="flex flex-row">
                       <input
                         type="search"
                         value={search}
@@ -58,18 +72,9 @@ export default function FeaturedJobs() {
                       />
                       <button
                         className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
-                        type="button"
+                        type="submit"
                         id="button-addon2"
-                        onClick={async () => {
-                          const jobs = await fetch(
-                            `https://remotive.com/api/remote-jobs?search=${search}&limit=30`
-                          );
-                          const response = await jobs.json();
-                          setRemotiveJobs(response.jobs);
-                          // const jobs = await getFeaturedJobs(search);
-                          // const response = await jobs.json();
-                          // console.log(response)
-                        }}
+                        onClick={handleSubmit}
                       >
                         <svg
                           aria-hidden="true"
@@ -87,6 +92,7 @@ export default function FeaturedJobs() {
                           ></path>
                         </svg>
                       </button>
+                      </form>
                     </div>
                   </div>
                 </div>
