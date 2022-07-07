@@ -67,7 +67,7 @@ export default function FeaturedJobs() {
                   Featured Jobs
                 </h1>
 
-                <div className="jobs-div grid grid-cols-4 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
+                <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                   {featuredJobs.map((job) => (
                  <JobCard job={job} />
                   ))}

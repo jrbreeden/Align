@@ -29,15 +29,11 @@ export default function JobCard({job , status}) {
                     {/* conditional rendering for apply date here */}
                 </div>
                 <div>
-                    <button className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14">
-                        Apply Job
-                    </button>                 
+                                   
                     <button className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14">
                         Track this Job
                     </button>
-                    <button className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14">
-                        Mark as applied
-                    </button>
+                    
                 </div>
             </div>
     )
