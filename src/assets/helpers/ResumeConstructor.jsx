@@ -41,6 +41,8 @@ export default function resumeConstructor(resume) {
     }
 
     const SUBHEADER = (subheaderText, dateStart, dateEnd) => {
+        let dateText
+        dateEnd && dateStart? dateText=`\t${dateStart}-${dateEnd}`: dateStart? dateText=`\t${dateStart}`: dateEnd?dateText=`\t${dateEnd}`:dateText=''
         return new Paragraph({
             alignment: AlignmentType.LEFT,
             children: [
@@ -53,8 +55,8 @@ export default function resumeConstructor(resume) {
                 /////put math in here to align dates and paragraph on same line.
                 new TextRun({
                     font: 'Garamond',
-                    text: `\t${dateStart}-${dateEnd}`,
-                    size: 24,
+                    text: dateText,
+                    size: 22,
                 }),
             ],
             tabStops: [{
@@ -103,16 +105,15 @@ export default function resumeConstructor(resume) {
         break: 1,
     })
 
-
     const createSectionSubSections = (section) => {
         let output = [HEADER(section.header , AlignmentType.LEFT)]
 
-        for (let subsect of section.subsections) {
-            output.push(SUBHEADER(subsect.subheader, subsect.dateStart, subsect.dateEnd))
-            subsect.lines.forEach((line) => output.push(BULLET(line.body)))
+        for (let subsect of section.subSections) {
+            output.push(SUBHEADER(subsect.subHeader, subsect.dateStart, subsect.dateEnd))
+            subsect.lineItems.forEach((line) => output.push(BULLET(line.body)))
             output.push(PARASPACER)
         }
-        console.log('my output is ' , output)
+        //console.log('my output is ' , output)
         return output
     }
 
@@ -169,13 +170,13 @@ export default function resumeConstructor(resume) {
     const sectSkills = {
         properties: PROPERTIES,
         children: [
-            HEADER(skills.header , AlignmentType.CENTER),
+            HEADER('Skills and Expertise' , AlignmentType.CENTER),
             new Paragraph({
                 alignment: AlignmentType.CENTER,
                 children: [
                     new TextRun({
                         font: 'Garamond',
-                        text: skills.skills.map((sk) => sk.skill).join(' | '),
+                        text: skills.map((sk) => sk.skill).join(' | '),
                         size: 22,
                     }),
                     SPACER
