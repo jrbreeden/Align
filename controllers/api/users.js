@@ -17,7 +17,7 @@ function checkToken(req, res) {
 
 async function login(req, res) {
   try {
-    console.log('in controller with reqbody' , req.body)
+    //console.log('in controller with reqbody' , req.body)
     const user = await User.findOne({ email: req.body.email });
     if (!user) throw new Error();
     const match = await bcrypt.compare(req.body.password, user.password);
@@ -43,10 +43,10 @@ async function create(req, res) {
 }
 
 async function appliedJobs(req,res){
-  console.log('getting applied jobs - curr in controller')
+  console.log('getting applied jobs - curr in controller my reqbody is ' , req.body)
   try{
-    const appJobs = await User.findOne({_id : req.body.id})
-    console.log('The test route works' , appJobs)
+    const appJobs = await AppliedJobs.findOne({user : req.body.id})
+    console.log('i am sending back applied jobs ' , appJobs)
     res.json(appJobs)
   }catch(e){
     console.log('Error finding applied jobs for user ' , req)

@@ -2,14 +2,12 @@ const seedData = require('./seedData')
 
 const { users, resume, appliedJobs } = seedData
 
-
 require('dotenv').config();
 require('./config/database');
 
 const Resume = require('./models/M-resume');
 const AppliedJobs = require('./models/M-appliedJobs')
 const User = require('./models/M-user')
-
 
 //console.log(resume, users , appliedJobs)
 function seedDB() {
