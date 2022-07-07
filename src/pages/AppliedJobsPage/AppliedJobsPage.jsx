@@ -1,38 +1,28 @@
 import Layout from '../../components/Layout/Layout';
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
-import { getAppliedJobs } from '../../utilities/users-service';
+import { getAppliedJobs } from '../../utilities/jobs-service';
 import { getTrackedJobs } from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
+
 export default function AppliedJobsPage({ user }) {
-  const [appliedJobs, setAppliedJobs] = useState({
+  const [jobsWatched, setJobsWatched] = useState({
     tracked: [],
     applied: [],
   });
 
   useEffect(() => {
     (async function populateJobs() {
-      const jobs = await getAppliedJobs({ id: user._id });
-      const trackedJobs = await getTrackedJobs(user._id);
-      console.log('wtf',trackedJobs)
-      // console.log('my applied jobs are ', jobs);
-      console.log(trackedJobs)
-      // setAppliedJobs({
-      //   //tracked:jobs.appliedJobList.filter((job)=>!job.date_applied),
-      //   //applied:jobs.appliedJobList.filter((job)=> job.date_applied),
-      // });
-      // setAppliedJobs((prevState) => ({ ...prevState, tracked: [...trackedJobs] }));
+      const jobsWatched = await getAppliedJobs({ id: user._id });
+
+      if (jobsWatched) {
+        const tracked = jobsWatched.appliedJobList.filter((job) => !job.date_applied)
+        const applied = jobsWatched.appliedJobList.filter((job) => job.date_applied)
+        setJobsWatched({ tracked: tracked, applied: applied });
+      }
+      console.log('my applied jobs are ', jobsWatched);
     })();
   }, []);
-
-  const job = {
-    title: 'Software eng',
-    company_logo: 'https://remotive.com/job/1224255/logo',
-    company_name: 'Google',
-    candidate_required_location: 'Seattle, WA',
-    job_type: 'FT',
-    publication_date: 'Tomorrow',
-  };
 
   return (
     <Spring
@@ -46,9 +36,9 @@ export default function AppliedJobsPage({ user }) {
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
-                  {[1, 2, 3, 4, 6, 7, 8, 9, 9, 9, 9, 9, 9].map((test) => (
-                    <JobCard job={job} status={1} />
-                  ))}
+                  {jobsWatched.tracked ? jobsWatched.tracked.map((tj) => 
+                    <JobCard job={tj} status={1} />
+                  ) : null}
                 </div>
               </div>
               <br />
@@ -57,9 +47,9 @@ export default function AppliedJobsPage({ user }) {
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Applied Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-between gap-y-10 gap-x-8">
-                  {[1, 2, 3, 4].map((test) => (
-                    <JobCard job={job} status={2} />
-                  ))}
+                  {jobsWatched.applied ? jobsWatched.applied.map((aj) => 
+                    <JobCard job={aj} status={2} />
+                  ) : null}
                 </div>
               </div>
             </div>

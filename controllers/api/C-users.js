@@ -1,13 +1,12 @@
 const User = require('../../models/M-user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const AppliedJobs = require('../../models/M-appliedJobs')
+
 
 module.exports = {
   create,
   login,
   checkToken,
-  appliedJobs
 };
 
 function checkToken(req, res) {
@@ -41,19 +40,6 @@ async function create(req, res) {
     res.status(400).json(e);
   }
 }
-
-async function appliedJobs(req,res){
-  console.log('getting applied jobs - curr in controller my reqbody is ' , req.body)
-  try{
-    const appJobs = await AppliedJobs.findOne({user : req.body.id})
-    console.log('i am sending back applied jobs ' , appJobs)
-    res.json(appJobs)
-  }catch(e){
-    console.log('Error finding applied jobs for user ' , req)
-    res.status(400).json(e);
-  }
-}
-
 
 /*-- Helper Functions --*/
 

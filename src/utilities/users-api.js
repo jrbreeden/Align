@@ -15,7 +15,3 @@ export function checkToken() {
   return sendRequest(`${BASE_URL}/check-token`);
 }
 
-export function getAppliedJobs(id){
-  console.log('ive got user id ' , id )
-  return sendRequest(`${BASE_URL}/get-applied-jobs` , 'POST' , id);
-}

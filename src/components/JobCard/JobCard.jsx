@@ -15,30 +15,32 @@ export default function JobCard({ job, status }) {
           >
             <div className="header flex items-base justify-between">
               <h1 className="text-xl font-bold text-center mb-10">
-                {job.title}
+                {job.position}
               </h1>
               <div className="font-bold overflow-hidden rounded-full w-14 h-14 flex items-center justify-center ml-4">
-                <img src={job.company_logo} alt={job.company_name} />
+                <img src={job.logoUrl} alt={job.company} />
               </div>
             </div>
             <div className="flex flex-col gap-y-2">
               <h2>
                 <span className="font-bold">Company:</span>{' '}
-                {job.company_name}
+                {job.company}
               </h2>
               <h2>
                 <span className="font-bold">Location:</span>{' '}
-                {job.candidate_required_location}
+                {job.location}
               </h2>
               <h2>
-                <span className="font-bold">Job type:</span> {job.job_type}
+                <span className="font-bold">Job type:</span> {job.jobType}
               </h2>
+              
               <h2>
-                <span className="font-bold">Date posted:</span>{' '}
-                {job.publication_date}
+                <span className="font-bold">Date applied:</span>{' '}
+                { job.date_applied ? job.date_applied : 'No application yet!'}
               </h2>
-              {/* conditional rendering for apply date here */}
+
             </div>
+              
             <div>
               <button className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14">
                 Track Button

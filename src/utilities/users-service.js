@@ -43,9 +43,3 @@ export function checkToken() {
   .then(dateStr => new Date(dateStr));
 }
 
-export async function getAppliedJobs(id){
-  const appliedJobs = await usersAPI.getAppliedJobs(id)
-  //console.log('user service return applied jobs of ' , appliedJobs)
-  return appliedJobs
-  //return appliedJobs ? JSON.parse(window.atob(appliedJobs.split('.')[1])).user : null
-}
