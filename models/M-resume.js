@@ -82,6 +82,7 @@ const personalSchema = new Schema({
 });
 
 const resumeSchema = new Schema({
+  user:{type:Schema.Types.ObjectId , required:true},
   personal: personalSchema,
   statement: { type: statementSchema, required: false },
   skills: {

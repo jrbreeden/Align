@@ -1,3 +1,4 @@
+
 import { Spring, animated } from 'react-spring';
 
 export default function JobCard({ job, status }) {

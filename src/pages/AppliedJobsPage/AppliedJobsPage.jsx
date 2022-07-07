@@ -4,17 +4,24 @@ import { useEffect, useState } from 'react';
 import{getAppliedJobs} from '../../utilities/users-service'
 import JobCard from '../../components/JobCard/JobCard'
 export default function AppliedJobsPage({ user }) {
-    const [ appliedJobs , setAppliedJobs]= useState(null)
+    const [ appliedJobs , setAppliedJobs]= useState({
+      tracked:[],
+      applied:[]
+    })
 
     useEffect(()=>{
-        populateJobs()
-    },[])
-
-    async function populateJobs(){
+      (async function populateJobs(){
         const jobs = await getAppliedJobs({id:user._id})
-        console.log(jobs)
-    }
+        console.log('my applied jobs are ' ,jobs)
+        setAppliedJobs({
+          //tracked:jobs.appliedJobList.filter((job)=>!job.date_applied),
+          //applied:jobs.appliedJobList.filter((job)=> job.date_applied),
+        })
+    })()
+      }
+    ,[])
 
+  
     const job = {
         title:'Software eng',
         company_logo:'https://remotive.com/job/1224255/logo',
