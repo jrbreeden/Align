@@ -3,7 +3,7 @@ import { logOut } from '../../utilities/users-service';
 import { useNavigate } from 'react-router-dom';
 import resumeConstructor from '../../assets/helpers/ResumeConstructor'
 import Layout from '../../components/Layout/Layout';
-import getResume from '../../utilities/resume-service'
+import {getResume} from '../../utilities/resume-service'
 
 const testData = require('../../assets/helpers/sampleUser');
 
@@ -15,9 +15,10 @@ export default function Dashboard({ user, setUser }) {
     navigate('/login');
   };
 
-  function handleClick() {
-    //const userResume = await getResume(user._id)
-    //resumeConstructor(userResume);
+  async function handleClick() {
+    const userResume = await getResume({id:user._id})
+    resumeConstructor(userResume)
+    console.log('this was returned for the user resume ' , userResume)
   }
   return (
     <Layout active={'dashboard'} user={user}>
