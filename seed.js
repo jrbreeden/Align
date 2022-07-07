@@ -28,6 +28,18 @@ require('dotenv').config();
 require('./config/database');
 
 const Resume = require('./models/M-resume');
+const AppliedJobs = require('./models/M-appliedJobs')
+
+(async function(){
+
+  await AppliedJobs.deleteMany({})
+
+  const jobs = {}
+  const newAppliedJobs = await AppliedJobs.create(jobs);
+  console.log(newAppliedJobs);
+
+  process.exit();
+})()
 
 (async function () {
   await Resume.deleteMany({});
