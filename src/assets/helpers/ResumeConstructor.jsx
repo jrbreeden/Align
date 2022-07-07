@@ -170,13 +170,13 @@ export default function resumeConstructor(resume) {
     const sectSkills = {
         properties: PROPERTIES,
         children: [
-            HEADER(skills.header , AlignmentType.CENTER),
+            HEADER('Skills and Expertise' , AlignmentType.CENTER),
             new Paragraph({
                 alignment: AlignmentType.CENTER,
                 children: [
                     new TextRun({
                         font: 'Garamond',
-                        text: skills.skills.map((sk) => sk.skill).join(' | '),
+                        text: skills.map((sk) => sk.skill).join(' | '),
                         size: 22,
                     }),
                     SPACER

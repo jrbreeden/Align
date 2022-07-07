@@ -17,8 +17,9 @@ export default function Dashboard({ user, setUser }) {
 
   async function handleClick() {
     const userResume = await getResume({id:user._id})
-    resumeConstructor(userResume)
     console.log('this was returned for the user resume ' , userResume)
+    resumeConstructor(userResume)
+    
   }
   return (
     <Layout active={'dashboard'} user={user}>

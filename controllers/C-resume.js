@@ -30,6 +30,7 @@ const addNewResume = async (req, res) => {
 // };
 
 const getResume = async(req,res)=>{
+  console.log('finding resume for id , ' ,req.body.id)
   Resume.findOne({user:req.body.id}).then((doc)=>{
     console.log('returned the users resume from c-res as ,' , doc)
     res.json(doc)
