@@ -164,7 +164,7 @@ export default function ConstructionPage({ user }) {
     projects: {
       cond: { priority: project.cond.priority, items: projects.length },
       header: project.header,
-      subsections: [...projects],
+      subSections: [...projects],
     },
     workHistory: {
       cond: {
@@ -172,7 +172,7 @@ export default function ConstructionPage({ user }) {
         items: workHistories.length,
       },
       header: workHistory.header,
-      subsections: [...workHistories],
+      subSections: [...workHistories],
     },
     education: {
       cond: {
@@ -180,7 +180,7 @@ export default function ConstructionPage({ user }) {
         items: educations.length,
       },
       header: education.header,
-      subsections: [...educations],
+      subSections: [...educations],
     },
   });
 
@@ -242,7 +242,7 @@ export default function ConstructionPage({ user }) {
       projects: {
         cond: { priority: project.cond.priority, items: projects.length },
         header: project.header,
-        subsections: [...projects],
+        subSections: [...projects],
       },
       workHistory: {
         cond: {
@@ -250,7 +250,7 @@ export default function ConstructionPage({ user }) {
           items: workHistories.length,
         },
         header: workHistory.header,
-        subsections: [...workHistories],
+        subSections: [...workHistories],
       },
       education: {
         cond: {
@@ -258,7 +258,7 @@ export default function ConstructionPage({ user }) {
           items: educations.length,
         },
         header: education.header,
-        subsections: [...educations],
+        subSections: [...educations],
       },
     }));
     // console.log(resume);

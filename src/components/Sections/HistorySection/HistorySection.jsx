@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import HistoryView from '../../Review/HistoryView/HistoryView';
+import SectionView from '../../SectionView/SectionView';
 
 export default function HistorySection({
   section,
@@ -12,7 +13,7 @@ export default function HistorySection({
   setWorkHistorySubSection,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
-  const [lineItem, setLineItem] = useState('');
+  const [lineItem, setLineItem] = useState({});
 
   return (
     <Spring
@@ -178,7 +179,7 @@ export default function HistorySection({
                           <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
                             {workHistorySubSection?.lineItems?.map((item) => (
                               <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                                {item}
+                                {item.body}
                               </li>
                             ))}
                           </ul>
@@ -197,8 +198,10 @@ export default function HistorySection({
                         <textarea
                           className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
                           name="lineItem"
-                          value={lineItem}
-                          onChange={(e) => setLineItem(e.target.value)}
+                          value={lineItem.body}
+                          onChange={(e) =>
+                            setLineItem({ body: e.target.value, priority: 0 })
+                          }
                           rows="4"
                           placeholder="Enter Line item"
                         ></textarea>
@@ -272,11 +275,11 @@ export default function HistorySection({
                   )}
                 </div>
               </div>
-              <HistoryView
+              <SectionView
                 section={section}
-                workHistory={workHistory}
-                workHistories={workHistories}
-                setWorkHistories={setWorkHistories}
+                sectionVar={workHistory}
+                sectionList={workHistories}
+                sectionListSetter={setWorkHistories}
               />
             </div>
           </div>

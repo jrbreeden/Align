@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import EducationView from '../../Review/EducationView/EducationView';
+import SectionView from '../../SectionView/SectionView';
 
 export default function EducationSection({
   section,
@@ -12,7 +13,7 @@ export default function EducationSection({
   setEducationSubSection,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
-  const [lineItem, setLineItem] = useState('');
+  const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
 
   return (
     <Spring
@@ -188,7 +189,7 @@ export default function EducationSection({
                           <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
                             {educationSubSection?.lineItems?.map((item) => (
                               <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                                {item}
+                                {item.body}
                               </li>
                             ))}
                           </ul>
@@ -207,8 +208,10 @@ export default function EducationSection({
                         <textarea
                           className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
                           name="lineItem"
-                          value={lineItem}
-                          onChange={(e) => setLineItem(e.target.value)}
+                          value={lineItem.body}
+                          onChange={(e) =>
+                            setLineItem({ body: e.target.value, priority: 0 })
+                          }
                           rows="4"
                           placeholder="Enter Line item"
                         ></textarea>
@@ -282,11 +285,11 @@ export default function EducationSection({
                   )}
                 </div>
               </div>
-              <EducationView
+              <SectionView
                 section={section}
-                education={education}
-                educations={educations}
-                setEducations={setEducations}
+                sectionVar={education}
+                sectionList={educations}
+                sectionListSetter={setEducations}
               />
             </div>
           </div>
