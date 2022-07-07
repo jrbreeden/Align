@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createResume } from '../../utilities/resume-service';
 export default function StepperNav({
+  user,
   step,
   setStep,
   currentSection,
@@ -212,7 +213,8 @@ export default function StepperNav({
         border-blue-600 transition"
               onClick={() => {
                 // navigate('/profile', { replace: true });
-                console.log(resume);
+                // console.log(resume);
+                resume.user = user._id;
                 createResume(resume);
               }}
             >
