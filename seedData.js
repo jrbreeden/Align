@@ -173,7 +173,7 @@ const resume = {
             job_link: 'https://google.com',
             resume_link:'Not yet',
             job_date_posted:'Nov 1910',
-            // date_applied:'Jun 2020'
+            date_applied:'Jun 2020'
         },{
             position:'Wish Washer',
             company:'Netflax',

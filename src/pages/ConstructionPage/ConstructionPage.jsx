@@ -60,12 +60,12 @@ export default function ConstructionPage({ user }) {
   const [project, setProject] = useState({
     cond: { priority: 0, items: 0 },
     header: 'Projects',
-    subSections: [],
-    // subSections: [{subHeader: 'Time Travel Tour Guide', dateStart: '07/05/2022', dateEnd:'06/02/2202', lineItems: ['Traveled in time to tickle a walrus which with rich sponsors', 'Was impaled and had to give up on mission early']}],
+    SUBSECTIONs: [],
+    // SUBSECTIONs: [{subHeader: 'Time Travel Tour Guide', dateStart: '07/05/2022', dateEnd:'06/02/2202', lineItems: ['Traveled in time to tickle a walrus which with rich sponsors', 'Was impaled and had to give up on mission early']}],
   });
 
   const [projects, setProjects] = useState([]);
-  const [projectSubSection, setProjectSubSection] = useState({
+  const [projectSUBSECTION, setProjectSUBSECTION] = useState({
     cond: { priority: 0, items: 0 },
     subHeader: '',
     dateStart: '',
@@ -82,8 +82,8 @@ export default function ConstructionPage({ user }) {
     setProject,
     projects,
     setProjects,
-    projectSubSection,
-    setProjectSubSection,
+    projectSUBSECTION,
+    setProjectSUBSECTION,
     // projectLineItem,
     // setProjectLineItem,
   };
@@ -95,11 +95,11 @@ export default function ConstructionPage({ user }) {
   const [workHistory, setWorkHistory] = useState({
     cond: { priority: 0, items: 0 },
     header: 'Work History',
-    subSections: [],
+    SUBSECTIONs: [],
   });
 
   const [workHistories, setWorkHistories] = useState([]);
-  const [workHistorySubSection, setWorkHistorySubSection] = useState({
+  const [workHistorySUBSECTION, setWorkHistorySUBSECTION] = useState({
     cond: { priority: 0, items: 0 },
     subHeader: '',
     dateStart: '',
@@ -117,8 +117,8 @@ export default function ConstructionPage({ user }) {
     setWorkHistory,
     workHistories,
     setWorkHistories,
-    workHistorySubSection,
-    setWorkHistorySubSection,
+    workHistorySUBSECTION,
+    setWorkHistorySUBSECTION,
     // workHistoryLineItem,
     // SetWorkHistoryLineItem,
   };
@@ -129,11 +129,11 @@ export default function ConstructionPage({ user }) {
   const [education, setEducation] = useState({
     cond: { priority: 0, items: 0 },
     header: 'Education',
-    subSections: [],
+    SUBSECTIONs: [],
   });
 
   const [educations, setEducations] = useState([]);
-  const [educationSubSection, setEducationSubSection] = useState({
+  const [educationSUBSECTION, setEducationSUBSECTION] = useState({
     cond: { priority: 0, items: 0 },
     subHeader: '',
     dateStart: '',
@@ -146,8 +146,8 @@ export default function ConstructionPage({ user }) {
     setEducation,
     educations,
     setEducations,
-    educationSubSection,
-    setEducationSubSection,
+    educationSUBSECTION,
+    setEducationSUBSECTION,
     // workHistoryLineItem,
     // SetWorkHistoryLineItem,
   };
@@ -164,7 +164,7 @@ export default function ConstructionPage({ user }) {
     projects: {
       cond: { priority: project.cond.priority, items: projects.length },
       header: project.header,
-      subsections: [...projects],
+      SUBSECTIONs: [...projects],
     },
     workHistory: {
       cond: {
@@ -172,7 +172,7 @@ export default function ConstructionPage({ user }) {
         items: workHistories.length,
       },
       header: workHistory.header,
-      subsections: [...workHistories],
+      SUBSECTIONs: [...workHistories],
     },
     education: {
       cond: {
@@ -180,7 +180,7 @@ export default function ConstructionPage({ user }) {
         items: educations.length,
       },
       header: education.header,
-      subsections: [...educations],
+      SUBSECTIONs: [...educations],
     },
   });
 
@@ -242,7 +242,7 @@ export default function ConstructionPage({ user }) {
       projects: {
         cond: { priority: project.cond.priority, items: projects.length },
         header: project.header,
-        subsections: [...projects],
+        SUBSECTIONs: [...projects],
       },
       workHistory: {
         cond: {
@@ -250,7 +250,7 @@ export default function ConstructionPage({ user }) {
           items: workHistories.length,
         },
         header: workHistory.header,
-        subsections: [...workHistories],
+        SUBSECTIONs: [...workHistories],
       },
       education: {
         cond: {
@@ -258,7 +258,7 @@ export default function ConstructionPage({ user }) {
           items: educations.length,
         },
         header: education.header,
-        subsections: [...educations],
+        SUBSECTIONs: [...educations],
       },
     }));
     // console.log(resume);
@@ -269,13 +269,13 @@ export default function ConstructionPage({ user }) {
     step,
     project,
     projects,
-    projectSubSection,
+    projectSUBSECTION,
     workHistory,
     workHistories,
-    workHistorySubSection,
+    workHistorySUBSECTION,
     education,
     educations,
-    educationSubSection,
+    educationSUBSECTION,
   ]);
 
   return (
