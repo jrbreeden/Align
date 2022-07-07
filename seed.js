@@ -10,6 +10,7 @@ const AppliedJobs = require('./models/M-appliedJobs')
 const User = require('./models/M-user')
 
 //console.log(resume, users , appliedJobs)
+
 function seedDB() {
   let userID = null
   User.deleteMany({}).then(() => {

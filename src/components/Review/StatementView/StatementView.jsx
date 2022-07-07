@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ObjectiveView({ section, statement: { title, body } }) {
+export default function ObjectiveView({ section, statement: { header, body } }) {
   return (
     <div className="h-auto w-96 min-h-full bg-gray-100 p-4 border border-2 border-gray-300 drop-shadow-2xl rounded">
       <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
@@ -13,10 +13,10 @@ export default function ObjectiveView({ section, statement: { title, body } }) {
       </ul>
       <div className="font-sans flex items-center justify-center bg-blue-darker w-full py-8 drop-shadow-2xl">
         <div className="overflow-hidden bg-white rounded max-w-xs w-full shadow-lg  leading-normal">
-          {title !== '' && (
+          {header !== '' && (
             <div className="block group hover:bg-blue p-4 border-b">
-              <p className="font-bold text-lg mb-1 text-black ">Title</p>
-              <p className="text-grey-darker mb-2 ">{title}</p>
+              <p className="font-bold text-lg mb-1 text-black ">Header</p>
+              <p className="text-grey-darker mb-2 ">{header}</p>
             </div>
           )}
           {body !== '' && (
