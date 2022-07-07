@@ -14,9 +14,9 @@ export default function JobCard({ job, status }) {
             style={{ height: '25rem' }}
           >
             <div className="header flex items-base justify-between">
-              <h1 className="text-xl font-bold text-center mb-10">
+            <a href={job.job_link}><h1 className="text-xl font-bold text-center mb-10">
                 {job.position}
-              </h1>
+              </h1></a>
               <div className="font-bold overflow-hidden rounded-full w-14 h-14 flex items-center justify-center ml-4">
                 <img src={job.logoUrl} alt={job.company} />
               </div>
