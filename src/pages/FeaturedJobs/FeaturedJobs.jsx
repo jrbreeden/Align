@@ -3,12 +3,34 @@ import { Spring, animated } from 'react-spring';
 import JobCard from '../../components/JobCard/JobCard';
 import { getFeaturedJobs } from '../../utilities/users-service';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function FeaturedJobs() {
   const [featuredJobs, setFeaturedJobs] = useState([]);
   const [search, setSearch] = useState('');
+  const [remotiveJobs, setRemotiveJobs] = useState([])
 
-  function trackJob(){
+  useEffect(() => {
+    const jobConverter = []
+    remotiveJobs.forEach((job) => {
+      jobConverter.push({
+        position: job.title,
+        company: job.company_name,
+        logoUrl: job.company_logo,
+        location: job.candidate_required_location,
+        jobType: job.job_type,
+        job_link: job.url,
+        resume_link: null,
+        job_date_posted: job.publication_date,
+        date_applied: null,
+      })
+    })
+    setFeaturedJobs(jobConverter)
+
+  }
+    , [remotiveJobs])
+
+  function trackJob() {
 
     console.log("clicked")
   }
@@ -43,7 +65,7 @@ export default function FeaturedJobs() {
                             `https://remotive.com/api/remote-jobs?search=${search}&limit=30`
                           );
                           const response = await jobs.json();
-                          setFeaturedJobs(response.jobs);
+                          setRemotiveJobs(response.jobs);
                           // const jobs = await getFeaturedJobs(search);
                           // const response = await jobs.json();
                           // console.log(response)

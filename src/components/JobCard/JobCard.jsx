@@ -44,7 +44,7 @@ export default function JobCard({ job, status }) {
             <div>
               <button 
               className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14" 
-              onclick={() => status(job_id)}>
+              onclick={() => status(job.id)}>
                 Track Jobs
               </button>
             </div>
