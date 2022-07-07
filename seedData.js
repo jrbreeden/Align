@@ -146,7 +146,6 @@ const resume = {
       },
     }
   
-  
   const users = {
     name:'Jim',
     email:'jim',
@@ -154,7 +153,39 @@ const resume = {
   }
 
   const appliedJobs = {
-
+    appliedJobList:[
+        {
+            position:'Dish Washer',
+            company:'Netflix',
+            logoUrl:'https://remotive.com/job/1224255/logo',
+            location:'The moon',
+            jobType:'Full Half time',
+            job_link: 'https://google.com',
+            resume_link:'Not yet',
+            job_date_posted:'Nov 1910',
+            date_applied:'Jun 2020'
+        },{
+            position:'Fish Washer',
+            company:'Netflox',
+            logoUrl:'https://remotive.com/job/1224255/logo',
+            location:'The mooon',
+            jobType:'Full Half time',
+            job_link: 'https://google.com',
+            resume_link:'Not yet',
+            job_date_posted:'Nov 1910',
+            date_applied:'Jun 2020'
+        },{
+            position:'Wish Washer',
+            company:'Netflax',
+            logoUrl:'https://remotive.com/job/1224255/logo',
+            location:'The moooon',
+            jobType:'Full Half time',
+            job_link: 'https://google.com',
+            resume_link:'Not yet',
+            job_date_posted:'Nov 1910',
+            date_applied:'Jun 2020'
+        }
+    ]
   }
 
   module.exports = {users , resume , appliedJobs}
