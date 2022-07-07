@@ -305,6 +305,7 @@ export default function ConstructionPage({ user }) {
                 setSections={setSections}
                 sections={sections}
                 resume={resume}
+                user={user}
               />
               <div className="flex items-center justify-center gap-x-96 mt-20">
                 {renderSection(currentSection)}

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { addNewResume } = require('../../controllers/api/C-resume');
+const { fetchTrackedJobs } = require('../../controllers/api/C-jobs');
 // const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // POST /api/resume
-router.post('/', addNewResume);
+router.post('/tracked-jobs', fetchTrackedJobs);
 
 module.exports = router;
