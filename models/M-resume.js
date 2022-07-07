@@ -22,14 +22,14 @@ const lineSchema = new Schema({
 
 //TODO: CONDITION SCHEMA
 const conditionSchema = new Schema({
-  priority: { type: Number, required: true, default: 0, min: 0, max: 2 },
-  items: { type: Number, required: true, min: 1, max: 5 },
+  priority: { type: Number },
+  items: { type: Number },
 });
 
 // ! SUB SECTION SCHEMA
 const subSectionSchema = new Schema({
   cond: conditionSchema,
-  subheader: {
+  subHeader: {
     type: String,
     required: true,
     min: [3, 'SubSection header too short. Min 3.'],
@@ -37,7 +37,7 @@ const subSectionSchema = new Schema({
   },
   dateStart: { type: Date, required: false },
   dateEnd: { type: Date, required: false },
-  lines: [lineSchema],
+  lineItems: [lineSchema],
 });
 
 // ! SECTION SCHEMA
@@ -49,7 +49,7 @@ const sectionSchema = new Schema({
     min: [3, 'Section header too short. Min 3.'],
     max: [20, 'Section header too long. Max 20.'],
   },
-  subsections: [subSectionSchema],
+  subSections: [subSectionSchema],
 });
 
 const skillSchema = new Schema({
@@ -82,10 +82,11 @@ const personalSchema = new Schema({
 });
 
 const resumeSchema = new Schema({
+  user:{type:Schema.Types.ObjectId , required:true},
   personal: personalSchema,
   statement: { type: statementSchema, required: false },
   skills: {
-    type: [{ type: skillSchema, required: false, min: 5, max: 20 }],
+    type: [{ type: skillSchema, required: false, max: 20 }],
     // validate: [50, 'Too many skills. Max 50'],
   },
   projects: sectionSchema,

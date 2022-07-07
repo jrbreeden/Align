@@ -34,16 +34,16 @@ export default function StatementSection({ section, statement, setStatement }) {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="title"
                   >
-                    Title
+                    Header
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="title"
-                    value={statement.title}
+                    name="header"
+                    value={statement.header}
                     onChange={handleChange}
-                    id="title"
+                    id="header"
                     type="text"
-                    placeholder="Enter Title"
+                    placeholder="Enter Header"
                   />
                 </div>
                 <div className="inline-block relative w-full mr-2">
@@ -62,12 +62,12 @@ export default function StatementSection({ section, statement, setStatement }) {
                     placeholder="Enter Body"
                   ></textarea>
                 </div>
-                <button
+                {/* <button
                   className="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
                 >
                   Submit
-                </button>
+                </button> */}
               </div>
               <StatementView section={section} statement={statement} />
             </div>

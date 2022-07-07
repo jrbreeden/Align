@@ -36,16 +36,17 @@ export default function ConstructionPage({ user }) {
 
   // SECTIONS STATES
   const [personal, setPersonal] = useState({
+    name: '',
     email: '',
     phone: '',
-    linkedIn: '',
-    github: '',
-    portfolio: '',
+    link1: '',
+    link2: '',
+    link3: '',
   });
 
   // OBJECTIVE/STATEMENT STATES
   const [statement, setStatement] = useState({
-    title: '',
+    header: '',
     body: '',
   });
 
@@ -285,7 +286,7 @@ export default function ConstructionPage({ user }) {
       >
         {(props) => (
           <animated.div style={props}>
-            <div className="bg-gray-200 h-screen">
+            <div className="bg-gray-200">
               <div>
                 <Stepper
                   step={step}
@@ -295,9 +296,6 @@ export default function ConstructionPage({ user }) {
                   sections={sections}
                 />
               </div>
-              <div className="flex items-center justify-center gap-x-96 mt-20">
-                {renderSection(currentSection)}
-              </div>
               <StepperNav
                 step={step}
                 setStep={setStep}
@@ -306,7 +304,11 @@ export default function ConstructionPage({ user }) {
                 currentSection={currentSection}
                 setSections={setSections}
                 sections={sections}
+                resume={resume}
               />
+              <div className="flex items-center justify-center gap-x-96 mt-20">
+                {renderSection(currentSection)}
+              </div>
             </div>
           </animated.div>
         )}

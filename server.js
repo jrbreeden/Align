@@ -25,22 +25,22 @@ app.use(require('./config/checkToken'));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/resume', require('./routes/api/R-resume'));
 
 // Protect the api routes below from anonymous users
 const ensureLoggedIn = require('./config/ensureLoggedIn');
 
-// The following "catch all" route (note the *) 
+// The following "catch all" route (note the *)
 // is necessary to return the index.html on ALL
 // non-AJAX requests
-app.get('/*', function(req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
 
 // Configure express app to listen on port 3001
 // to avoid conflicting with the react server
 const port = process.env.PORT || 3001;
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`Express app running on port ${port}`);
 });
