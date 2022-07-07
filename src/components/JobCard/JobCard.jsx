@@ -1,6 +1,6 @@
 import { Spring, animated } from 'react-spring';
 
-export default function JobCard({ job, status }) {
+export default function JobCard({ job, status, user, markJobAsApplied }) {
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -47,7 +47,9 @@ export default function JobCard({ job, status }) {
               {job.date_applied === null && (
                 <button
                   className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                  onclick={() => status(job.id)}
+                  onClick={() => {
+                    markJobAsApplied(job._id, user._id);
+                  }}
                 >
                   Mark as Applied
                 </button>

@@ -1,15 +1,15 @@
 import * as jobsAPI from './jobs-api';
 
-export async function getTrackedJobs(id) {
-  const jobs = await jobsAPI.getTrackedJobs(id);
-  // console.log(jobs)
-  console.log('fk',jobs)
-}
-
-
 export async function getAppliedJobs(id){
   const appliedJobs = await jobsAPI.getAppliedJobs(id)
   //console.log('user service return applied jobs of ' , appliedJobs)
   return appliedJobs
+  //return appliedJobs ? JSON.parse(window.atob(appliedJobs.split('.')[1])).user : null
+}
+
+export async function markJobAsApplied(job_id, user_id){
+  const jobsApplied = await jobsAPI.markJobAsApplied(job_id, user_id)
+  //console.log('user service return applied jobs of ' , appliedJobs)
+  return jobsApplied
   //return appliedJobs ? JSON.parse(window.atob(appliedJobs.split('.')[1])).user : null
 }
