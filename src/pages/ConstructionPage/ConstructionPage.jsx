@@ -286,7 +286,7 @@ export default function ConstructionPage({ user }) {
       >
         {(props) => (
           <animated.div style={props}>
-            <div className="bg-gray-200 h-screen">
+            <div className="bg-gray-200">
               <div>
                 <Stepper
                   step={step}
@@ -295,9 +295,6 @@ export default function ConstructionPage({ user }) {
                   setSections={setSections}
                   sections={sections}
                 />
-              </div>
-              <div className="flex items-center justify-center gap-x-96 mt-20">
-                {renderSection(currentSection)}
               </div>
               <StepperNav
                 step={step}
@@ -309,6 +306,9 @@ export default function ConstructionPage({ user }) {
                 sections={sections}
                 resume={resume}
               />
+              <div className="flex items-center justify-center gap-x-96 mt-20">
+                {renderSection(currentSection)}
+              </div>
             </div>
           </animated.div>
         )}

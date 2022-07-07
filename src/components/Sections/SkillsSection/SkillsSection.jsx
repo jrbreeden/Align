@@ -56,7 +56,7 @@ export default function PersonalInfoSection({
                       value={skill.skill}
                       onChange={handleChange}
                       placeholder="Enter Skill"
-                      required={true}
+                      required
                     />
                   </div>
                   <div className="inline-block relative w-48 mr-2 mt-2">
