@@ -36,16 +36,17 @@ export default function ConstructionPage({ user }) {
 
   // SECTIONS STATES
   const [personal, setPersonal] = useState({
+    name: '',
     email: '',
     phone: '',
-    linkedIn: '',
-    github: '',
-    portfolio: '',
+    link1: '',
+    link2: '',
+    link3: '',
   });
 
   // OBJECTIVE/STATEMENT STATES
   const [statement, setStatement] = useState({
-    title: '',
+    header: '',
     body: '',
   });
 
@@ -306,6 +307,7 @@ export default function ConstructionPage({ user }) {
                 currentSection={currentSection}
                 setSections={setSections}
                 sections={sections}
+                resume={resume}
               />
             </div>
           </animated.div>
