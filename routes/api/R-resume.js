@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addNewResume , getResume} = require('../../controllers/C-resume');
+const { addNewResume , getResume} = require('../../controllers/api/C-resume');
 // const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // POST /api/resume

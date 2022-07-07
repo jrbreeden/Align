@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(require('./config/checkToken'));
 
 // Put API routes here, before the "catch all" route
-app.use('/api/users', require('./routes/api/users'));
+app.use('/api/users', require('./routes/api/R-users'));
 app.use('/api/resume', require('./routes/api/R-resume'));
 app.use('/api/jobs', require('./routes/api/R-jobs'));
 
