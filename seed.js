@@ -40,7 +40,7 @@ const Resume = require('./models/M-resume');
         phone: '9179464033',
         link1: 'github.com/Jim',
         link2: 'linkedIn.com/Jim',
-        linked: 'dev-portfolio.com',
+        link3: 'dev-portfolio.com',
       },
       statement: {
         header: 'Summary',

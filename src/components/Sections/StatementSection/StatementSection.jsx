@@ -34,16 +34,16 @@ export default function StatementSection({ section, statement, setStatement }) {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="title"
                   >
-                    Title
+                    Header
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="title"
-                    value={statement.title}
+                    name="header"
+                    value={statement.header}
                     onChange={handleChange}
-                    id="title"
+                    id="header"
                     type="text"
-                    placeholder="Enter Title"
+                    placeholder="Enter Header"
                   />
                 </div>
                 <div className="inline-block relative w-full mr-2">

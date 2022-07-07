@@ -1,10 +1,16 @@
 import { Spring, animated } from 'react-spring';
 import PersonalInfoView from '../../Review/PersonalInfoView/PersonalInfoView';
 
-export default function PersonalInfoSection({ section, personal, setPersonal }) {
-
+export default function PersonalInfoSection({
+  section,
+  personal,
+  setPersonal,
+}) {
   const handleChange = (e) => {
-    setPersonal((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+    setPersonal((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
   return (
     <Spring
@@ -23,6 +29,23 @@ export default function PersonalInfoSection({ section, personal, setPersonal }) 
                 </li>
               </ul>
               <div className="form mt-4">
+                <div className="mb-4">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="name"
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="name"
+                    value={personal.name}
+                    onChange={handleChange}
+                    id="name"
+                    type="text"
+                    placeholder="Enter Full Name"
+                  />
+                </div>
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -67,10 +90,10 @@ export default function PersonalInfoSection({ section, personal, setPersonal }) 
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="linkedIn"
-                    value={personal.linkedIn}
+                    name="link1"
+                    value={personal.link1}
                     onChange={handleChange}
-                    id="linkedIn"
+                    id="link1"
                     type="text"
                     placeholder="LinkedIn Profile"
                   />
@@ -85,10 +108,10 @@ export default function PersonalInfoSection({ section, personal, setPersonal }) 
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="github"
-                    value={personal.github}
+                    name="link2"
+                    value={personal.link2}
                     onChange={handleChange}
-                    id="github"
+                    id="link2"
                     type="text"
                     placeholder="Github Profile"
                   />
@@ -103,10 +126,10 @@ export default function PersonalInfoSection({ section, personal, setPersonal }) 
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="portfolio"
-                    value={personal.portfolio}
+                    name="link3"
+                    value={personal.link3}
                     onChange={handleChange}
-                    id="portfolio"
+                    id="link3"
                     type="text"
                     placeholder="Developer Profile"
                   />
@@ -121,11 +144,12 @@ export default function PersonalInfoSection({ section, personal, setPersonal }) 
             </div>
             <PersonalInfoView
               section={section}
+              name={personal.name}
               email={personal.email}
               phone={personal.phone}
-              linkedIn={personal.linkedIn}
-              github={personal.github}
-              portfolio={personal.portfolio}
+              link1={personal.link1}
+              link2={personal.link2}
+              link3={personal.link3}
             />
           </div>
         </animated.div>
