@@ -40,8 +40,10 @@ export default function JobCard({ job, status }) {
               {/* conditional rendering for apply date here */}
             </div>
             <div>
-              <button className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14">
-                Track Button
+              <button 
+              className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14" 
+              onclick={() => status(job_id)}>
+                Track Jobs
               </button>
             </div>
           </div>
