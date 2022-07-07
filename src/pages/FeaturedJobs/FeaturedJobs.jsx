@@ -7,6 +7,11 @@ import { useState } from 'react';
 export default function FeaturedJobs() {
   const [featuredJobs, setFeaturedJobs] = useState([]);
   const [search, setSearch] = useState('');
+
+  function trackJob(){
+
+    console.log("clicked")
+  }
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
