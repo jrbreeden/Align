@@ -19,13 +19,13 @@ const resume = {
       projects: {
         cond: { priority: 2, items: 2 },
         header: 'Projects',
-        subsections: [
+        subSections: [
           {
             cond: { priority: 1, items: 2 },
-            subheader: 'Time Travel Guide',
+            subHeader: 'Time Travel Guide',
             dateStart: Date.now(),
             dateEnd: Date.now(),
-            lines: [
+            lineItems: [
               {
                 priority: 2,
                 body: 'Developed a front-end web app that allows users to see all food items based on the ingredients that the user searched for.',
@@ -40,10 +40,10 @@ const resume = {
           },
           {
             cond: { priority: 1, items: 2 },
-            subheader: 'Stock Investments Tracker',
+            subHeader: 'Stock Investments Tracker',
             dateStart: Date.now(),
             dateEnd: Date.now(),
-            lines: [
+            lineItems: [
               {
                 priority: 2,
                 body: 'Developed a Full-Stack web app that allows users to keep track of their buy and sell transactions of stocks',
@@ -62,13 +62,13 @@ const resume = {
       workHistory: {
         cond: { priority: 2, items: 2 },
         header: 'Work History',
-        subsections: [
+        subSections: [
           {
             cond: { priority: 1, items: 2 },
-            subheader: 'Software Engineer Fellow',
+            subHeader: 'Software Engineer Fellow',
             dateStart: Date.now(),
             dateEnd: Date.now(),
-            lines: [
+            lineItems: [
               {
                 priority: 2,
                 body: 'Developed fully functional applications utilizing a MERN stack with working knowledge in many other languages, frameworks, and development processes.',
@@ -83,10 +83,10 @@ const resume = {
           },
           {
             cond: { priority: 1, items: 2 },
-            subheader: 'Full-Stack Software Engineer',
+            subHeader: 'Full-Stack Software Engineer',
             dateStart: Date.now(),
             dateEnd: Date.now(),
-            lines: [
+            lineItems: [
               {
                 priority: 2,
                 body: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.`,
@@ -105,13 +105,13 @@ const resume = {
       education: {
         cond: { priority: 2, items: 2 },
         header: 'Education',
-        subsections: [
+        subSections: [
           {
             cond: { priority: 1, items: 2 },
-            subheader: 'Bachelors of Science in Trying Hard - Harvard',
+            subHeader: 'Bachelors of Science in Trying Hard - Harvard',
             dateStart: Date.now(),
             dateEnd: Date.now(),
-            lines: [
+            lineItems: [
               {
                 priority: 2,
                 body: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
@@ -126,10 +126,10 @@ const resume = {
           },
           {
             cond: { priority: 1, items: 2 },
-            subheader: 'Software Engineering Immersive - General Assembly',
+            subHeader: 'Software Engineering Immersive - General Assembly',
             dateStart: Date.now(),
             dateEnd: Date.now(),
-            lines: [
+            lineItems: [
               {
                 priority: 2,
                 body: `All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.`,

@@ -86,7 +86,7 @@ const resumeSchema = new Schema({
   personal: personalSchema,
   statement: { type: statementSchema, required: false },
   skills: {
-    type: [{ type: skillSchema, required: false, max: 20 }],
+    type: [{ type: skillSchema, required: false }],
     // validate: [50, 'Too many skills. Max 50'],
   },
   projects: sectionSchema,

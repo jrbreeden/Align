@@ -13,6 +13,7 @@ export default function AppliedJobsPage({ user }) {
       (async function populateJobs(){
         const jobs = await getAppliedJobs({id:user._id})
         console.log('my applied jobs are ' ,jobs)
+        //ternary for setAppliedJobs
         setAppliedJobs({
           //tracked:jobs.appliedJobList.filter((job)=>!job.date_applied),
           //applied:jobs.appliedJobList.filter((job)=> job.date_applied),

@@ -34,12 +34,12 @@ module.exports = {
     },
     projects: {
       header: 'Technical Project Experience',
-      subsections: [
+      subSections: [
         {
-          subheader: 'Software Engineering Apprentice at General Assembly',
+          subHeader: 'Software Engineering Apprentice at General Assembly',
           dateStart: 'Jun 2022',
           dateEnd: 'Jun 2022',
-          lines: [
+          lineItems: [
             { body: 'Created fun JavaScript game.' },
             { body: 'Used HTML and CSS for display.' },
             { body: 'Accepted realtime player inputs to control circle.' },
@@ -47,10 +47,10 @@ module.exports = {
           ],
         },
         {
-          subheader: 'Time Travel Tour Guide',
+          subHeader: 'Time Travel Tour Guide',
           dateStart: 'Jan 1901',
           dateEnd: 'Dec 2101',
-          lines: [
+          lineItems: [
             { body: 'Traveled in time to tickle a walrus with rich sponsors.' },
             {
               body: 'Was impaled and had to give up on mission early. 4 others dead.',
@@ -64,12 +64,12 @@ module.exports = {
     },
     workHistory: {
       header: 'Work History',
-      subsections: [
+      subSections: [
         {
-          subheader: 'Pan Handler',
+          subHeader: 'Pan Handler',
           dateStart: 'May 2022',
           dateEnd: 'Present',
-          lines: [
+          lineItems: [
             { body: 'Handled pans.' },
             {
               body: 'Occasionally handled pots, despite not being in the job description.',
@@ -77,10 +77,10 @@ module.exports = {
           ],
         },
         {
-          subheader: 'Software Engineer at Google',
+          subHeader: 'Software Engineer at Google',
           dateStart: 'May 2016',
           dateEnd: 'May 2022',
-          lines: [
+          lineItems: [
             { body: 'Left job to pursue passion of pan handling.' },
             { body: 'Optimized code and produced $10B in new revenue.' },
           ],
@@ -89,21 +89,21 @@ module.exports = {
     },
     education: {
       header: 'Education',
-      subsections: [
+      subSections: [
         {
-          subheader: 'Bachelors of Science in Trying Hard - Harvard',
+          subHeader: 'Bachelors of Science in Trying Hard - Harvard',
           dateStart: 'Aug 2012',
           dateEnd: 'May 2022',
-          lines: [
+          lineItems: [
             { body: 'Tried very, very hard.' },
             { body: 'Occasionally received pat on head.' },
           ],
         },
         {
-          subheader: 'Software Engineering Certificate - General Assembly',
+          subHeader: 'Software Engineering Certificate - General Assembly',
           dateStart: 'May 2022',
           dateEnd: 'Aug 2022',
-          lines: [
+          lineItems: [
             { body: 'Spent over 419 hours in class studying SWE.' },
             {
               body: 'By the end, could center a div using position:fixed and turn it red with background:RGB(0,65,65)',
