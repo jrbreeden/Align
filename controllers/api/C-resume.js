@@ -1,4 +1,4 @@
-const Resume = require('../models/M-resume');
+const Resume = require('../../models/M-resume');
 
 const addNewResume = async (req, res) => {
   // try {
