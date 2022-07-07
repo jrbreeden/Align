@@ -1,4 +1,3 @@
-
 import { Spring, animated } from 'react-spring';
 
 export default function JobCard({ job, status }) {
@@ -23,30 +22,36 @@ export default function JobCard({ job, status }) {
             </div>
             <div className="flex flex-col gap-y-2">
               <h2>
-                <span className="font-bold">Company:</span>{' '}
-                {job.company}
+                <span className="font-bold">Company:</span> {job.company}
               </h2>
               <h2>
-                <span className="font-bold">Location:</span>{' '}
-                {job.location}
+                <span className="font-bold">Location:</span> {job.location}
               </h2>
               <h2>
                 <span className="font-bold">Job type:</span> {job.jobType}
               </h2>
-              
+
               <h2>
                 <span className="font-bold">Date applied:</span>{' '}
-                { job.date_applied ? job.date_applied : 'No application yet!'}
+                {job.date_applied ? job.date_applied : 'No application yet!'}
               </h2>
-
             </div>
-              
-            <div>
-              <button 
-              className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14" 
-              onclick={() => status(job.id)}>
+
+            <div className="flex gap-x-4">
+              <button
+                className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14"
+                onclick={() => status(job.id)}
+              >
                 Track Jobs
               </button>
+              {job.date_applied === null && (
+                <button
+                  className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
+                  onclick={() => status(job.id)}
+                >
+                  Mark as Applied
+                </button>
+              )}
             </div>
           </div>
         </animated.div>
