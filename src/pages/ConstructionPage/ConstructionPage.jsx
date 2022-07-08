@@ -230,27 +230,32 @@ export default function ConstructionPage({ user }) {
   useEffect(() => {
     (async function fetchResume() {
       const test = await getResume({ id: user._id });
-      setResume({
-        id: test._id,
-        personal: test.personal,
-        statement: test.statement,
-        skills: test.skills,
-        projects: test.projects,
-        workHistory: test.workHistory,
-        education: test.education,
-      });
-      setPersonal(test.personal);
-      setStatement(test.statement);
-      setSkills(test.skills);
-      setProjects((prevState) => [...prevState, ...test.projects.subSections]);
-      setWorkHistories((prevState) => [
-        ...prevState,
-        ...test.workHistory.subSections,
-      ]);
-      setEducations((prevState) => [
-        ...prevState,
-        ...test.education.subSections,
-      ]);
+      if (test) {
+        setResume({
+          id: test._id,
+          personal: test.personal,
+          statement: test.statement,
+          skills: test.skills,
+          projects: test.projects,
+          workHistory: test.workHistory,
+          education: test.education,
+        });
+        setPersonal(test.personal);
+        setStatement(test.statement);
+        setSkills(test.skills);
+        setProjects((prevState) => [
+          ...prevState,
+          ...test.projects.subSections,
+        ]);
+        setWorkHistories((prevState) => [
+          ...prevState,
+          ...test.workHistory.subSections,
+        ]);
+        setEducations((prevState) => [
+          ...prevState,
+          ...test.education.subSections,
+        ]);
+      }
     })();
   }, []);
 
@@ -299,39 +304,39 @@ export default function ConstructionPage({ user }) {
   ]);
 
   return (
-      <Spring
-        from={{ opacity: 0, marginTop: 500 }}
-        to={{ opacity: 1, marginTop: 0 }}
-      >
-        {(props) => (
-          <animated.div style={props}>
-            <div className="bg-gray-200">
-              <div>
-                <Stepper
-                  step={step}
-                  steps={steps}
-                  section={currentSection}
-                  setSections={setSections}
-                  sections={sections}
-                />
-              </div>
-              <StepperNav
+    <Spring
+      from={{ opacity: 0, marginTop: 500 }}
+      to={{ opacity: 1, marginTop: 0 }}
+    >
+      {(props) => (
+        <animated.div style={props}>
+          <div className="bg-gray-200">
+            <div>
+              <Stepper
                 step={step}
-                setStep={setStep}
-                setCurrentSection={setCurrentSection}
                 steps={steps}
-                currentSection={currentSection}
+                section={currentSection}
                 setSections={setSections}
                 sections={sections}
-                resume={resume}
-                user={user}
               />
-              <div className="flex items-center justify-center gap-x-96 mt-20">
-                {renderSection(currentSection)}
-              </div>
             </div>
-          </animated.div>
-        )}
-      </Spring>
+            <StepperNav
+              step={step}
+              setStep={setStep}
+              setCurrentSection={setCurrentSection}
+              steps={steps}
+              currentSection={currentSection}
+              setSections={setSections}
+              sections={sections}
+              resume={resume}
+              user={user}
+            />
+            <div className="flex items-center justify-center gap-x-96 mt-20">
+              {renderSection(currentSection)}
+            </div>
+          </div>
+        </animated.div>
+      )}
+    </Spring>
   );
 }
