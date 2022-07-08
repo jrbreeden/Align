@@ -58,27 +58,14 @@ export default function NavBar({ active, user }) {
                   alt="Align"
                 /></Link>
                 <Link to='/profile' ><button className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center">
-                  Applied Jobs</button></Link>
+                  Profile</button></Link>
                   <Link to='/construction' ><button className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center">
-                  Construction</button></Link>
+                  Resume Editor</button></Link>
                   <Link to='/featured-jobs' ><button className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center">
-                  Featured Jobs</button></Link>
+                  Search Jobs</button></Link>
               </div>
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4">
-                  <Link
-                    to="/"
-                    className={`${
-                      active === 'home' ? 'bg-gray-900' : null
-                    } text-white px-3 py-2 rounded-md text-sm font-medium ${
-                      active === 'construction' || active === 'dashboard' || active === 'featuredJobs'
-                        ? 'hidden'
-                        : null
-                    }`}
-                  >
-                    Home
-                    
-                  </Link>
                 </div>
               </div>
             </div>

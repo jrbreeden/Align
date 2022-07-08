@@ -8,7 +8,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import ConstructionPage from '../ConstructionPage/ConstructionPage';
 import FeaturedJobs from '../FeaturedJobs/FeaturedJobs';
-import AppliedJobsPage from '../AppliedJobsPage/AppliedJobsPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
           />
           <Route
             path="/profile"
-            element={<AppliedJobsPage user={user} />}
+            element={<ProfilePage user={user} />}
           />
           <Route path="/*" element={<Navigate to='/dashboard'/>} exact />
         </Routes>
