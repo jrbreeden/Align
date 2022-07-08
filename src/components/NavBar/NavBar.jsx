@@ -55,20 +55,14 @@ export default function NavBar({ active, user, setUser }) {
                   <Link
                     to="/login"
                     className={`${active === 'login' ? 'bg-gray-900' : null
-                      } text-white px-3 py-2 rounded-md text-sm font-medium ${active === 'construction' || active === 'dashboard' || active === 'featuredJobs'
-                        ? 'hidden'
-                        : null
-                      }`}
+                      } text-white px-3 py-2 rounded-md text-sm font-medium `}
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
                     className={`${active === 'signup' ? 'bg-gray-900' : null
-                      } text-white px-3 py-2 rounded-md text-sm font-medium ${active === 'construction' || active === 'dashboard' || active === 'featuredJobs'
-                        ? 'hidden'
-                        : null
-                      }`}
+                      } text-white px-3 py-2 rounded-md text-sm font-medium `}
                   >
                     Signup
                   </Link>
@@ -76,7 +70,7 @@ export default function NavBar({ active, user, setUser }) {
                     <h2
                       to="/signup"
                       className={`${active === 'signup' ? 'bg-gray-900' : null
-                        } text-white px-3 py-2 rounded-md text-sm font-medium ${active === 'construction' ? 'hidden' : null
+                        } text-white px-3 py-2 rounded-md text-sm font-medium ${active ? 'hidden' : null
                         }`}
                     >
                       Welcome, {user.name}!

@@ -11,8 +11,8 @@ export default function JobCard({ job, status, user, markJobAsApplied, trackJob 
       {(props) => (
         <animated.div style={props}>
           <div
-            className="w-full flex flex-col justify-between items-left justify-around min-h-full bg-gray-200 p-8 border border-1 border-gray-300 drop-shadow-2xl rounded"
-            style={{ height: '25rem' }}
+            className="flex flex-col justify-between items-left justify-around min-h-full bg-gray-200 p-8 border border-1 border-gray-300 drop-shadow-2xl rounded"
+            style={{ height: '30rem' , width:'30rem' }}
           >
             <div className="header flex items-base justify-between">
               <a href={job.job_link}>
@@ -50,14 +50,14 @@ export default function JobCard({ job, status, user, markJobAsApplied, trackJob 
                   >
                     Track Jobs
                   </button>
-                  <button
+{/*                  <button
                     className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
                     onClick={() => {
                       markJobAsApplied(job._id, user._id);
                     }}
                   >
                     Mark as Applied
-                  </button>
+                  </button> */}
                 </>
               )}
             </div>
