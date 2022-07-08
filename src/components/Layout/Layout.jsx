@@ -3,12 +3,12 @@ import React from 'react';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 
-export default function Layout({ children, active, user }) {
+export default function Layout({ children, active, user , setUser}) {
   return (
     <>
       <div className='bg-gray-200'>
         <header style={{minHeight:'10vh'}}>
-          <NavBar active={active} user={user} />
+          <NavBar active={active} user={user} setUser={setUser}/>
         </header>
         <main style={{minHeight:'65vh'}}>{children}</main>
         <footer>

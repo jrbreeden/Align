@@ -296,7 +296,6 @@ export default function ConstructionPage({ user }) {
   ]);
 
   return (
-    <Layout active={'construction'} user={user}>
       <Spring
         from={{ opacity: 0, marginTop: 500 }}
         to={{ opacity: 1, marginTop: 0 }}
@@ -331,6 +330,5 @@ export default function ConstructionPage({ user }) {
           </animated.div>
         )}
       </Spring>
-    </Layout>
   );
 }

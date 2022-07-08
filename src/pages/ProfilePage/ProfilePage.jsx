@@ -3,6 +3,8 @@ import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
 import { getAppliedJobs, markJobAsApplied } from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
+import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
+import {getResume} from '../../utilities/resume-service'
 
 export default function AppliedJobsPage({ user }) {
   const [jobsWatched, setJobsWatched] = useState({
@@ -33,9 +35,14 @@ export default function AppliedJobsPage({ user }) {
       console.log('my applied jobs are ', jobsWatched);
     })();
   }, [response]);
-
+  
+  async function handleClick() {
+    const userResume = await getResume({id:user._id})
+    console.log('this was returned for the user resume ' , userResume)
+    resumeConstructor(userResume)
+  }
   return (
-    <Layout active="featuredJobs">
+    
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
       to={{ opacity: 1, marginLeft: 0 }}
@@ -44,6 +51,7 @@ export default function AppliedJobsPage({ user }) {
         <animated.div style={props}>
           
             <div className="flex-col w-full justify-center items-center">
+            <button onClick={handleClick}>Download Resume</button>
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
@@ -85,6 +93,5 @@ export default function AppliedJobsPage({ user }) {
         </animated.div>
       )}
     </Spring>
-    </Layout>
   );
 }

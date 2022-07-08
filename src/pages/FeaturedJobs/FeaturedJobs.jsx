@@ -52,7 +52,6 @@ export default function FeaturedJobs() {
     console.log("clicked")
   }
   return (
-    <Layout active="featuredJobs">
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
       to={{ opacity: 1, marginLeft: 0 }}
@@ -119,6 +118,5 @@ export default function FeaturedJobs() {
         </animated.div>
       )}
     </Spring>
-    </Layout>
   );
 }

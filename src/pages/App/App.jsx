@@ -9,6 +9,7 @@ import DashboardPage from '../DashboardPage/DashboardPage';
 import ConstructionPage from '../ConstructionPage/ConstructionPage';
 import FeaturedJobs from '../FeaturedJobs/FeaturedJobs';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import Layout from '../../components/Layout/Layout';
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <main className="App">
       {user ? (
+        <Layout active={true} setUser={setUser}>
         <Routes>
           <Route
             path="/dashboard"
@@ -35,7 +37,9 @@ export default function App() {
           />
           <Route path="/*" element={<Navigate to='/dashboard'/>} exact />
         </Routes>
+        </Layout>
       ) : (
+        <Layout active={false} setUser={setUser}>
         <Routes>
           <Route path="/" element={<HomePage />} exact />
           <Route
@@ -50,6 +54,7 @@ export default function App() {
           />
           <Route path="/*" element={<Navigate to='/'/>} exact />
         </Routes>
+        </Layout>
       )}
     </main>
   );
