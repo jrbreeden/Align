@@ -1,6 +1,6 @@
 import { Spring, animated } from 'react-spring';
 
-export default function JobCard({ job, status, user, markJobAsApplied }) {
+export default function JobCard({ job, status, user, markJobAsApplied,trackJob }) {
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -40,7 +40,7 @@ export default function JobCard({ job, status, user, markJobAsApplied }) {
             <div className="flex gap-x-4">
               <button
                 className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14"
-                onclick={() => status(job.id)}
+                onClick={() => trackJob(job.id)}
               >
                 Track Jobs
               </button>

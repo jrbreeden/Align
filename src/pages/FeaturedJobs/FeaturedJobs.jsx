@@ -43,8 +43,12 @@ export default function FeaturedJobs() {
       // console.log(response)
   }
 
-  function trackJob() {
+  function trackJob(id) {
+// send the id or the job to the database
 
+
+
+// find out which api call to make
     console.log("clicked")
   }
   return (
@@ -104,7 +108,8 @@ export default function FeaturedJobs() {
 
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                   {featuredJobs.map((job) => (
-                    <JobCard job={job} />
+                    <JobCard job={job} trackJob={trackJob} />
+
                   ))}
                 </div>
               </div>
