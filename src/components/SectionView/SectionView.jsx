@@ -8,7 +8,8 @@ export default function SectionView({
   sectionList,
   sectionListSetter,
   setSubSection,
-  setLineItem
+  setLineItem,
+  setSubSectionIdx
 }) {
   return (
     <div className="h-auto w-full min-h-full bg-gray-200 py-8 px-4 border border-2 border-gray-300 drop-shadow-2xl rounded items-center justify-center">
@@ -54,6 +55,7 @@ export default function SectionView({
                           // );
                           console.log('test');
                           setSubSection(sec);
+                          setSubSectionIdx(sec._id)
                           console.log(sec)
                         }}
                       >

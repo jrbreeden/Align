@@ -1,4 +1,5 @@
 const User = require('../../models/M-user');
+const AppliedJobs = require('../../models/M-appliedJobs')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -29,13 +30,14 @@ async function login(req, res) {
 
 async function create(req, res) {
   try {
-    const user = await User.create(req.body);
-    // token will be a string
-    const token = createJWT(user);
-    // send back the token as a string
-    // which we need to account for 
-    // in the client
-    res.json(token);
+    let token
+    User.create(req.body).then((user)=>{
+      token = createJWT(user);
+      AppliedJobs.create([{user:user._id }]).then((aj)=>{
+        console.log('new app jobs for user, ' ,aj)
+        res.json(token);
+      })
+    });
   } catch (e) {
     res.status(400).json(e);
   }

@@ -42,6 +42,7 @@ export default function resumeConstructor(resume) {
 
     const SUBHEADER = (subheaderText, dateStart, dateEnd) => {
         let dateText
+        //let month
         dateEnd && dateStart? dateText=`\t${dateStart}-${dateEnd}`: dateStart? dateText=`\t${dateStart}`: dateEnd?dateText=`\t${dateEnd}`:dateText=''
         return new Paragraph({
             alignment: AlignmentType.LEFT,

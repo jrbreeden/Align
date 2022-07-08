@@ -216,6 +216,7 @@ export default function StepperNav({
                 // console.log(resume);
                 resume.user = user._id;
                 createResume(resume);
+                navigate('/profile', {replace:true})
               }}
             >
               Submit

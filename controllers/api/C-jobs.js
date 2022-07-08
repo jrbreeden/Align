@@ -77,8 +77,7 @@ try{
       jobList.appliedJobList.push(req.body.job)
     }else{
       if(!myJob.date_applied && req.body.job.date_applied){
-        console.log('attempting date applied change' , jobList.appliedJobList)
-        console.log('index of job to edit is ', jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)])
+        console.log('attempting date applied change -- logic removed at the moment' , myJob)
         //jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)]= {...jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)], date_applied:req.body.job.date_applied}
       }else{
         console.log('Job already tracked!')
@@ -88,12 +87,8 @@ try{
     //console.log('attempted update on.' , jobList)
     
   }else{
-    AppliedJobs.createOne({
-      user:user,
-      appliedJobList:[req.body.job]
-    }).then((change)=>{
-      console.log('Created new list for user' ,change)
-    })
+    console.log('Cant find that user')
+    res.status(500).json({ Message: error.message })
   }
   res.status(200).json({ Message: 'Successfully updated job!' });
 }catch(err){
