@@ -3,7 +3,6 @@ import { Spring, animated } from 'react-spring';
 import SectionView from '../../SectionView/SectionView';
 import LineItems from '../../LineItems/LineItems';
 
-
 export default function EducationSection({
   section,
   education,
@@ -15,6 +14,9 @@ export default function EducationSection({
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [lineItemIdx, setLineItemIdx] = useState(null);
+  const [subSectionIdx, setSubSectionIdx] = useState(null);
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
@@ -220,12 +222,45 @@ export default function EducationSection({
                           ></textarea>
                         </div>
                       )}
-                      <button
+                     {isUpdating ? null : (
+                        <button
+                          className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      )}
+                      {isUpdating && (
+                        <button
+                          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="button"
+                          onClick={() => {
+                            // alert(lineItem.body);
+                            setEducationSubSection((prevState) => {
+                              setShowLineItemInput(false);
+                              return {
+                                ...prevState,
+                                lineItems: prevState.lineItems.map(
+                                  (item, idx) => {
+                                    if (idx === lineItemIdx) {
+                                      item.body = lineItem.body;
+                                    }
+                                    return item;
+                                  }
+                                ),
+                              };
+                            });
+                          }}
+                        >
+                          Update
+                        </button>
+                      )}
+                      {/* <button
                         className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
                       >
-                        Submit
-                      </button>
+                        Submitzz
+                      </button> */}
                       <button
                         className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="button"
@@ -252,6 +287,22 @@ export default function EducationSection({
                           ...prevState,
                           educationSubSection,
                         ]);
+                        let subSectionExists = false;
+                        educations.forEach((sub) => {
+                          if (sub._id === subSectionIdx) {
+                            subSectionExists = true;
+                          }
+                        });
+
+                        if (!subSectionExists) {
+                          setEducations((prevState) => [
+                            ...prevState,
+                            educationSubSection,
+                          ]);
+                        }
+                        setIsUpdating(false);
+                        setSubSectionIdx(null);
+                        setLineItem({ body: '', priority: 0 });
                         console.log(education.header);
                         // Reset ProjectSubSection
                         setEducationSubSection({
@@ -271,7 +322,13 @@ export default function EducationSection({
 
               {/* LINE ITEMS */}
               {educationSubSection?.lineItems?.length > 0 && (
-                <LineItems items={educationSubSection.lineItems} />
+                <LineItems
+                  items={educationSubSection.lineItems}
+                  setLineItem={setLineItem}
+                  setShowLineItemInput={setShowLineItemInput}
+                  setIsUpdating={setIsUpdating}
+                  setLineItemIdx={setLineItemIdx}
+                />
               )}
 
               <div className="order-1">
@@ -280,6 +337,8 @@ export default function EducationSection({
                   sectionVar={education}
                   sectionList={educations}
                   sectionListSetter={setEducations}
+                  setSubSection={setEducationSubSection}
+                  setSubSectionIdx={setSubSectionIdx}
                 />
               </div>
             </div>

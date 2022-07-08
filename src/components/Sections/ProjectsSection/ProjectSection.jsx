@@ -17,6 +17,7 @@ export default function ProjectsSection({
   const [isUpdating, setIsUpdating] = useState(false);
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
   const [lineItemIdx, setLineItemIdx] = useState(null);
+  const [subSectionIdx, setSubSectionIdx] = useState(null);
 
   const handleSubSectionChange = (e) => {
     setProjectSubSection((prevState) => ({
@@ -32,6 +33,23 @@ export default function ProjectsSection({
       ...prevState,
       lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
     }));
+    // projects.forEach((sub) => {
+    //   if (sub._id !== subSectionIdx) {
+    //     console.log(sub._id, subSectionIdx);
+
+    //   } else {
+    //     // setProjectSubSection(prevState => ({
+    //     //   ...prevState,
+    //     //   lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }]
+    //     // }))
+    //   }
+    // });
+    // setProjectSubSection((prevState) => ({
+    //   ...prevState,
+    //   lineItems: [...prevState.lineItems, projects.forEach(sub => {
+    //     return sub._id === subSectionIdx ? { body: lineItem.body, priority: 0 }
+    //   })],
+    // }));
     setLineItem('');
   };
 
@@ -228,17 +246,20 @@ export default function ProjectsSection({
                           type="button"
                           onClick={() => {
                             // alert(lineItem.body);
-                            setProjectSubSection((prevState) => ({
-                              ...prevState,
-                              lineItems: prevState.lineItems.map(
-                                (item, idx) => {
-                                  if (idx === lineItemIdx) {
-                                    item.body = lineItem.body;
+                            setProjectSubSection((prevState) => {
+                              setShowLineItemInput(false);
+                              return {
+                                ...prevState,
+                                lineItems: prevState.lineItems.map(
+                                  (item, idx) => {
+                                    if (idx === lineItemIdx) {
+                                      item.body = lineItem.body;
+                                    }
+                                    return item;
                                   }
-                                  return item
-                                }
-                              ),
-                            }));
+                                ),
+                              };
+                            });
                           }}
                         >
                           Update
@@ -265,11 +286,22 @@ export default function ProjectsSection({
                           header: project.header,
                           subSections: projectSubSection,
                         }));
+                        let subSectionExists = false;
+                        projects.forEach((proj) => {
+                          if (proj._id === subSectionIdx) {
+                            subSectionExists = true;
+                          }
+                        });
 
-                        setProjects((prevStates) => [
-                          ...prevStates,
-                          projectSubSection,
-                        ]);
+                        if (!subSectionExists) {
+                          setProjects((prevState) => [
+                            ...prevState,
+                            projectSubSection,
+                          ]);
+                        }
+                        setIsUpdating(false);
+                        setSubSectionIdx(null);
+                        setLineItem({ body: '', priority: 0 });
                         console.log(project.header);
                         // Reset ProjectSubSection
                         setProjectSubSection({
@@ -305,6 +337,7 @@ export default function ProjectsSection({
                   sectionList={projects}
                   sectionListSetter={setProjects}
                   setSubSection={setProjectSubSection}
+                  setSubSectionIdx={setSubSectionIdx}
                   // setLineItem={setLineItem}
                 />
               </div>
