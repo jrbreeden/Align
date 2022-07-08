@@ -13,3 +13,4 @@ export function markJobAsApplied(job_id, user_id) {
     user_id,
   });
 }
+ 

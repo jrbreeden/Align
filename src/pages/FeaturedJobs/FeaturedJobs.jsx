@@ -3,6 +3,7 @@ import { Spring, animated } from 'react-spring';
 import JobCard from '../../components/JobCard/JobCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { markJobAsApplied } from '../../utilities/jobs-api';
 
 export default function FeaturedJobs() {
   const [featuredJobs, setFeaturedJobs] = useState(
@@ -46,12 +47,13 @@ export default function FeaturedJobs() {
   }
 
 
-   function trackJob(id) {
+     function trackJob(jobid) {
    
 // send  the job to the database
 // send request
     console.log("clicked")
   }
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
