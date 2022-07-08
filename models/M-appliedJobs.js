@@ -16,7 +16,7 @@ const jobDetails = new Schema({
 const appliedJobsSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, required:true },
-    appliedJobList: [jobDetails],
+    appliedJobList: [{type:jobDetails , required:false}],
   },
   { timestamps: true }
 );
