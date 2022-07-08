@@ -16,6 +16,13 @@ export default function ProjectsSection({
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
 
+  const handleSubSectionChange = (e) => {
+    setProjectSubSection((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
     setShowLineItemInput(false);
@@ -33,7 +40,7 @@ export default function ProjectsSection({
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="flex flex-col bg-orange-200 p-4 w-screen mx-8">
+          <div className="flex flex-col bg-red-500 p-4 w-screen mx-8">
             {/* section priority level  */}
             <div className="w-1/6 bg-pink-400">
               <label
@@ -48,11 +55,11 @@ export default function ProjectsSection({
                   name="priority"
                   value={project.cond.priority}
                   onChange={(e) => {
-                    setProject((prevProject) => {
+                    setProject((prevState) => {
                       return {
-                        ...prevProject,
+                        ...prevState,
                         cond: {
-                          ...prevProject.cond,
+                          ...prevState.cond,
                           priority: parseInt(e.target.value),
                         },
                       };
@@ -136,15 +143,10 @@ export default function ProjectsSection({
                     </label>
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="header"
+                      name="subHeader"
                       value={projectSubSection.subHeader}
-                      onChange={(e) =>
-                        setProjectSubSection((prevState) => ({
-                          ...prevState,
-                          subHeader: e.target.value,
-                        }))
-                      }
-                      id="header"
+                      onChange={handleSubSectionChange}
+                      id="subHeader"
                       type="text"
                       placeholder="Enter Sub Section"
                     />
@@ -158,12 +160,7 @@ export default function ProjectsSection({
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateStart"
                       value={projectSubSection.dateStart}
-                      onChange={(e) =>
-                        setProjectSubSection((prevState) => ({
-                          ...prevState,
-                          dateStart: e.target.value,
-                        }))
-                      }
+                      onChange={handleSubSectionChange}
                       id="dateStart"
                       type="date"
                     />
@@ -178,12 +175,7 @@ export default function ProjectsSection({
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateEnd"
                       value={projectSubSection.dateEnd}
-                      onChange={(e) =>
-                        setProjectSubSection((prevState) => ({
-                          ...prevState,
-                          dateEnd: e.target.value,
-                        }))
-                      }
+                      onChange={handleSubSectionChange}
                       id="dateEnd"
                       type="date"
                     />
@@ -242,14 +234,14 @@ export default function ProjectsSection({
                       className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
                       type="button"
                       onClick={() => {
-                        setProject((prevProject) => ({
-                          ...prevProject,
+                        setProject((prevState) => ({
+                          ...prevState,
                           header: project.header,
                           subSections: projectSubSection,
                         }));
 
-                        setProjects((prevProjects) => [
-                          ...prevProjects,
+                        setProjects((prevStates) => [
+                          ...prevStates,
                           projectSubSection,
                         ]);
                         console.log(project.header);

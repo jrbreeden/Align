@@ -10,9 +10,11 @@ export default function AppliedJobsPage({ user }) {
     applied: [],
   });
 
+  const [response, setResponse] = useState({});
+
   const markAsApplied = async (job_id, user_id) => {
     const jobsApplied = await markJobAsApplied(job_id, user_id);
-    console.log(jobsApplied);
+    setResponse(jobsApplied);
   };
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function AppliedJobsPage({ user }) {
       }
       console.log('my applied jobs are ', jobsWatched);
     })();
-  }, []);
+  }, [response]);
 
   return (
     <Layout active="featuredJobs">
@@ -55,6 +57,9 @@ export default function AppliedJobsPage({ user }) {
                         />
                       ))
                     : null}
+                  {jobsWatched.tracked.length === 0 && (
+                    <h1 className='text-center text-2xl'>No Tracked Jobs Found!</h1>
+                  )}
                 </div>
               </div>
               <br />
