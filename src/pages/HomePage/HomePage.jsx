@@ -6,7 +6,6 @@ import Team from '../../components/Team/Team';
 export default function HomePage({ user }) {
 
   return (
-    <Layout active={'home'} user={user}>
 
       <div className="MAIN DIV flex flex-col gap-y-72">
         <div className="CAROUSEL">
@@ -16,6 +15,5 @@ export default function HomePage({ user }) {
           <Team />
         </div>
       </div>
-    </Layout>
   );
 }

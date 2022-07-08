@@ -8,7 +8,8 @@ import LoginPage from '../LoginPage/LoginPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import ConstructionPage from '../ConstructionPage/ConstructionPage';
 import FeaturedJobs from '../FeaturedJobs/FeaturedJobs';
-import AppliedJobsPage from '../AppliedJobsPage/AppliedJobsPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import Layout from '../../components/Layout/Layout';
 
 
 export default function App() {
@@ -16,11 +17,8 @@ export default function App() {
   return (
     <main className="App">
       {user ? (
+        <Layout active={true} setUser={setUser}>
         <Routes>
-          <Route
-            path="/dashboard"
-            element={<DashboardPage user={user} setUser={setUser} exact />}
-          />
           <Route
             path="/construction"
             element={<ConstructionPage user={user} setUser={setUser} exact />}
@@ -31,11 +29,13 @@ export default function App() {
           />
           <Route
             path="/profile"
-            element={<AppliedJobsPage user={user} />}
+            element={<ProfilePage user={user} />}
           />
-          <Route path="/*" element={<Navigate to='/dashboard'/>} exact />
+          <Route path="/*" element={<Navigate to='/profile'/>} exact />
         </Routes>
+        </Layout>
       ) : (
+        <Layout active={false} setUser={setUser}>
         <Routes>
           <Route path="/" element={<HomePage />} exact />
           <Route
@@ -50,6 +50,7 @@ export default function App() {
           />
           <Route path="/*" element={<Navigate to='/'/>} exact />
         </Routes>
+        </Layout>
       )}
     </main>
   );
