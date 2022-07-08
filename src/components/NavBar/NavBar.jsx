@@ -53,7 +53,7 @@ export default function NavBar({ active, user }) {
               <div className="flex-shrink-0 flex items-center">
                 <Link to='/'><img
                   className="hidden lg:block w-auto"
-                  style={{height:'12vh'}}
+                  style={{height:'11vh'}}
                   src={Logo}
                   alt="Align"
                 /></Link>
