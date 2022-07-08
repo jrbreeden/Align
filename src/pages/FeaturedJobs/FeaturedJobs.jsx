@@ -46,9 +46,10 @@ export default function FeaturedJobs() {
   }
 
 
-  function trackJob(id) {
-// send the id or the job to the database
-// find out which api call to make
+   function trackJob(id) {
+   
+// send  the job to the database
+// send request
     console.log("clicked")
   }
   return (
