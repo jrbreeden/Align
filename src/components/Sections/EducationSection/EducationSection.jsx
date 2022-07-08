@@ -159,7 +159,7 @@ export default function EducationSection({
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateStart"
-                      value={educationSubSection.dateStart}
+                      value={educationSubSection.dateStart.split('T')[0]}
                       onChange={(e) =>
                         setEducationSubSection((prevState) => ({
                           ...prevState,
@@ -179,7 +179,7 @@ export default function EducationSection({
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateEnd"
-                      value={educationSubSection.dateEnd}
+                      value={educationSubSection.dateEnd.split('T')[0]}
                       onChange={(e) =>
                         setEducationSubSection((prevState) => ({
                           ...prevState,

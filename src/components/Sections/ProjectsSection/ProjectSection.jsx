@@ -3,6 +3,7 @@ import { Spring, animated } from 'react-spring';
 import LineItems from '../../LineItems/LineItems';
 // import ProjectsView from '../../Review/ProjectsView/ProjectsView';
 import SectionView from '../../SectionView/SectionView';
+import moment from 'moment'
 
 export default function ProjectsSection({
   section,
@@ -18,6 +19,16 @@ export default function ProjectsSection({
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
   const [lineItemIdx, setLineItemIdx] = useState(null);
   const [subSectionIdx, setSubSectionIdx] = useState(null);
+
+  const getDate = (date) => {
+    console.log('bugo', moment(new Date(date)).format('YYYY-MM-DD'));
+    let result = '';
+    for (let i = 0; i < result.length; i++) {
+      result += i;
+      if (i === 'T') return result;
+    }
+    console.log('WTF yawa', result);
+  };
 
   const handleSubSectionChange = (e) => {
     setProjectSubSection((prevState) => ({
@@ -179,10 +190,10 @@ export default function ProjectsSection({
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateStart"
-                      value={projectSubSection.dateStart}
+                      type="date"
+                      value={projectSubSection.dateStart.split('T')[0]}
                       onChange={handleSubSectionChange}
                       id="dateStart"
-                      type="date"
                     />
 
                     <label
@@ -194,7 +205,7 @@ export default function ProjectsSection({
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateEnd"
-                      value={projectSubSection.dateEnd}
+                      value={projectSubSection.dateEnd.split('T')[0]}
                       onChange={handleSubSectionChange}
                       id="dateEnd"
                       type="date"
@@ -308,7 +319,7 @@ export default function ProjectsSection({
                               if (proj._id === subSectionIdx) {
                                 proj.lineItems = projectSubSection.lineItems;
                               }
-                              return proj
+                              return proj;
                             }),
                           ]);
                         }

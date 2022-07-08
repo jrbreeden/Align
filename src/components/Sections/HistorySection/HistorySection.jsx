@@ -159,7 +159,7 @@ export default function HistorySection({
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateStart"
-                      value={workHistorySubSection.dateStart}
+                      value={workHistorySubSection.dateStart.split('T')[0]}
                       onChange={(e) =>
                         setWorkHistorySubSection((prevState) => ({
                           ...prevState,
@@ -179,7 +179,7 @@ export default function HistorySection({
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       name="dateEnd"
-                      value={workHistorySubSection.dateEnd}
+                      value={workHistorySubSection.dateEnd.split('T')[0]}
                       onChange={(e) =>
                         setWorkHistorySubSection((prevState) => ({
                           ...prevState,
