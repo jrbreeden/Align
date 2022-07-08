@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/images/Align_Logo_noBG.png'
+import Logo from '../../assets/images/Align6.png'
 export default function NavBar({ active, user }) {
   return (
     <>
       <nav className="bg-gray-800" style={{height:'10vh'}}>
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div className="relative flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8" style={{height:'10vh'}}>
+          <div className="relative flex items-center justify-between h-16"style={{height:'10vh'}}>
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
                 type="button"
@@ -52,7 +52,8 @@ export default function NavBar({ active, user }) {
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex-shrink-0 flex items-center">
                 <Link to='/'><img
-                  className="hidden lg:block h-8 w-auto"
+                  className="hidden lg:block w-auto"
+                  style={{height:'12vh'}}
                   src={Logo}
                   alt="Align"
                 /></Link>

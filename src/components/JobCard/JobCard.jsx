@@ -3,7 +3,7 @@ import { Spring, animated } from 'react-spring';
 export default function JobCard({ job, status, user, markJobAsApplied }) {
   return (
     <Spring
-      from={{ opacity: 0, marginLeft: -1000 }}
+      from={{ opacity: 0, marginLeft: -10 }}
       to={{ opacity: 1, marginLeft: 0 }}
     >
       {(props) => (
