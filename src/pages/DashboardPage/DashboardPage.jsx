@@ -1,7 +1,7 @@
 import React from 'react';
 import { logOut } from '../../utilities/users-service';
 import { useNavigate } from 'react-router-dom';
-import resumeConstructor from '../../assets/helpers/ResumeConstructor'
+import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import Layout from '../../components/Layout/Layout';
 import {getResume} from '../../utilities/resume-service'
 
