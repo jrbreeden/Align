@@ -1,6 +1,9 @@
 import { Spring, animated } from 'react-spring';
+import { useState, useEffect } from 'react';
 
 export default function JobCard({ job, status, user, markJobAsApplied }) {
+ 
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -13,9 +16,11 @@ export default function JobCard({ job, status, user, markJobAsApplied }) {
             style={{ height: '25rem' }}
           >
             <div className="header flex items-base justify-between">
-            <a href={job.job_link}><h1 className="text-xl font-bold text-center mb-10">
-                {job.position}
-              </h1></a>
+              <a href={job.job_link}>
+                <h1 className="text-xl font-bold text-center mb-10">
+                  {job.position}
+                </h1>
+              </a>
               <div className="font-bold overflow-hidden rounded-full w-14 h-14 flex items-center justify-center ml-4">
                 <img src={job.logoUrl} alt={job.company} />
               </div>
@@ -38,21 +43,23 @@ export default function JobCard({ job, status, user, markJobAsApplied }) {
             </div>
 
             <div className="flex gap-x-4">
-              <button
-                className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14"
-                onclick={() => status(job.id)}
-              >
-                Track Jobs
-              </button>
               {job.date_applied === null && (
-                <button
-                  className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                  onClick={() => {
-                    markJobAsApplied(job._id, user._id);
-                  }}
-                >
-                  Mark as Applied
-                </button>
+                <>
+                  <button
+                    className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14"
+                    onclick={() => status(job.id)}
+                  >
+                    Track Jobs
+                  </button>
+                  <button
+                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
+                    onClick={() => {
+                      markJobAsApplied(job._id, user._id);
+                    }}
+                  >
+                    Mark as Applied
+                  </button>
+                </>
               )}
             </div>
           </div>
