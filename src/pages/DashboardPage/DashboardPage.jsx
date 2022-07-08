@@ -19,7 +19,6 @@ export default function Dashboard({ user, setUser }) {
     const userResume = await getResume({id:user._id})
     console.log('this was returned for the user resume ' , userResume)
     resumeConstructor(userResume)
-    
   }
   return (
     <Layout active={'dashboard'} user={user}>

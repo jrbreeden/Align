@@ -26,9 +26,7 @@ export default function FeaturedJobs() {
       })
     })
     setFeaturedJobs(jobConverter)
-
-  }
-    , [remotiveJobs])
+  },[remotiveJobs])
 
   async function handleSubmit(e){
     e.preventDefault()
