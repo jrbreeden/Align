@@ -14,7 +14,11 @@ import ProjectsSection from '../../components/Sections/ProjectsSection/ProjectSe
 import HistorySection from '../../components/Sections/HistorySection/HistorySection';
 import EducationSection from '../../components/Sections/EducationSection/EducationSection';
 
+// ! SERVICES
+import { getResume } from '../../utilities/resume-service';
+
 export default function ConstructionPage({ user }) {
+  const [userResume, setUserResume] = useState(null);
   const [step, setStep] = useState(0);
   const steps = [
     'PersonalInfo',
@@ -61,7 +65,6 @@ export default function ConstructionPage({ user }) {
     cond: { priority: 0, items: 0 },
     header: 'Projects',
     subSections: [],
-    // subSections: [{subHeader: 'Time Travel Tour Guide', dateStart: '07/05/2022', dateEnd:'06/02/2202', lineItems: ['Traveled in time to tickle a walrus which with rich sponsors', 'Was impaled and had to give up on mission early']}],
   });
 
   const [projects, setProjects] = useState([]);
@@ -72,10 +75,6 @@ export default function ConstructionPage({ user }) {
     dateEnd: '',
     lineItems: [],
   });
-  // const [projectLineItem, setProjectLineItem] = useState({
-  //   body: '',
-  //   priority: 'normal',
-  // });
 
   const projectSectionProps = {
     project,
@@ -84,8 +83,6 @@ export default function ConstructionPage({ user }) {
     setProjects,
     projectSubSection,
     setProjectSubSection,
-    // projectLineItem,
-    // setProjectLineItem,
   };
 
   //* -------------------------------------------------------------------------- */
@@ -107,11 +104,6 @@ export default function ConstructionPage({ user }) {
     lineItems: [],
   });
 
-  // const [workHistoryLineItem, SetWorkHistoryLineItem] = useState({
-  //   body: '',
-  //   priority: 'normal',
-  // });
-
   const workHistorySectionProps = {
     workHistory,
     setWorkHistory,
@@ -119,8 +111,6 @@ export default function ConstructionPage({ user }) {
     setWorkHistories,
     workHistorySubSection,
     setWorkHistorySubSection,
-    // workHistoryLineItem,
-    // SetWorkHistoryLineItem,
   };
 
   //* -------------------------------------------------------------------------- */
@@ -148,8 +138,6 @@ export default function ConstructionPage({ user }) {
     setEducations,
     educationSubSection,
     setEducationSubSection,
-    // workHistoryLineItem,
-    // SetWorkHistoryLineItem,
   };
 
   //* -------------------------------------------------------------------------- */
@@ -234,6 +222,36 @@ export default function ConstructionPage({ user }) {
   };
 
   useEffect(() => {
+    (async function fetchResume() {
+      const test = await getResume({ id: user._id });
+      setResume({
+        id: test._id,
+        personal: test.personal,
+        statement: test.statement,
+        skills: test.skills,
+        projects: test.projects,
+        workHistory: test.workHistory,
+        education: test.education,
+      });
+      setPersonal(test.personal);
+      setStatement(test.statement);
+      setSkills(test.skills);
+      setProjects((prevState) => ([
+        ...prevState,
+        ...test.projects.subSections,
+      ]));
+      setWorkHistories((prevState) => ([
+        ...prevState,
+        ...test.workHistory.subSections,
+      ]));
+      setEducations((prevState) => ([
+        ...prevState,
+        ...test.education.subSections,
+      ]));
+    })();
+  }, []);
+
+  useEffect(() => {
     setResume((prevResume) => ({
       ...prevResume,
       personal,
@@ -261,7 +279,6 @@ export default function ConstructionPage({ user }) {
         subSections: [...educations],
       },
     }));
-    // console.log(resume);
   }, [
     personal,
     statement,
