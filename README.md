@@ -2,7 +2,7 @@
 The app, Align, is a job agent that searches for jobs for a user based on the user's skillset.
 
 # Deployment Link
-
+https://alignresumes.herokuapp.com/
 
 # User Story
 * As a user, I don't want to search for jobs. I want my agent to present me with jobs that a good fit for my skillset.
@@ -18,11 +18,19 @@ The app, Align, is a job agent that searches for jobs for a user based on the us
 <img width="1616" src="src/assets/images/Screen Shot 2022-07-05 at 4.18.10 PM copy.png" >
 
 # Technologies Used
-* Express
 * Heroku
+* React 
 * Remotive API
 * Tailwindcss
 
 # ERD
 
 # Icebox
+* Keyword tag during resume construction
+* Algorithm to remove resume lines to fit spatial constaints
+* Remotive featured jobs auto search using resume keywords
+* Download resume(s) as PDF
+* Condense Construction page components into single for horizontal alignment of displays and buttons
+* Indeed search
+* Remotive tag scan of Indeed post
+* View resume while constructing
