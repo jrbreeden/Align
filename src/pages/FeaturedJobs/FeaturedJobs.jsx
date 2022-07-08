@@ -52,13 +52,14 @@ export default function FeaturedJobs() {
     console.log("clicked")
   }
   return (
+    <Layout active="featuredJobs">
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
       to={{ opacity: 1, marginLeft: 0 }}
     >
       {(props) => (
         <animated.div style={props}>
-          <Layout active="featuredJobs">
+          
             <div className="flex-col w-full justify-center items-center">
               <div className="p-16">
                 <div className="flex justify-center">
@@ -114,9 +115,10 @@ export default function FeaturedJobs() {
                 </div>
               </div>
             </div>
-          </Layout>
+          
         </animated.div>
       )}
     </Spring>
+    </Layout>
   );
 }

@@ -35,13 +35,14 @@ export default function AppliedJobsPage({ user }) {
   }, [response]);
 
   return (
+    <Layout active="featuredJobs">
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
       to={{ opacity: 1, marginLeft: 0 }}
     >
       {(props) => (
         <animated.div style={props}>
-          <Layout active="featuredJobs">
+          
             <div className="flex-col w-full justify-center items-center">
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>
@@ -80,9 +81,10 @@ export default function AppliedJobsPage({ user }) {
                 </div>
               </div>
             </div>
-          </Layout>
+          
         </animated.div>
       )}
     </Spring>
+    </Layout>
   );
 }

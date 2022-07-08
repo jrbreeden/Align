@@ -1,11 +1,11 @@
 import React from 'react';
 import { logOut } from '../../utilities/users-service';
 import { useNavigate } from 'react-router-dom';
-import resumeConstructor from '../../assets/helpers/ResumeConstructor'
+import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import Layout from '../../components/Layout/Layout';
 import {getResume} from '../../utilities/resume-service'
 
-const testData = require('../../assets/helpers/sampleUser');
+const testData = require('../../utilities/helpers/sampleUser');
 
 export default function Dashboard({ user, setUser }) {
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ export default function Dashboard({ user, setUser }) {
     const userResume = await getResume({id:user._id})
     console.log('this was returned for the user resume ' , userResume)
     resumeConstructor(userResume)
-    
   }
   return (
     <Layout active={'dashboard'} user={user}>

@@ -138,7 +138,7 @@ export default function resumeConstructor(resume) {
                     }),
                     new TextRun({
                         font: 'Garamond',
-                        text: `${personal.link1} | ${personal.link2} | ${personal.link3}`,
+                        text: `${personal.link1? `${personal.link1}`:''}${personal.link2? `${' | '+personal.link2}`:''}${personal.link3? `${' | '+personal.link3}`:''}`,
                         size: 22,
                         break: 1,
                     }),
@@ -153,7 +153,7 @@ export default function resumeConstructor(resume) {
         children: [
             HEADER(statement.header , AlignmentType.CENTER),
             new Paragraph({
-                alignment: AlignmentType.JUSTIFIED,
+                alignment: AlignmentType.LEFT,
                 children: [
                     new TextRun({
                         font: 'Garamond',
@@ -201,6 +201,9 @@ export default function resumeConstructor(resume) {
     }
 
     const doc = new Document({
+        creator:'Align',
+        description:'A beautiful (hopefully) Align optimized resume.',
+        title: 'My Resume',
         sections: [sectPersonal, sectStatement, sectSkills, sectProjects, sectWorkHistory, sectEducation]
     })
 
