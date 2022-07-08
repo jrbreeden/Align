@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import SectionView from '../../SectionView/SectionView';
+import LineItems from '../../LineItems/LineItems';
+
 
 export default function EducationSection({
   section,
@@ -14,6 +16,16 @@ export default function EducationSection({
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
 
+  const handleLineItemSubmit = (e) => {
+    e.preventDefault();
+    setShowLineItemInput(false);
+    setEducationSubSection((prevState) => ({
+      ...prevState,
+      lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
+    }));
+    setLineItem('');
+  };
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -21,9 +33,9 @@ export default function EducationSection({
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="flex flex-col">
+          <div className="flex flex-col bg-orange-200 p-4 w-screen mx-8">
             {/* section priority level  */}
-            <div className="w-1/4">
+            <div className="w-1/6 bg-pink-400">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="header"
@@ -45,16 +57,6 @@ export default function EducationSection({
                         },
                       };
                     });
-
-                    // setProjectSubSection((prevState) => {
-                    //   return {
-                    //     ...prevState,
-                    //     cond: {
-                    //       ...prevState.cond,
-                    //       priority: parseInt(e.target.value),
-                    //     },
-                    //   };
-                    // });
                   }}
                 >
                   <option value={0}>Normal</option>
@@ -72,8 +74,13 @@ export default function EducationSection({
                 </div>
               </div>
             </div>
-            <div className="flex gap-x-60">
-              <div className="h-auto w-96 min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+            {/* MAIN DIV !!! */}
+            <div
+              className={`grid grid-cols-${
+                educationSubSection?.lineItems?.length > 0 ? '3' : '2'
+              } bg-green-200 gap-x-20 justify-center`}
+            >
+              <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
                   <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
                     {section === 'PersonalInfo'
@@ -83,6 +90,7 @@ export default function EducationSection({
                   </li>
                 </ul>
 
+                {/* PROJECT SECTION FORM */}
                 <div className="form mt-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -179,43 +187,6 @@ export default function EducationSection({
                       id="dateEnd"
                       type="date"
                     />
-                    {educationSubSection?.lineItems?.length > 0 && (
-                      <div className="flex flex-col">
-                        <label className="block text-gray-700 text-sm font-bold mb-2 mt-4">
-                          Line Items
-                        </label>
-                        <div className="flex justify-center">
-                          <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-                            {educationSubSection?.lineItems?.map((item) => (
-                              <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                                {item.body}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-
-                    {showLineItemInput && (
-                      <div>
-                        <label
-                          className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                          htmlFor="header"
-                        >
-                          Line Item
-                        </label>
-                        <textarea
-                          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-                          name="lineItem"
-                          value={lineItem.body}
-                          onChange={(e) =>
-                            setLineItem({ body: e.target.value, priority: 0 })
-                          }
-                          rows="4"
-                          placeholder="Enter Line item"
-                        ></textarea>
-                      </div>
-                    )}
                   </div>
                   {showLineItemInput ? null : (
                     <button
@@ -227,18 +198,31 @@ export default function EducationSection({
                     </button>
                   )}
                   {showLineItemInput && (
-                    <div className="flex">
+                    <form onSubmit={handleLineItemSubmit}>
+                      {showLineItemInput && (
+                        <div>
+                          <label
+                            className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                            htmlFor="header"
+                          >
+                            Line Item
+                          </label>
+                          <textarea
+                            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                            name="lineItem"
+                            value={lineItem.body}
+                            onChange={(e) =>
+                              setLineItem({ body: e.target.value, priority: 0 })
+                            }
+                            rows="4"
+                            placeholder="Enter Line item"
+                            required={true}
+                          ></textarea>
+                        </div>
+                      )}
                       <button
                         className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={() => {
-                          setShowLineItemInput(false);
-                          setEducationSubSection((prevState) => ({
-                            ...prevState,
-                            lineItems: [...prevState.lineItems, lineItem],
-                          }));
-                          setLineItem('');
-                        }}
+                        type="submit"
                       >
                         Submit
                       </button>
@@ -251,7 +235,7 @@ export default function EducationSection({
                       >
                         Cancel
                       </button>
-                    </div>
+                    </form>
                   )}
                   {showLineItemInput ? null : (
                     <button
@@ -284,12 +268,20 @@ export default function EducationSection({
                   )}
                 </div>
               </div>
-              <SectionView
-                section={section}
-                sectionVar={education}
-                sectionList={educations}
-                sectionListSetter={setEducations}
-              />
+
+              {/* LINE ITEMS */}
+              {educationSubSection?.lineItems?.length > 0 && (
+                <LineItems items={educationSubSection.lineItems} />
+              )}
+
+              <div className="order-1">
+                <SectionView
+                  section={section}
+                  sectionVar={education}
+                  sectionList={educations}
+                  sectionListSetter={setEducations}
+                />
+              </div>
             </div>
           </div>
         </animated.div>
