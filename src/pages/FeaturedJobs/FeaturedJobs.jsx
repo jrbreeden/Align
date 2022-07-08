@@ -47,9 +47,9 @@ export default function FeaturedJobs({user , markJobAsApplied}) {
   }
 
 
+
    async function trackJob(jobDetails , userId, applied) {
     const trackedJob = jobService.trackJob(jobDetails , userId, applied)
-
    }
 
   return (
