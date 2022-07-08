@@ -2,6 +2,7 @@
 // ! Modules
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // ! Components
 import Stepper from '../../components/Stepper.jsx/Stepper';
@@ -18,6 +19,7 @@ import EducationSection from '../../components/Sections/EducationSection/Educati
 import { getResume } from '../../utilities/resume-service';
 
 export default function ConstructionPage({ user }) {
+  const navigate = useNavigate();
   const [userResume, setUserResume] = useState(null);
   const [step, setStep] = useState(0);
   const steps = [
@@ -221,6 +223,10 @@ export default function ConstructionPage({ user }) {
     }
   };
 
+  // useEffect(() => {
+  //   if(!user) navigate("/login", { replace: true });
+  // });
+
   useEffect(() => {
     (async function fetchResume() {
       const test = await getResume({ id: user._id });
@@ -236,18 +242,15 @@ export default function ConstructionPage({ user }) {
       setPersonal(test.personal);
       setStatement(test.statement);
       setSkills(test.skills);
-      setProjects((prevState) => ([
-        ...prevState,
-        ...test.projects.subSections,
-      ]));
-      setWorkHistories((prevState) => ([
+      setProjects((prevState) => [...prevState, ...test.projects.subSections]);
+      setWorkHistories((prevState) => [
         ...prevState,
         ...test.workHistory.subSections,
-      ]));
-      setEducations((prevState) => ([
+      ]);
+      setEducations((prevState) => [
         ...prevState,
         ...test.education.subSections,
-      ]));
+      ]);
     })();
   }, []);
 

@@ -1,5 +1,5 @@
 
-export default function LineItems({ items }) {
+export default function LineItems({ items, setLineItem, setShowLineItemInput, setIsUpdating, setLineItemIdx }) {
   console.log(items)
   return (
     <>
@@ -15,8 +15,14 @@ export default function LineItems({ items }) {
           </ul>
           <div className="flex mt-4 w-full">
             <ul className="bg-white rounded-lg border border-gray-200 w-full text-gray-900">
-              {items.map((item) => (
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+              {items.map((item, idx) => (
+                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg cursor-pointer hover:bg-gray-300" onClick={() => {
+                  setLineItem(item)
+                  setShowLineItemInput(true)
+                  setIsUpdating(true)
+                  // alert(idx)
+                  setLineItemIdx(idx)
+                }}>
                   {item.body}
                 </li>
               ))}
