@@ -2,7 +2,9 @@ const Resume = require('../../models/M-resume');
 
 const addNewResume = async (req, res) => {
   let newResume;
-  Resume.create(req.body)
+  Resume.deleteOne({user: req.body.user}).then((del)=>{
+    console.log('deleted ' , del)
+    Resume.create(req.body)
     .then((response) => {
       newResume = response;
       console.log('neewwResume', newResume);
@@ -11,6 +13,8 @@ const addNewResume = async (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+  })
+  
 };
 
 const getResume = async(req,res)=>{

@@ -1,7 +1,7 @@
 import { Spring, animated } from 'react-spring';
 import { useState, useEffect } from 'react';
 
-export default function JobCard({ job, status, user, markJobAsApplied,trackJob }) {
+export default function JobCard({ job, status, user, markJobAsApplied, trackJob }) {
 
   return (
     <Spring
