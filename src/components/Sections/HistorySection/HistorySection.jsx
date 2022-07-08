@@ -14,6 +14,7 @@ export default function HistorySection({
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({});
+  
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
