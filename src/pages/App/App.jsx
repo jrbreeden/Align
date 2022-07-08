@@ -20,10 +20,6 @@ export default function App() {
         <Layout active={true} setUser={setUser}>
         <Routes>
           <Route
-            path="/dashboard"
-            element={<DashboardPage user={user} setUser={setUser} exact />}
-          />
-          <Route
             path="/construction"
             element={<ConstructionPage user={user} setUser={setUser} exact />}
           />
@@ -35,7 +31,7 @@ export default function App() {
             path="/profile"
             element={<ProfilePage user={user} />}
           />
-          <Route path="/*" element={<Navigate to='/dashboard'/>} exact />
+          <Route path="/*" element={<Navigate to='/profile'/>} exact />
         </Routes>
         </Layout>
       ) : (
