@@ -5,7 +5,7 @@ import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import Layout from '../../components/Layout/Layout';
 import {getResume} from '../../utilities/resume-service'
 
-const testData = require('../../assets/helpers/sampleUser');
+const testData = require('../../utilities/helpers/sampleUser');
 
 export default function Dashboard({ user, setUser }) {
   const navigate = useNavigate();

@@ -30,7 +30,7 @@ export default function AppliedJobsPage({ user }) {
       }
       console.log('my applied jobs are ', jobsWatched);
     })();
-  }, [jobsWatched]);
+  }, []);
 
   return (
     <Layout active="featuredJobs">
