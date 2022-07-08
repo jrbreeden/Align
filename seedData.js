@@ -3,8 +3,8 @@ const resume = {
         name: 'Jhimson Pamisa',
         email: 'jim@gmail.com',
         phone: '9179464033',
-        link1: 'github.com/Jim',
-        link2: 'linkedIn.com/Jim',
+        link1: 'linkedIn.com/Jim',
+        link2: 'github.com/Jim',
         linked: 'dev-portfolio.com',
       },
       statement: {

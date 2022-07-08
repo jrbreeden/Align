@@ -14,7 +14,9 @@ export default function ProjectsSection({
   setProjectSubSection,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
+  const [lineItemIdx, setLineItemIdx] = useState(null);
 
   const handleSubSectionChange = (e) => {
     setProjectSubSection((prevState) => ({
@@ -212,12 +214,36 @@ export default function ProjectsSection({
                           ></textarea>
                         </div>
                       )}
-                      <button
-                        className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                      >
-                        Submit
-                      </button>
+                      {isUpdating ? null : (
+                        <button
+                          className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      )}
+                      {isUpdating && (
+                        <button
+                          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="button"
+                          onClick={() => {
+                            // alert(lineItem.body);
+                            setProjectSubSection((prevState) => ({
+                              ...prevState,
+                              lineItems: prevState.lineItems.map(
+                                (item, idx) => {
+                                  if (idx === lineItemIdx) {
+                                    item.body = lineItem.body;
+                                  }
+                                  return item
+                                }
+                              ),
+                            }));
+                          }}
+                        >
+                          Update
+                        </button>
+                      )}
                       <button
                         className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="button"
@@ -263,7 +289,13 @@ export default function ProjectsSection({
 
               {/* LINE ITEMS */}
               {projectSubSection?.lineItems?.length > 0 && (
-                <LineItems items={projectSubSection.lineItems} />
+                <LineItems
+                  items={projectSubSection.lineItems}
+                  setLineItem={setLineItem}
+                  setShowLineItemInput={setShowLineItemInput}
+                  setIsUpdating={setIsUpdating}
+                  setLineItemIdx={setLineItemIdx}
+                />
               )}
 
               <div className="order-1">
@@ -272,6 +304,8 @@ export default function ProjectsSection({
                   sectionVar={project}
                   sectionList={projects}
                   sectionListSetter={setProjects}
+                  setSubSection={setProjectSubSection}
+                  // setLineItem={setLineItem}
                 />
               </div>
             </div>

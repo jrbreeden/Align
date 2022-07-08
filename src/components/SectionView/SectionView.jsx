@@ -1,9 +1,14 @@
+import { useState } from 'react';
 import { FiDelete } from 'react-icons/fi';
+import { BiEdit } from 'react-icons/bi';
+
 export default function SectionView({
   section,
   sectionVar,
   sectionList,
   sectionListSetter,
+  setSubSection,
+  setLineItem
 }) {
   return (
     <div className="h-auto w-full min-h-full bg-gray-200 py-8 px-4 border border-2 border-gray-300 drop-shadow-2xl rounded items-center justify-center">
@@ -12,7 +17,7 @@ export default function SectionView({
           {section.toUpperCase()} DATA
         </li>
       </ul>
-      <div className="font-sans flex flex-col bg-blue-darker w-full drop-shadow-2xl gap-y-4 bg-red-200 mt-4">
+      <div className="font-sans flex flex-col bg-blue-darker w-full drop-shadow-2xl gap-y-4 bg-red-200 mt-4 cursor-pointer">
         {sectionList?.length !== 0 &&
           sectionList?.map((sec, index) => {
             const checkPriority = (priority) => {
@@ -41,23 +46,39 @@ export default function SectionView({
                     <p className="font-bold text-lg mb-1 text-black ">
                       {sec.subHeader}
                     </p>
-                    <button
-                      onClick={() => {
-                        sectionListSetter((prevState) =>
-                          [...prevState].filter((sec, idx) => idx !== index)
-                        );
-                      }}
-                    >
-                      <FiDelete />
-                    </button>
+                    <div className="buttons flex gap-x-4">
+                      <button
+                        onClick={() => {
+                          // sectionListSetter((prevState) =>
+                          //   [...prevState].filter((sec, idx) => idx !== index)
+                          // );
+                          console.log('test');
+                          setSubSection(sec);
+                          console.log(sec)
+                        }}
+                      >
+                        <BiEdit size={'1.5em'} />
+                      </button>
+                      <button
+                        onClick={() => {
+                          sectionListSetter((prevState) =>
+                            [...prevState].filter((sec, idx) => idx !== index)
+                          );
+                        }}
+                      >
+                        <FiDelete size={'1.5em'} />
+                      </button>
+                    </div>
                   </div>
                   <div className="flex justify-center mt-2">
                     <ul className="bg-white rounded-lg border border-gray-200 w-full text-gray-900">
                       {sec.lineItems?.length !== 0 &&
                         sec.lineItems?.map((item) => {
-                          return <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-                            - {item.body}
-                          </li>;
+                          return (
+                            <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+                              - {item.body}
+                            </li>
+                          );
                         })}
                     </ul>
                   </div>
