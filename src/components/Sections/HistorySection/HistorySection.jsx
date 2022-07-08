@@ -194,7 +194,11 @@ export default function HistorySection({
                     <button
                       className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                       type="button"
-                      onClick={() => setShowLineItemInput(true)}
+                      onClick={() => {
+                        setShowLineItemInput(true);
+                        setLineItemIdx(null);
+                        setLineItem({ body: '', priority: 0 });
+                      }}
                     >
                       Add New Line Item
                     </button>
@@ -292,6 +296,16 @@ export default function HistorySection({
                           setWorkHistories((prevState) => [
                             ...prevState,
                             workHistorySubSection,
+                          ]);
+                        } else {
+                          setWorkHistories((prevState) => [
+                            ...prevState.map((work) => {
+                              if (work._id === subSectionIdx) {
+                                work.lineItems =
+                                  workHistorySubSection.lineItems;
+                              }
+                              return work;
+                            }),
                           ]);
                         }
 

@@ -303,11 +303,14 @@ export default function ProjectsSection({
                             projectSubSection,
                           ]);
                         } else {
-                          // setProjects((prevState) => [
-                          //   ...prevState,
-                          //   projectSubSection,
-                          // ]);
-                          alert(subSectionIdx)
+                          setProjects((prevState) => [
+                            ...prevState.map((proj) => {
+                              if (proj._id === subSectionIdx) {
+                                proj.lineItems = projectSubSection.lineItems;
+                              }
+                              return proj
+                            }),
+                          ]);
                         }
                         setIsUpdating(false);
                         setSubSectionIdx(null);

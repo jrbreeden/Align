@@ -194,7 +194,11 @@ export default function EducationSection({
                     <button
                       className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                       type="button"
-                      onClick={() => setShowLineItemInput(true)}
+                      onClick={() => {
+                        setShowLineItemInput(true);
+                        setLineItemIdx(null);
+                        setLineItem({ body: '', priority: 0 });
+                      }}
                     >
                       Add New Line Item
                     </button>
@@ -222,7 +226,7 @@ export default function EducationSection({
                           ></textarea>
                         </div>
                       )}
-                     {isUpdating ? null : (
+                      {isUpdating && lineItemIdx !== null ? null : (
                         <button
                           className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                           type="submit"
@@ -230,7 +234,7 @@ export default function EducationSection({
                           Submit
                         </button>
                       )}
-                      {isUpdating && (
+                      {isUpdating && lineItemIdx !== null && (
                         <button
                           className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                           type="button"
@@ -283,10 +287,10 @@ export default function EducationSection({
                           subSections: educationSubSection,
                         }));
 
-                        setEducations((prevState) => [
-                          ...prevState,
-                          educationSubSection,
-                        ]);
+                        // setEducations((prevState) => [
+                        //   ...prevState,
+                        //   educationSubSection,
+                        // ]);
                         let subSectionExists = false;
                         educations.forEach((sub) => {
                           if (sub._id === subSectionIdx) {
@@ -298,6 +302,15 @@ export default function EducationSection({
                           setEducations((prevState) => [
                             ...prevState,
                             educationSubSection,
+                          ]);
+                        } else {
+                          setEducations((prevState) => [
+                            ...prevState.map((edu) => {
+                              if (edu._id === subSectionIdx) {
+                                edu.lineItems = educationSubSection.lineItems;
+                              }
+                              return edu;
+                            }),
                           ]);
                         }
                         setIsUpdating(false);
