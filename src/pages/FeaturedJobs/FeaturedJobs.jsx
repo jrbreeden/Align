@@ -60,7 +60,7 @@ export default function FeaturedJobs() {
       {(props) => (
         <animated.div style={props}>
           
-            <div className="">
+        <div>
               <div className="p-16 flex-col w-full justify-center items-center">
                 <div className="flex justify-center">
                   <div className="mb-3 xl:w-96">
@@ -105,17 +105,16 @@ export default function FeaturedJobs() {
                   <h1 className="text-4xl font-bold text-center mt-8">
                     Featured Jobs
                   </h1>
+                  
                 )}
 
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8" >
                   {featuredJobs.map((job) => (
                     <JobCard job={job} trackJob={trackJob} />
-
                   ))}
                 </div>
               </div>
-            </div>
-          
+          </div>
         </animated.div>
       )}
     </Spring>

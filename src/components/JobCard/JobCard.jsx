@@ -1,7 +1,7 @@
 import { Spring, animated } from 'react-spring';
 import { useState, useEffect } from 'react';
 
-export default function JobCard({ job, status, user, markJobAsApplied, trackJob }) {
+export default function JobCard({ job, status, user, markJobAsApplied, trackJob , stopTracking}) {
 
   return (
     <Spring
@@ -42,22 +42,35 @@ export default function JobCard({ job, status, user, markJobAsApplied, trackJob 
             </div>
 
             <div className="flex gap-x-4">
-              {job.date_applied === null && (
+              {job.date_applied === null ? (
                 <>
-                  <button
-                    className="bg-blue-500 px-4 py-2 font-semibold rounded text-white hover:bg-blue-400 mt-14"
-                    onclick={() => trackJob(job.id)}
+                                 <button
+                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
+                    onClick={() => {
+                      stopTracking(job._id, user._id);
+                    }}
                   >
-                    Track Jobs
+                    Stop Tracking
                   </button>
-{/*                  <button
+                 <button
                     className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
                     onClick={() => {
                       markJobAsApplied(job._id, user._id);
                     }}
                   >
                     Mark as Applied
-                  </button> */}
+                  </button>
+                </>
+              ):(
+                <>
+                 <button
+                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
+                    onClick={() => {
+                      stopTracking(job._id, user._id);
+                    }}
+                  >
+                    Stop Tracking
+                  </button>
                 </>
               )}
             </div>

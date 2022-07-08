@@ -13,3 +13,7 @@ export function markJobAsApplied(job_id, user_id) {
     user_id,
   });
 }
+
+export function stopTrackingJob(job_id , user_id){
+  return sendRequest(`${BASE_URL}/stop-tracking`, 'POST' , {job_id, user_id})
+}

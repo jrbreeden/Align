@@ -50,7 +50,21 @@ async function markJobAsApplied(req, res) {
   // }
 }
 
+async function stopTracking(req,res){
+  console.log('in c jobs with ' , req.body)
+
+  AppliedJobs.updateOne({user:req.body.user_id} , {$pull:{appliedJobList:{_id:req.body.job_id}}}).then((change)=>{
+    console.log(change)
+    res.status(200).json({ Message: 'Successfully updated job!' });
+  }).catch((err)=>{
+    console.log('There was an error with stopping tracking. ' ,err)
+    res.status(500).json({ Message: error.message });
+  })
+
+}
+
 module.exports = {
   appliedJobs,
   markJobAsApplied,
+  stopTracking,
 };
