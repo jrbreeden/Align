@@ -1,7 +1,7 @@
 import Layout from '../../components/Layout/Layout';
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
-import { getAppliedJobs, markJobAsApplied } from '../../utilities/jobs-service';
+import { getAppliedJobs, markJobAsApplied, stopTrackingJob } from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import {getResume} from '../../utilities/resume-service'
@@ -18,6 +18,12 @@ export default function AppliedJobsPage({ user }) {
     const jobsApplied = await markJobAsApplied(job_id, user_id);
     setResponse(jobsApplied);
   };
+
+  const stopTracking = async (job_id , user_id)=>{
+    const jobToStopTracking = await stopTrackingJob(job_id , user_id)
+    setResponse(jobToStopTracking)
+  }
+
 
   useEffect(() => {
     (async function populateJobs() {
@@ -64,6 +70,8 @@ export default function AppliedJobsPage({ user }) {
                           status={1}
                           markJobAsApplied={markAsApplied}
                           user={user}
+                          stopTracking={stopTracking}
+                          isFetched={false}
                         />
                       ))
                     : null}
@@ -85,6 +93,8 @@ export default function AppliedJobsPage({ user }) {
                           status={2}
                           markJobAsApplied={markAsApplied}
                           user={user}
+                          stopTracking={stopTracking}
+                          isFetched={false}
                         />
                       ))
                     : null}

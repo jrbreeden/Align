@@ -3,8 +3,9 @@ import { Spring, animated } from 'react-spring';
 import JobCard from '../../components/JobCard/JobCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import * as jobService from '../../utilities/jobs-service'
 
-export default function FeaturedJobs() {
+export default function FeaturedJobs({user , markJobAsApplied}) {
   const [featuredJobs, setFeaturedJobs] = useState(
     localStorage.getItem('featuredJobs')
       ? JSON.parse(localStorage.getItem('featuredJobs'))
@@ -46,12 +47,11 @@ export default function FeaturedJobs() {
   }
 
 
-   function trackJob(id) {
-   
-// send  the job to the database
-// send request
-    console.log("clicked")
-  }
+   async function trackJob(jobDetails , userId, applied) {
+    const trackedJob = jobService.trackJob(jobDetails , userId, applied)
+
+   }
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -60,7 +60,7 @@ export default function FeaturedJobs() {
       {(props) => (
         <animated.div style={props}>
           
-            <div className="">
+        <div>
               <div className="p-16 flex-col w-full justify-center items-center">
                 <div className="flex justify-center">
                   <div className="mb-3 xl:w-96">
@@ -105,17 +105,16 @@ export default function FeaturedJobs() {
                   <h1 className="text-4xl font-bold text-center mt-8">
                     Featured Jobs
                   </h1>
+                  
                 )}
 
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8" >
                   {featuredJobs.map((job) => (
-                    <JobCard job={job} trackJob={trackJob} />
-
+                    <JobCard job={job} markJobAsApplied={markJobAsApplied} trackJob={trackJob} user={user} isFetched={true}/>
                   ))}
                 </div>
               </div>
-            </div>
-          
+          </div>
         </animated.div>
       )}
     </Spring>
