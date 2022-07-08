@@ -77,8 +77,9 @@ try{
       jobList.appliedJobList.push(req.body.job)
     }else{
       if(!myJob.date_applied && req.body.job.date_applied){
-        console.log('attempting date applied change' , myJob)
-        jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)]= {...jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)], date_applied:req.body.job.date_applied}
+        console.log('attempting date applied change' , jobList.appliedJobList)
+        console.log('index of job to edit is ', jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)])
+        //jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)]= {...jobList.appliedJobList[jobList.appliedJobList.indexOf(myJob)], date_applied:req.body.job.date_applied}
       }else{
         console.log('Job already tracked!')
       }
