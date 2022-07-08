@@ -14,7 +14,9 @@ export default function HistorySection({
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({});
-  
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [lineItemIdx, setLineItemIdx] = useState(null);
+  const [subSectionIdx, setSubSectionIdx] = useState(null);
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
@@ -220,12 +222,39 @@ export default function HistorySection({
                           ></textarea>
                         </div>
                       )}
-                      <button
-                        className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                      >
-                        Submit
-                      </button>
+                      {isUpdating ? null : (
+                        <button
+                          className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      )}
+                      {isUpdating && (
+                        <button
+                          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="button"
+                          onClick={() => {
+                            // alert(lineItem.body);
+                            setWorkHistorySubSection((prevState) => {
+                              setShowLineItemInput(false);
+                              return {
+                                ...prevState,
+                                lineItems: prevState.lineItems.map(
+                                  (item, idx) => {
+                                    if (idx === lineItemIdx) {
+                                      item.body = lineItem.body;
+                                    }
+                                    return item;
+                                  }
+                                ),
+                              };
+                            });
+                          }}
+                        >
+                          Update
+                        </button>
+                      )}
                       <button
                         className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="button"
@@ -248,10 +277,27 @@ export default function HistorySection({
                           subSections: workHistorySubSection,
                         }));
 
-                        setWorkHistories((prevState) => [
-                          ...prevState,
-                          workHistorySubSection,
-                        ]);
+                        // setWorkHistories((prevState) => [
+                        //   ...prevState,
+                        //   workHistorySubSection,
+                        // ]);
+                        let subSectionExists = false;
+                        workHistories.forEach((sub) => {
+                          if (sub._id === subSectionIdx) {
+                            subSectionExists = true;
+                          }
+                        });
+
+                        if (!subSectionExists) {
+                          setWorkHistories((prevState) => [
+                            ...prevState,
+                            workHistorySubSection,
+                          ]);
+                        }
+
+                        setIsUpdating(false);
+                        setSubSectionIdx(null);
+                        setLineItem({ body: '', priority: 0 });
                         console.log(workHistory.header);
                         // Reset ProjectSubSection
                         setWorkHistorySubSection({
@@ -271,7 +317,13 @@ export default function HistorySection({
 
               {/* LINE ITEMS */}
               {workHistorySubSection?.lineItems?.length > 0 && (
-                <LineItems items={workHistorySubSection.lineItems} />
+                <LineItems
+                  items={workHistorySubSection.lineItems}
+                  setLineItem={setLineItem}
+                  setShowLineItemInput={setShowLineItemInput}
+                  setIsUpdating={setIsUpdating}
+                  setLineItemIdx={setLineItemIdx}
+                />
               )}
 
               <div className="order-1">
@@ -280,6 +332,8 @@ export default function HistorySection({
                   sectionVar={workHistory}
                   sectionList={workHistories}
                   sectionListSetter={setWorkHistories}
+                  setSubSection={setWorkHistorySubSection}
+                  setSubSectionIdx={setSubSectionIdx}
                 />
               </div>
             </div>
