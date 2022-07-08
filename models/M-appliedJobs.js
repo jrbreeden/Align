@@ -8,7 +8,7 @@ const jobDetails = new Schema({
   location: { type: String, required: true },
   jobType: { type: String, required: true },
   job_link: { type: String, required: true },
-  resume_link: { type: String, required: true },
+  resume_link: { type: String, required: false },
   job_date_posted: { type: Date, required: true },
   date_applied: { type: Date, required: false, default:null},
 })

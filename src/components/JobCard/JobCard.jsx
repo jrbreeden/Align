@@ -1,7 +1,7 @@
 import { Spring, animated } from 'react-spring';
 import { useState, useEffect } from 'react';
 
-export default function JobCard({ job, status, user, markJobAsApplied, trackJob , stopTracking}) {
+export default function JobCard({ job, status, user, markJobAsApplied, trackJob , stopTracking , isFetched}) {
 
   return (
     <Spring
@@ -42,7 +42,27 @@ export default function JobCard({ job, status, user, markJobAsApplied, trackJob 
             </div>
 
             <div className="flex gap-x-4">
-              {job.date_applied === null ? (
+              {isFetched?
+               <>
+               <button
+                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
+                    onClick={() => {
+                      trackJob( job , user._id , false);
+                    }}
+                  >
+                    Track this Job
+                  </button>
+                                <button
+                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
+                    onClick={() => {
+                      trackJob( job , user._id, true);
+                    }}
+                  >
+                    Mark as Applied
+                  </button>
+               </>
+              
+              :job.date_applied === null ? (
                 <>
                                  <button
                     className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"

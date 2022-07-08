@@ -71,6 +71,7 @@ export default function AppliedJobsPage({ user }) {
                           markJobAsApplied={markAsApplied}
                           user={user}
                           stopTracking={stopTracking}
+                          isFetched={false}
                         />
                       ))
                     : null}
@@ -93,6 +94,7 @@ export default function AppliedJobsPage({ user }) {
                           markJobAsApplied={markAsApplied}
                           user={user}
                           stopTracking={stopTracking}
+                          isFetched={false}
                         />
                       ))
                     : null}
