@@ -14,6 +14,7 @@ const lineSchema = new Schema({
   body: {
     type: String,
     required: true,
+    max:50
   },
   tags: [{ type: String }],
 });
@@ -85,8 +86,7 @@ const resumeSchema = new Schema({
   personal: personalSchema,
   statement: { type: statementSchema, required: false },
   skills: {
-    type: [{ type: skillSchema, required: false }],
-    // validate: [50, 'Too many skills. Max 50'],
+    type: [{ type: skillSchema, required: false , max:100}],
   },
   projects: sectionSchema,
   workHistory: sectionSchema,

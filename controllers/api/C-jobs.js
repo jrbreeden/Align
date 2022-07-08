@@ -88,7 +88,7 @@ try{
     
   }else{
     AppliedJobs.createOne({
-      user:user,
+      user:req.body.user,
       appliedJobList:[req.body.job]
     }).then((change)=>{
       console.log('Created new list for user' ,change)
