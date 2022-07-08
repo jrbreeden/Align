@@ -13,3 +13,13 @@ export async function markJobAsApplied(job_id, user_id){
   return jobsApplied
   //return appliedJobs ? JSON.parse(window.atob(appliedJobs.split('.')[1])).user : null
 }
+
+export async function stopTrackingJob(job_id , user_id){
+  const jobToStop = await jobsAPI.stopTrackingJob(job_id,user_id)
+  return jobToStop
+}
+
+export async function trackJob(job, user, applied){
+  const trackedJob = await jobsAPI.trackJob(job, user, applied)
+  return trackedJob
+}
