@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
-import EducationView from '../../Review/EducationView/EducationView';
 import SectionView from '../../SectionView/SectionView';
 
 export default function EducationSection({

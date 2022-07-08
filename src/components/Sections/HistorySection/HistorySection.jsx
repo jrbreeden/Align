@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
-import HistoryView from '../../Review/HistoryView/HistoryView';
 import SectionView from '../../SectionView/SectionView';
 
 export default function HistorySection({
