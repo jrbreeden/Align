@@ -18,7 +18,7 @@
 function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
   //console.log('my resume is , ' ,resume)
     const { personal, statement, skills, projects, workHistory, education } = resume
-    const sectionList = [projects, workHistory, education]
+    const sectionList = [projects, workHistory]
 
     const maxLinesSpace = 63*spaceConstraints*11
     let currentSpace = 0
@@ -57,11 +57,45 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
       }
     }
 
-    const createSections = () =>{
+    const createEducation = ()=>{
+      currentSpace+=12
+      console.log('ed subsects' , education.subSections)
+      education.subSections.forEach((sub)=>{
+        currentSpace+=12
+        sub.lineItems.forEach((bullet)=>{
+          currentSpace+=11*Math.ceil(bullet.body.length/110)
+        })
+      })
+      return education
+    }
 
+    const createSections = (sectArr) =>{
+      currentSpace += sectArr.length*12
+
+      let sectSubScoresList = []
+
+      sectArr.forEach((sect)=>{
+        
+        sect.subSections.forEach((subSect)=>{
+          let score = 0
+          subSect.lineItems.forEach((line)=>{
+            line.tags.forEach((tag)=>{
+              jobKeywordList.includes(tag) && score++
+            })
+          })
+          sectSubScoresList.push([score , subSect])
+        })
+      })
+
+      sectSubScoresList.sort(function(a,b){
+        return b[0]-a[0]
+      })
+      console.log('my sectSub scores list',sectSubScoresList)
     }
 
     output.skills = createSkills(12)
+    output.education = createEducation()
+    createSections(sectionList)
     console.log('r space after skills' , maxLinesSpace-currentSpace)
     return output
 }
@@ -144,7 +178,7 @@ const testData = {
           {
             priority: 2,
             body: 'Developed a Full-Stack web app that allows users to keep track of their buy and sell transactions of stocks',
-            tags: ['Full-Stack', 'web', 'transactions'],
+            tags: ['fullstack', 'web', 'transactions',],
           },
           {
             priority: 1,
@@ -187,7 +221,7 @@ const testData = {
           {
             priority: 2,
             body: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.`,
-            tags: ['Full-Stack', 'web', 'transactions'],
+            tags: ['fullstack', 'web', 'transactions' , 'algorithms','node.js'],
           },
           {
             priority: 1,
