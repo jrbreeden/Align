@@ -298,6 +298,7 @@ export default function ConstructionPage({ user }) {
           ...prevState,
           ...test.education.subSections,
         ]);
+        console.log(resume)
       }
     })();
   }, []);
