@@ -17,12 +17,8 @@ export default function StatementSection({
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const resetFields = () => {
-    setValue('name', '');
-    setValue('email', '');
-    setValue('phone', '');
-    setValue('link1', '');
-    setValue('link2', '');
-    setValue('link3', '');
+    setValue('header', '');
+    setValue('body', '');
   };
 
   const handleChange = (e) => {
@@ -37,7 +33,7 @@ export default function StatementSection({
     if (Object.keys(errors).length === 0) {
       setModalIsOpen(true);
       resetFields();
-      setTimeout(() => setModalIsOpen(false), 2000);
+      setTimeout(() => setModalIsOpen(false), 1000);
     }
   };
 

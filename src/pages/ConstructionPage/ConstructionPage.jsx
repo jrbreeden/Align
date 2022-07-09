@@ -230,16 +230,39 @@ export default function ConstructionPage({ user }) {
         );
 
       case 'Projects':
-        return <ProjectsSection section={section} {...projectSectionProps} />;
+        return (
+          <ProjectsSection
+            section={section}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            {...projectSectionProps}
+          />
+        );
 
       case 'History':
         return (
-          <HistorySection section={section} {...workHistorySectionProps} />
+          <HistorySection
+            section={section}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            {...workHistorySectionProps}
+          />
         );
 
       case 'Education':
         return (
-          <EducationSection section={section} {...educationSectionProps} />
+          <EducationSection
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            section={section}
+            {...educationSectionProps}
+          />
         );
 
       default:

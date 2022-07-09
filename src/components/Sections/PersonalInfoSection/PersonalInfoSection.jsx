@@ -35,7 +35,7 @@ export default function PersonalInfoSection({
     if (Object.keys(errors).length === 0) {
       setModalIsOpen(true);
       resetFields();
-      setTimeout(() => setModalIsOpen(false), 2000);
+      setTimeout(() => setModalIsOpen(false), 1000);
     }
   };
 
@@ -218,7 +218,7 @@ export default function PersonalInfoSection({
                     />
                     {errors?.link2?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Can't have more then 20 characters!
+                        Cannot exceed 20 characters
                       </p>
                     )}
                   </div>
@@ -246,7 +246,7 @@ export default function PersonalInfoSection({
                     />
                     {errors?.link3?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Can't have more then 20 characters!
+                        Cannot exceed 20 characters
                       </p>
                     )}
                   </div>

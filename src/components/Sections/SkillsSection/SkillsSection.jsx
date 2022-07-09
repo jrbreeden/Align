@@ -18,12 +18,7 @@ export default function PersonalInfoSection({
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const resetFields = () => {
-    setValue('name', '');
-    setValue('email', '');
-    setValue('phone', '');
-    setValue('link1', '');
-    setValue('link2', '');
-    setValue('link3', '');
+    setValue('skill', '');
   };
 
   const handleChange = (e) => {
@@ -48,7 +43,7 @@ export default function PersonalInfoSection({
       setSkill({ _id: '', skill: '', priority: 0 });
       setModalIsOpen(true);
       resetFields();
-      setTimeout(() => setModalIsOpen(false), 2000);
+      setTimeout(() => setModalIsOpen(false), 1000);
     }
   };
 
@@ -72,6 +67,7 @@ export default function PersonalInfoSection({
       {(props) => (
         <animated.div style={props}>
           <div className="flex gap-x-60">
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
             <div className="h-auto w-96 min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
               <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
                 <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">

@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import LineItems from '../../LineItems/LineItems';
 import SectionView from '../../SectionView/SectionView';
-
-
+import Modal from '../../Modal/Modal';
+import { useState, useEffect } from 'react';
 
 export default function ProjectsSection({
   section,
@@ -13,6 +12,10 @@ export default function ProjectsSection({
   setProjects,
   projectSubSection,
   setProjectSubSection,
+  register,
+  handleSubmit,
+  setValue,
+  errors,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -20,13 +23,63 @@ export default function ProjectsSection({
   const [lineItemIdx, setLineItemIdx] = useState(null);
   const [subSectionIdx, setSubSectionIdx] = useState(null);
 
- 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const resetSubSectionsFields = () => {
+    setValue('subHeader', '');
+    setValue('dateStart', '');
+    setValue('dateEnd', '');
+  };
 
   const handleSubSectionChange = (e) => {
     setProjectSubSection((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleSubSectionSubmit = (data) => {
+    if (Object.keys(errors).length === 0) {
+      setProject((prevState) => ({
+        ...prevState,
+        header: project.header,
+        subSections: projectSubSection,
+      }));
+      let subSectionExists = false;
+      projects.forEach((proj) => {
+        if (proj._id === subSectionIdx) {
+          subSectionExists = true;
+        }
+      });
+
+      if (!subSectionExists) {
+        setProjects((prevState) => [...prevState, projectSubSection]);
+      } else {
+        setProjects((prevState) => [
+          ...prevState.map((proj) => {
+            if (proj._id === subSectionIdx) {
+              proj.lineItems = projectSubSection.lineItems;
+            }
+            return proj;
+          }),
+        ]);
+      }
+      setIsUpdating(false);
+      setSubSectionIdx(null);
+      setLineItem({ body: '', priority: 0 });
+      console.log(project.header);
+      // Reset ProjectSubSection
+      setProjectSubSection({
+        cond: { priority: 0, items: 0 },
+        subHeader: '',
+        dateStart: '',
+        dateEnd: '',
+        lineItems: [],
+      });
+      setModalIsOpen(true);
+      resetSubSectionsFields();
+      setTimeout(() => setModalIsOpen(false), 1000);
+    }
   };
 
   const handleLineItemSubmit = (e) => {
@@ -39,6 +92,22 @@ export default function ProjectsSection({
     setLineItem('');
   };
 
+  useEffect(() => {
+    if (projectSubSection) {
+      setValue('subHeader', projectSubSection.subHeader);
+      setValue('dateStart', projectSubSection.dateStart.split('T')[0]);
+      setValue('dateEnd', projectSubSection.dateEnd.split('T')[0]);
+    }
+
+    // if (projectSubSection.lineItems.length === 0) {
+    //   errors.lineItems = {
+    //     message: 'Must have atleast 1 line item',
+    //     type: 'required',
+    //   };
+    // }
+    // console.log(errors)
+  }, [projectSubSection]);
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -47,6 +116,7 @@ export default function ProjectsSection({
       {(props) => (
         <animated.div style={props}>
           <div className="flex flex-col bg-red-500 p-4 w-screen mx-8">
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
             {/* section priority level  */}
             <div className="w-1/6 bg-pink-400">
               <label
@@ -140,64 +210,125 @@ export default function ProjectsSection({
                       </svg>
                     </div>
                   </div>
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="header"
-                    >
-                      Header
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="subHeader"
-                      value={projectSubSection.subHeader}
-                      onChange={handleSubSectionChange}
-                      id="subHeader"
-                      type="text"
-                      placeholder="Enter Sub Section"
-                    />
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date Start
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateStart"
-                      type="date"
-                      value={projectSubSection.dateStart.split('T')[0]}
-                      onChange={handleSubSectionChange}
-                      id="dateStart"
-                    />
+                  {/* SUB SECTION FORM! */}
+                  <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="header"
+                      >
+                        Header
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="subHeader"
+                        // value={projectSubSection.subHeader}
+                        // onChange={handleSubSectionChange}
+                        {...register('subHeader', {
+                          value: projectSubSection.subHeader,
+                          onChange: handleSubSectionChange,
+                          required: 'Sub Header is required!',
+                          minLength: 3,
+                          maxLength: 40,
+                        })}
+                        id="subHeader"
+                        type="text"
+                        placeholder="Enter Sub Section"
+                      />
+                      {errors?.subHeader?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'minLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Must have atleast 3 characters
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'maxLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Cannot exceed 40 characters
+                        </p>
+                      )}
 
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date End
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateEnd"
-                      value={projectSubSection.dateEnd.split('T')[0]}
-                      onChange={handleSubSectionChange}
-                      id="dateEnd"
-                      type="date"
-                    />
-                  </div>
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date Start
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateStart"
+                        type="date"
+                        // value={projectSubSection.dateStart.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateStart', {
+                          value: projectSubSection.dateStart.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date Start is required!',
+                        })}
+                        id="dateStart"
+                      />
+                      {errors?.dateStart?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date End
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateEnd"
+                        // value={projectSubSection.dateEnd.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateEnd', {
+                          value: projectSubSection.dateEnd.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date End is required!',
+                        })}
+                        id="dateEnd"
+                        type="date"
+                      />
+                      {errors?.dateEnd?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                    </div>
+                    {showLineItemInput ? null : (
+                      <button
+                        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    )}
+                  </form>
                   {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="button"
-                      onClick={() => {
-                        setShowLineItemInput(true);
-                        setLineItemIdx(null);
-                        setLineItem({ body: '', priority: 0 });
-                      }}
-                    >
-                      Add New Line Item
-                    </button>
+                    <>
+                      <button
+                        className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="button"
+                        onClick={() => {
+                          setShowLineItemInput(true);
+                          setLineItemIdx(null);
+                          setLineItem({ body: '', priority: 0 });
+                        }}
+                      >
+                        Add New Line Item
+                      </button>
+                      {errors?.lineItems?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          {errors?.lineItems?.message}
+                        </p>
+                      )}
+                    </>
                   )}
                   {showLineItemInput && (
                     <form onSubmit={handleLineItemSubmit}>
@@ -265,55 +396,6 @@ export default function ProjectsSection({
                         Cancel
                       </button>
                     </form>
-                  )}
-                  {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-                      type="button"
-                      onClick={() => {
-                        setProject((prevState) => ({
-                          ...prevState,
-                          header: project.header,
-                          subSections: projectSubSection,
-                        }));
-                        let subSectionExists = false;
-                        projects.forEach((proj) => {
-                          if (proj._id === subSectionIdx) {
-                            subSectionExists = true;
-                          }
-                        });
-
-                        if (!subSectionExists) {
-                          setProjects((prevState) => [
-                            ...prevState,
-                            projectSubSection,
-                          ]);
-                        } else {
-                          setProjects((prevState) => [
-                            ...prevState.map((proj) => {
-                              if (proj._id === subSectionIdx) {
-                                proj.lineItems = projectSubSection.lineItems;
-                              }
-                              return proj;
-                            }),
-                          ]);
-                        }
-                        setIsUpdating(false);
-                        setSubSectionIdx(null);
-                        setLineItem({ body: '', priority: 0 });
-                        console.log(project.header);
-                        // Reset ProjectSubSection
-                        setProjectSubSection({
-                          cond: { priority: 0, items: 0 },
-                          subHeader: '',
-                          dateStart: '',
-                          dateEnd: '',
-                          lineItems: [],
-                        });
-                      }}
-                    >
-                      Submit
-                    </button>
                   )}
                 </div>
               </div>
