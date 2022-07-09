@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createResume } from '../../utilities/resume-service';
 export default function StepperNav({
@@ -12,6 +12,7 @@ export default function StepperNav({
   sections,
   setSections,
   resume,
+  errors,
 }) {
   const navigate = useNavigate();
 
@@ -165,12 +166,16 @@ export default function StepperNav({
 
   useEffect(() => {
     setCurrentSection(steps[step]);
-    console.log(steps[step]);
+    // console.log(steps[step]);
   }, [step, currentSection]);
 
   useEffect(() => {
     console.log(sections);
   }, [sections]);
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   return (
     <div className="mx-8 mt-24">
@@ -216,19 +221,20 @@ export default function StepperNav({
                 // console.log(resume);
                 resume.user = user._id;
                 createResume(resume);
-                navigate('/profile', {replace:true})
+                navigate('/profile', { replace: true });
               }}
             >
               Submit
             </button>
           ) : (
             <button
-              className="text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-teal-600  
-        bg-teal-600 
-        text-teal-100 
-        border duration-200 ease-in-out 
-        border-teal-600 transition"
+              className={`text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+              ${
+                Object.keys(errors).length === 0 ? 'bg-teal-500' : ' bg-black'
+              } 
+              text-white 
+              border duration-200 ease-in-out 
+              border-white transition`}
               onClick={() => {
                 setStep((prevStep) => prevStep + 1);
                 setSections((prevSections) => ({
@@ -236,6 +242,7 @@ export default function StepperNav({
                   [`${steps[step + 1]}`]: true,
                 }));
               }}
+              disabled={Object.keys(errors).length > 0}
             >
               Next
             </button>
