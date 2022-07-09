@@ -134,7 +134,7 @@ export default function StatementSection({
                     )}
                     {errors?.body?.type === 'minLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Must have atleast 3 characters
+                        Must have atleast 10 characters
                       </p>
                     )}
                     {errors?.body?.type === 'maxLength' && (
