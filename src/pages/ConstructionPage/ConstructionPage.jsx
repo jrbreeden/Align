@@ -272,31 +272,31 @@ export default function ConstructionPage({ user }) {
 
   useEffect(() => {
     (async function fetchResume() {
-      const test = await getResume({ id: user._id });
-      if (test) {
+      const resumeData = await getResume({ id: user._id });
+      if (resumeData) {
         setResume({
-          id: test._id,
-          personal: test.personal,
-          statement: test.statement,
-          skills: test.skills,
-          projects: test.projects,
-          workHistory: test.workHistory,
-          education: test.education,
+          id: resumeData._id,
+          personal: resumeData.personal,
+          statement: resumeData.statement,
+          skills: resumeData.skills,
+          projects: resumeData.projects,
+          workHistory: resumeData.workHistory,
+          education: resumeData.education,
         });
-        setPersonal(test.personal);
-        setStatement(test.statement);
-        setSkills(test.skills);
+        setPersonal(resumeData.personal);
+        setStatement(resumeData.statement);
+        setSkills(resumeData.skills);
         setProjects((prevState) => [
           ...prevState,
-          ...test.projects.subSections,
+          ...resumeData.projects.subSections,
         ]);
         setWorkHistories((prevState) => [
           ...prevState,
-          ...test.workHistory.subSections,
+          ...resumeData.workHistory.subSections,
         ]);
         setEducations((prevState) => [
           ...prevState,
-          ...test.education.subSections,
+          ...resumeData.education.subSections,
         ]);
         console.log(resume)
       }
