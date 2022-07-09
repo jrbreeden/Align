@@ -1162,6 +1162,7 @@ module.exports = [
     "rdf",
     "react",
     "react js",
+    "react.js",
     "react native",
     "react/node",
     "react/redux",

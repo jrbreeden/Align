@@ -41,6 +41,8 @@ export default function resumeConstructor(resume) {
     }
 
     const SUBHEADER = (subheaderText, dateStart, dateEnd) => {
+
+        console.log('my dateStart, dateEnd is ' , dateStart, dateEnd)
         let dateText=''
         
         const monthMap = {
