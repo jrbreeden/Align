@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import LineItems from '../../LineItems/LineItems';
-// import ProjectsView from '../../Review/ProjectsView/ProjectsView';
 import SectionView from '../../SectionView/SectionView';
-import moment from 'moment'
+
+
 
 export default function ProjectsSection({
   section,
@@ -20,15 +20,7 @@ export default function ProjectsSection({
   const [lineItemIdx, setLineItemIdx] = useState(null);
   const [subSectionIdx, setSubSectionIdx] = useState(null);
 
-  const getDate = (date) => {
-    console.log('bugo', moment(new Date(date)).format('YYYY-MM-DD'));
-    let result = '';
-    for (let i = 0; i < result.length; i++) {
-      result += i;
-      if (i === 'T') return result;
-    }
-    console.log('WTF yawa', result);
-  };
+ 
 
   const handleSubSectionChange = (e) => {
     setProjectSubSection((prevState) => ({
@@ -44,23 +36,6 @@ export default function ProjectsSection({
       ...prevState,
       lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
     }));
-    // projects.forEach((sub) => {
-    //   if (sub._id !== subSectionIdx) {
-    //     console.log(sub._id, subSectionIdx);
-
-    //   } else {
-    //     // setProjectSubSection(prevState => ({
-    //     //   ...prevState,
-    //     //   lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }]
-    //     // }))
-    //   }
-    // });
-    // setProjectSubSection((prevState) => ({
-    //   ...prevState,
-    //   lineItems: [...prevState.lineItems, projects.forEach(sub => {
-    //     return sub._id === subSectionIdx ? { body: lineItem.body, priority: 0 }
-    //   })],
-    // }));
     setLineItem('');
   };
 
