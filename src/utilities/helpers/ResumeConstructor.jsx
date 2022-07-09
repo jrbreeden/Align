@@ -41,9 +41,37 @@ export default function resumeConstructor(resume) {
     }
 
     const SUBHEADER = (subheaderText, dateStart, dateEnd) => {
-        let dateText
-        //let month
-        dateEnd && dateStart? dateText=`\t${dateStart}-${dateEnd}`: dateStart? dateText=`\t${dateStart}`: dateEnd?dateText=`\t${dateEnd}`:dateText=''
+        let dateText=''
+        
+        const monthMap = {
+            '01':'Jan',
+            '02':'Feb',
+            '03':'Mar',
+            '04':'Apr',
+            '05':'May',
+            '06':'Jun',
+            '07':'Jul',
+            '08':'Aug',
+            '09':'Sep',
+            '10':'Oct',
+            '11':'Nov',
+            '12':'Dec'
+        }
+        
+        //console.log('converted date format start, end is ' , `${monthMap[dateStart.slice(5,7)]} ${dateStart.slice(0,4)}` , `${monthMap[dateEnd.slice(5,7)]} ${dateEnd.slice(0,4)}` )
+
+        if(dateStart){
+            dateText += `\t${monthMap[dateStart.slice(5,7)]} ${dateStart.slice(0,4)}`
+            if(dateEnd){
+                dateText += `-${monthMap[dateEnd.slice(5,7)]} ${dateEnd.slice(0,4)}`
+            }
+        }else if(dateEnd){
+            dateText += `\t${monthMap[dateEnd.slice(5,7)]} ${dateEnd.slice(0,4)}`
+        }else{
+            dateText = ''
+        }
+
+        //dateEnd && dateStart? dateText=`\t${dateStart}-${dateEnd}`: dateStart? dateText=`\t${dateStart}`: dateEnd?dateText=`\t${dateEnd}`:dateText=''
         return new Paragraph({
             alignment: AlignmentType.LEFT,
             children: [
