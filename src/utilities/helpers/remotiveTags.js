@@ -488,6 +488,8 @@ module.exports = [
     "events",
     "excel",
     "executive assistant",
+    "express",
+    "express.js",
     "f#",
     "f2p",
     "facebook",
