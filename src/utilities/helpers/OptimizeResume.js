@@ -25,7 +25,7 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
         statement:statement,
     }
     //console.log('my skills are ' , skills)
-    const createSkills = ()=>{
+    const createSkills = (max)=>{
       let skillScoreList = []
 
       for(let skill of skills){
@@ -42,15 +42,18 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
         })
         console.log('my skill score list is ' , skillScoreList)
 
-      if(skillScoreList.length >19){
-        return skillScoreList.slice(0,20).map((skill)=>skill[1])
+      if(skillScoreList.length > max){
+        return skillScoreList.slice(0,max).map((skill)=>skill[1])
       }else{
         return skillScoreList.map((skill)=>skill[1])
       }
     }
 
+    const createSection = () =>{
 
-    output.skills = createSkills()
+    }
+
+    output.skills = createSkills(12)
     return output
 }
 
