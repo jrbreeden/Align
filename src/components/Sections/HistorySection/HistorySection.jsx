@@ -116,6 +116,7 @@ export default function HistorySection({
       {(props) => (
         <animated.div style={props}>
           <div className="flex flex-col bg-orange-200 p-4 w-screen mx-8">
+          <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
             {/* section priority level  */}
             <div className="w-1/6 bg-pink-400">
               <label
