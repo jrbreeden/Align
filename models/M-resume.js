@@ -59,6 +59,7 @@ const skillSchema = new Schema({
     max: [20, 'Max skill chars of 20.'],
   },
   priority: { type: Number, required: true, min: 0, max: 2, default: 0 },
+  tags:[{type:String}]
 });
 
 const statementSchema = new Schema({

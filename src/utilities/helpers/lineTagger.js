@@ -1,19 +1,6 @@
 const tags = require('./remotiveTags')
 
-let testLine = 'I am an expert in React.js and JavaScript and nosql.'
-
-
-/* 
-console.log(
-    isValidChar('a'),
-    isValidChar('A'),
-    isValidChar('0'),
-    isValidChar('.'),
-    isValidChar('?'),
-    isValidChar(',')
-) */
-
-function lineTagger(line){
+export default function lineTagger(line){
 
     const isValidChar = (char)=>{
         return /^[a-zA-Z0-9]+$/.test(char)
@@ -29,6 +16,7 @@ function lineTagger(line){
         pWords.push(word)
     }
 
+    //I could make this more efficient using a binary search since tags are sorted. Iceboxed.
     return pWords.filter(word=>tags.includes(word))
 }
 

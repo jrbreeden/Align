@@ -7,7 +7,7 @@ const testData = require('./sampleUser')
   ]
 
 
-function optimizeResume( keywordList , resume , spaceConstraints){
+function optimizeResume( jobKeywordList , resume , spaceConstraints){
   //console.log('my resume is , ' ,resume)
     const { personal, statement, skills, projects, workHistory, education } = resume
     const sectionList = [projects, workHistory, education]
