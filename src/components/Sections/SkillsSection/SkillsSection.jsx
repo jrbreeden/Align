@@ -21,12 +21,12 @@ export default function PersonalInfoSection({
     setSkills((prevSkills) => [
       ...prevSkills,
       {
-        id: uuidv4(),
+        _id: uuidv4(),
         skill: skill.skill,
         priority: parseInt(skill.priority),
       },
     ]);
-    setSkill({ id: '', skill: '', priority: 0 });
+    setSkill({ _id: '', skill: '', priority: 0 });
   };
   return (
     <Spring
