@@ -20,10 +20,17 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
     const { personal, statement, skills, projects, workHistory, education } = resume
     const sectionList = [projects, workHistory, education]
 
+    const maxLinesSpace = 63*spaceConstraints*11
+    let currentSpace = 0
     let output = {
         personal:personal,
         statement:statement,
     }
+    //rough esimation for personal section and statement section sizes. Est 115 chars/line at 11pt .5marg
+    currentSpace+= (28+11+11+7+2)
+    currentSpace+=(12+(11*Math.ceil(statement.body.length/115))+7)
+    console.log('started with space ' , maxLinesSpace)
+    console.log('my remaining space is after initial sections is ' , maxLinesSpace-currentSpace)
     //console.log('my skills are ' , skills)
     const createSkills = (max)=>{
       let skillScoreList = []
@@ -40,8 +47,9 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
         skillScoreList.sort(function(a,b){
           return b[0]-a[0]
         })
-        console.log('my skill score list is ' , skillScoreList)
+        //console.log('my skill score list is ' , skillScoreList)
 
+        currentSpace+=12+7+11*Math.ceil(skillScoreList.slice(0,max).map((line)=>line[1].skill).join(' | ').length/115)
       if(skillScoreList.length > max){
         return skillScoreList.slice(0,max).map((skill)=>skill[1])
       }else{
@@ -50,10 +58,11 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
     }
 
     const createSections = () =>{
-      
+
     }
 
     output.skills = createSkills(12)
+    console.log('r space after skills' , maxLinesSpace-currentSpace)
     return output
 }
 
@@ -233,4 +242,4 @@ const testData = {
     ],
   },
 }
-console.log(optimizeResume(words, testData , 1).skills)
+optimizeResume(words, testData , 1)
