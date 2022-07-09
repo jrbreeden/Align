@@ -2,21 +2,27 @@ import { Spring, animated } from 'react-spring';
 import PersonalInfoView from '../../Review/PersonalInfoView/PersonalInfoView';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import Modal from '../../Modal/Modal';
 
 export default function PersonalInfoSection({
   section,
   personal,
   setPersonal,
+  register,
+  handleSubmit,
+  setValue,
+  errors,
 }) {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm();
-  // resolver: yupResolver(schema),
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const resetFields = () => {
+    setValue('name', '');
+    setValue('email', '');
+    setValue('phone', '');
+    setValue('link1', '');
+    setValue('link2', '');
+    setValue('link3', '');
+  };
   const handleChange = (e) => {
     setPersonal((prevState) => ({
       ...prevState,
@@ -26,9 +32,12 @@ export default function PersonalInfoSection({
 
   const handleFormSubmit = (data) => {
     console.log(data);
-    // alert(data);
+    if (Object.keys(errors).length === 0) {
+      setModalIsOpen(true);
+      resetFields();
+      setTimeout(() => setModalIsOpen(false), 2000);
+    }
   };
-  // console.log(watch('name'));
 
   useEffect(() => {
     if (personal) {
@@ -49,6 +58,7 @@ export default function PersonalInfoSection({
       {(props) => (
         <animated.div style={props}>
           <div className="flex gap-x-60">
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
             <div className="h-auto w-96 min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
               <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
                 <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
@@ -80,7 +90,9 @@ export default function PersonalInfoSection({
                       placeholder="Enter Full Name"
                     />
                     {errors?.name?.type === 'required' && (
-                      <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">This name is required</p>
+                      <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                        This field is required
+                      </p>
                     )}
                     {errors?.name?.type === 'minLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
@@ -111,7 +123,9 @@ export default function PersonalInfoSection({
                       placeholder="Email"
                     />
                     {errors?.email?.type === 'required' && (
-                      <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">This field is required</p>
+                      <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                        This field is required
+                      </p>
                     )}
                     {errors?.email?.type === 'minLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
@@ -142,7 +156,9 @@ export default function PersonalInfoSection({
                       placeholder="Phone"
                     />
                     {errors?.phone?.type === 'required' && (
-                      <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">This field is required</p>
+                      <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                        This field is required
+                      </p>
                     )}
                     {errors?.phone?.type === 'minLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
