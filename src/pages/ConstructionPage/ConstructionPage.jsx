@@ -3,6 +3,7 @@
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 // ! Components
 import Stepper from '../../components/Stepper.jsx/Stepper';
@@ -19,6 +20,13 @@ import EducationSection from '../../components/Sections/EducationSection/Educati
 import { getResume } from '../../utilities/resume-service';
 
 export default function ConstructionPage({ user }) {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
   const navigate = useNavigate();
   const [userResume, setUserResume] = useState(null);
   const [step, setStep] = useState(0);
@@ -175,6 +183,10 @@ export default function ConstructionPage({ user }) {
   });
 
   const renderSection = (section) => {
+    // register,
+    // handleSubmit,
+    // setValue,
+    // formState: { errors },
     switch (section) {
       case 'PersonalInfo':
         return (
@@ -182,6 +194,10 @@ export default function ConstructionPage({ user }) {
             section={section}
             personal={personal}
             setPersonal={setPersonal}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
           />
         );
 
@@ -191,6 +207,10 @@ export default function ConstructionPage({ user }) {
             section={section}
             statement={statement}
             setStatement={setStatement}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
           />
         );
 
@@ -202,6 +222,10 @@ export default function ConstructionPage({ user }) {
             setSkills={setSkills}
             skill={skill}
             setSkill={setSkill}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
           />
         );
 
@@ -222,10 +246,6 @@ export default function ConstructionPage({ user }) {
         return null;
     }
   };
-
-  // useEffect(() => {
-  //   if(!user) navigate("/login", { replace: true });
-  // });
 
   useEffect(() => {
     (async function fetchResume() {
@@ -330,6 +350,7 @@ export default function ConstructionPage({ user }) {
               sections={sections}
               resume={resume}
               user={user}
+              errors={errors}
             />
             <div className="flex items-center justify-center gap-x-96 mt-20">
               {renderSection(currentSection)}
