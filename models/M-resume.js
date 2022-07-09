@@ -17,6 +17,7 @@ const lineSchema = new Schema({
     max:50
   },
   tags: [{ type: String }],
+  score:{type:Number , required:true, default:0},
 });
 
 //TODO: CONDITION SCHEMA
@@ -37,6 +38,7 @@ const subSectionSchema = new Schema({
   dateStart: { type: Date, required: false },
   dateEnd: { type: Date, required: false },
   lineItems: [lineSchema],
+  score:{type:Number , required:true, default:0},
 });
 
 // ! SECTION SCHEMA
