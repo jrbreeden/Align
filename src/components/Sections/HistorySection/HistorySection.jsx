@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Spring, animated } from 'react-spring';
 import SectionView from '../../SectionView/SectionView';
 import LineItems from '../../LineItems/LineItems';
+import Modal from '../../Modal/Modal';
 
 export default function HistorySection({
   section,
@@ -11,12 +12,75 @@ export default function HistorySection({
   setWorkHistories,
   workHistorySubSection,
   setWorkHistorySubSection,
+  register,
+  handleSubmit,
+  setValue,
+  errors,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({});
   const [isUpdating, setIsUpdating] = useState(false);
   const [lineItemIdx, setLineItemIdx] = useState(null);
   const [subSectionIdx, setSubSectionIdx] = useState(null);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const resetSubSectionsFields = () => {
+    setValue('subHeader', '');
+    setValue('dateStart', '');
+    setValue('dateEnd', '');
+  };
+
+  const handleSubSectionChange = (e) => {
+    setWorkHistorySubSection((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubSectionSubmit = (data) => {
+    if (Object.keys(errors).length === 0) {
+      setWorkHistory((prevState) => ({
+        ...prevState,
+        header: workHistory.header,
+        subSections: workHistorySubSection,
+      }));
+      let subSectionExists = false;
+      workHistories.forEach((work) => {
+        if (work._id === subSectionIdx) {
+          subSectionExists = true;
+        }
+      });
+
+      if (!subSectionExists) {
+        setWorkHistories((prevState) => [...prevState, workHistorySubSection]);
+      } else {
+        setWorkHistories((prevState) => [
+          ...prevState.map((work) => {
+            if (work._id === subSectionIdx) {
+              work.lineItems = workHistorySubSection.lineItems;
+            }
+            return work;
+          }),
+        ]);
+      }
+      setIsUpdating(false);
+      setSubSectionIdx(null);
+      setLineItem({ body: '', priority: 0 });
+      console.log(workHistory.header);
+      // Reset ProjectSubSection
+      setWorkHistorySubSection({
+        cond: { priority: 0, items: 0 },
+        subHeader: '',
+        dateStart: '',
+        dateEnd: '',
+        lineItems: [],
+      });
+      setModalIsOpen(true);
+      resetSubSectionsFields();
+      setTimeout(() => setModalIsOpen(false), 1000);
+    }
+  };
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +91,22 @@ export default function HistorySection({
     }));
     setLineItem('');
   };
+
+  useEffect(() => {
+    if (workHistorySubSection) {
+      setValue('subHeader', workHistorySubSection.subHeader);
+      setValue('dateStart', workHistorySubSection.dateStart.split('T')[0]);
+      setValue('dateEnd', workHistorySubSection.dateEnd.split('T')[0]);
+    }
+
+    // if (projectSubSection.lineItems.length === 0) {
+    //   errors.lineItems = {
+    //     message: 'Must have atleast 1 line item',
+    //     type: 'required',
+    //   };
+    // }
+    // console.log(errors)
+  }, [workHistorySubSection]);
 
   return (
     <Spring
@@ -129,67 +209,107 @@ export default function HistorySection({
                       </svg>
                     </div>
                   </div>
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="header"
-                    >
-                      Header
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="header"
-                      value={workHistorySubSection.subHeader}
-                      onChange={(e) =>
-                        setWorkHistorySubSection((prevState) => ({
-                          ...prevState,
-                          subHeader: e.target.value,
-                        }))
-                      }
-                      id="header"
-                      type="text"
-                      placeholder="Enter Sub Section"
-                    />
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date Start
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateStart"
-                      value={workHistorySubSection.dateStart.split('T')[0]}
-                      onChange={(e) =>
-                        setWorkHistorySubSection((prevState) => ({
-                          ...prevState,
-                          dateStart: e.target.value,
-                        }))
-                      }
-                      id="dateStart"
-                      type="date"
-                    />
+                  <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="header"
+                      >
+                        Header
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="header"
+                        // value={workHistorySubSection.subHeader}
+                        // onChange={handleSubSectionChange}
+                        {...register('subHeader', {
+                          value: workHistorySubSection.subHeader,
+                          onChange: handleSubSectionChange,
+                          required: 'Sub Header is required!',
+                          minLength: 3,
+                          maxLength: 40,
+                        })}
+                        id="header"
+                        type="text"
+                        placeholder="Enter Sub Section"
+                      />
+                      {errors?.subHeader?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'minLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Must have atleast 3 characters
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'maxLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Cannot exceed 40 characters
+                        </p>
+                      )}
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date Start
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateStart"
+                        // value={workHistorySubSection.dateStart.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateStart', {
+                          value: workHistorySubSection.dateStart.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date Start is required!',
+                        })}
+                        id="dateStart"
+                        type="date"
+                      />
+                      {errors?.dateStart?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
 
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date End
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateEnd"
-                      value={workHistorySubSection.dateEnd.split('T')[0]}
-                      onChange={(e) =>
-                        setWorkHistorySubSection((prevState) => ({
-                          ...prevState,
-                          dateEnd: e.target.value,
-                        }))
-                      }
-                      id="dateEnd"
-                      type="date"
-                    />
-                  </div>
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date End
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateEnd"
+                        // value={workHistorySubSection.dateEnd.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateEnd', {
+                          value: workHistorySubSection.dateEnd.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date End is required!',
+                        })}
+                        id="dateEnd"
+                        type="date"
+                      />
+                      {errors?.dateEnd?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                    </div>
+                    {showLineItemInput ? null : (
+                      <button
+                        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2"
+                        type="submit"
+                        // onClick={() => {
+                          
+                        // }}
+                      >
+                        Submit
+                      </button>
+                    )}
+                  </form>
                   {showLineItemInput ? null : (
                     <button
                       className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -269,62 +389,6 @@ export default function HistorySection({
                         Cancel
                       </button>
                     </form>
-                  )}
-                  {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-                      type="button"
-                      onClick={() => {
-                        setWorkHistory((prevState) => ({
-                          ...prevState,
-                          header: workHistory.header,
-                          subSections: workHistorySubSection,
-                        }));
-
-                        // setWorkHistories((prevState) => [
-                        //   ...prevState,
-                        //   workHistorySubSection,
-                        // ]);
-                        let subSectionExists = false;
-                        workHistories.forEach((sub) => {
-                          if (sub._id === subSectionIdx) {
-                            subSectionExists = true;
-                          }
-                        });
-
-                        if (!subSectionExists) {
-                          setWorkHistories((prevState) => [
-                            ...prevState,
-                            workHistorySubSection,
-                          ]);
-                        } else {
-                          setWorkHistories((prevState) => [
-                            ...prevState.map((work) => {
-                              if (work._id === subSectionIdx) {
-                                work.lineItems =
-                                  workHistorySubSection.lineItems;
-                              }
-                              return work;
-                            }),
-                          ]);
-                        }
-
-                        setIsUpdating(false);
-                        setSubSectionIdx(null);
-                        setLineItem({ body: '', priority: 0 });
-                        console.log(workHistory.header);
-                        // Reset ProjectSubSection
-                        setWorkHistorySubSection({
-                          cond: { priority: 0, items: 0 },
-                          subHeader: '',
-                          dateStart: '',
-                          dateEnd: '',
-                          lineItems: [],
-                        });
-                      }}
-                    >
-                      Submit
-                    </button>
                   )}
                 </div>
               </div>
