@@ -22,7 +22,6 @@ export default function resumeConstructor(resume) {
                 height:'11in'
             } 
         },
-        type: SectionType.CONTINUOUS,
     }
 
     const HEADER = (headerText , alignment) => {
@@ -231,12 +230,18 @@ export default function resumeConstructor(resume) {
         children: createSectionSubSections(education)
     }
 
+    const docUnifier = {
+        properties:PROPERTIES,
+        children:[...sectPersonal.children , ...sectStatement.children,...sectSkills.children , ...sectProjects.children , ...sectWorkHistory.children, ...sectEducation.children]
+    }
     const doc = new Document({
         creator:'Align',
         description:'A beautiful (hopefully) Align optimized resume.',
         title: 'My Resume',
-        sections: [sectPersonal, sectStatement, sectSkills, sectProjects, sectWorkHistory, sectEducation]
+        sections: [docUnifier]
     })
+
+    console.log('this doc is ', doc)
 
     Packer.toBlob(doc).then((blob) => {
         saveAs(blob, 'blob.docx')

@@ -49,8 +49,8 @@ function optimizeResume( jobKeywordList , resume , spaceConstraints = 1){
       }
     }
 
-    const createSection = () =>{
-
+    const createSections = () =>{
+      
     }
 
     output.skills = createSkills(12)
