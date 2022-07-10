@@ -1,6 +1,26 @@
+export default function LineItems({
+  items,
+  setLineItem,
+  setShowLineItemInput,
+  setIsUpdating,
+  setLineItemIdx,
+}) {
+  const checkPriority = (priority) => {
+    switch (parseInt(priority)) {
+      case 0:
+        return '[#169ed9]';
 
-export default function LineItems({ items, setLineItem, setShowLineItemInput, setIsUpdating, setLineItemIdx }) {
-  console.log(items)
+      case 1:
+        return '[#FF4000]';
+
+      case 2:
+        return '[#FFB627]';
+
+      default:
+        return null;
+    }
+  };
+  console.log(items);
   return (
     <>
       <div className="h-auto min-w-96 w-auto min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
@@ -14,15 +34,18 @@ export default function LineItems({ items, setLineItem, setShowLineItemInput, se
             </li>
           </ul>
           <div className="flex mt-4 w-full">
-            <ul className="bg-white rounded-lg border border-gray-200 w-full text-gray-900">
+            <ul className="bg-white rounded-lg border border-gray-200 w-full">
               {items.map((item, idx) => (
-                <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg cursor-pointer hover:bg-gray-300" onClick={() => {
-                  setLineItem(item)
-                  setShowLineItemInput(true)
-                  setIsUpdating(true)
-                  // alert(idx)
-                  setLineItemIdx(idx)
-                }}>
+                <li
+                  className={`px-6 py-2 border-b border-gray-200 w-full text-black font-bold rounded-t-lg cursor-pointer bg-${checkPriority(item.priority)}`}
+                  onClick={() => {
+                    setLineItem(item);
+                    setShowLineItemInput(true);
+                    setIsUpdating(true);
+                    // alert(idx)
+                    setLineItemIdx(idx);
+                  }}
+                >
                   {item.body}
                 </li>
               ))}

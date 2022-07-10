@@ -98,7 +98,13 @@ export default function EducationSection({
     setShowLineItemInput(false);
     setEducationSubSection((prevState) => ({
       ...prevState,
-      lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
+      lineItems: [
+        ...prevState.lineItems,
+        {
+          body: lineItem.body,
+          priority: Number(lineItem.priority),
+        },
+      ],
     }));
     setLineItem('');
   };
@@ -209,8 +215,8 @@ export default function EducationSection({
                       })}
                     >
                       <option value={0}>Normal</option>
-                      <option value={1}>Essential</option>
-                      <option value={2}>High Priority</option>
+                      <option value={1}>High Priority</option>
+                      <option value={2}>Essential</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg
@@ -339,25 +345,64 @@ export default function EducationSection({
                   {showLineItemInput && (
                     <form onSubmit={handleLineItemSubmit}>
                       {showLineItemInput && (
-                        <div>
-                          <label
-                            className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                            htmlFor="header"
-                          >
-                            Line Item
-                          </label>
-                          <textarea
-                            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-                            name="lineItem"
-                            value={lineItem.body}
-                            onChange={(e) =>
-                              setLineItem({ body: e.target.value, priority: 0 })
-                            }
-                            rows="4"
-                            placeholder="Enter Line item"
-                            required={true}
-                          ></textarea>
-                        </div>
+                        <>
+                          <div className="w-full">
+                            <label
+                              className="block text-gray-700 text-sm font-bold mb-2"
+                              htmlFor="prio"
+                            >
+                              Line Item Priority Level
+                            </label>
+                            <div className="inline-block relative w-full mr-2 mb-2">
+                              <select
+                                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-gray-500"
+                                name="priority"
+                                value={lineItem.priority}
+                                onChange={(e) =>
+                                  setLineItem((prevLineItem) => ({
+                                    ...prevLineItem,
+                                    priority: Number(e.target.value),
+                                  }))
+                                }
+                              >
+                                <option value={0}>Normal</option>
+                                <option value={1}>High Priority</option>
+                                <option value={2}>Essential</option>
+                              </select>
+                              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg
+                                  className="fill-current h-4 w-4"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <label
+                              className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                              htmlFor="header"
+                            >
+                              Line Item
+                            </label>
+                            <textarea
+                              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+                              name="lineItem"
+                              value={lineItem.body}
+                              onChange={(e) =>
+                                setLineItem((prevLineItem) => ({
+                                  ...prevLineItem,
+                                  body: e.target.value,
+                                }))
+                              }
+                              rows="4"
+                              placeholder="Enter Line item"
+                              required={true}
+                            ></textarea>
+                          </div>
+                        </>
                       )}
                       <div className="flex items-center justify-between mt-4">
                         {isUpdating && lineItemIdx !== null ? null : (
@@ -382,6 +427,7 @@ export default function EducationSection({
                                     (item, idx) => {
                                       if (idx === lineItemIdx) {
                                         item.body = lineItem.body;
+                                        item.priority = lineItem.priority;
                                       }
                                       return item;
                                     }
