@@ -48,7 +48,7 @@ export default function AppliedJobsPage({ user }) {
     const userResume = await getResume({id:user._id})
     //console.log('this was returned for the user resume ' , userResume)
     console.log('making resume from ' , testData , words)
-    const optRes = optimizeResume( words, testData)
+    const optRes = optimizeResume( words, userResume)
     console.log('optRes is , ' ,optRes)
     resumeConstructor(optRes)
   }

@@ -104,7 +104,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
       console.log('initial psub is ', pSubSect)
       let i = 0
 
-      while (i < subSect.lineItems.length && subSect.lineItems[i].score > 0 && pSubSect.lineItems.length < 4 && (maxLinesSpace - currentSpace) > 18) {
+      while (i < subSect.lineItems.length && (subSect.lineItems[i].score > 0 || i < 2) && pSubSect.lineItems.length < 4 && (maxLinesSpace - currentSpace) > 18) {
         console.log('lineItem i', subSect.lineItems[i])
         pSubSect.lineItems.push(subSect.lineItems[i])
         currentSpace += (11 * Math.ceil(subSect.lineItems[i].body.length / 100))
