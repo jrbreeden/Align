@@ -243,6 +243,14 @@ export default function resumeConstructor(resume) {
         spacing:lineSpacing,
     }
 
+    //order by date
+    sectProjects.children.sort(function(a,b){
+        return b.dateEnd - a.dateEnd
+    })
+    sectWorkHistory.children.sort(function(a,b){
+        return b.dateEnd - a.dateEnd
+    })
+
     const docUnifier = {
         properties: PROPERTIES,
         children: [...sectPersonal.children, ...sectStatement.children, ...sectSkills.children, ...sectProjects.children, ...sectWorkHistory.children, ...sectEducation.children]
