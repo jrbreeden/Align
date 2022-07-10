@@ -32,7 +32,7 @@ async function login(req, res) {
 async function create(req, res) {
   try {
     let token
-    User.create(req.body).then((user)=>{
+    User.create({...req.body }).then((user)=>{
       token = createJWT(user);
       AppliedJobs.create([{user:user._id }]).then((aj)=>{
         console.log('new app jobs for user, ' ,aj)

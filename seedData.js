@@ -261,6 +261,13 @@ const resume = {
     name:'Jim',
     email:'jim',
     password:'123',
+    tags:{'javascript':0,
+        css:0,
+        html:1,
+        research:5,
+        algorithms:5,
+        testing:10
+    }
   }
 
   const appliedJobs = {

@@ -9,25 +9,27 @@ export default function FeaturedJobs({ user, markJobAsApplied }) {
   const [featuredJobs, setFeaturedJobs] = useState([]);
 
   useEffect(async () => {
+    console.log('my user tags are' , user)
+    let search = ''
 
-    const search = ''
-
-    if (user.tags.length && user.tags.length > 2) {
-      search = Object.keys(user.tags)
-        .map((tag) => [tag, user.tags[tag]])
-        .sort(function (a, b) {
-          return b[1] - a[1]
-        })
-        .slice(0, 3)
-        .join(',')
-    } else {
-      search = Object.keys(user.tags)
-        .map((tag) => [tag, user.tags[tag]])
-        .sort(function (a, b) {
-          return b[1] - a[1]
-        }).join(',')
-    }
-console.log('searching for... ' ,search)
+if(user.tags){
+  if ( Object.keys(user.tags).length > 2) {
+    search = Object.keys(user.tags)
+      .map((tag) => [tag, user.tags[tag]])
+      .sort(function (a, b) {
+        return b[1] - a[1]
+      })
+      .slice(0, 3)
+      
+  } else {
+    search = Object.keys(user.tags)
+      .map((tag) => [tag, user.tags[tag]])
+      .sort(function (a, b) {
+        return b[1] - a[1]
+      })
+  }
+  search = search.map((item)=>item[0]).join(',')
+  console.log('searching for... ' ,search)
     const jobs = await fetch(
       `https://remotive.com/api/remote-jobs?search=${search}&limit=6`)
 
@@ -48,6 +50,7 @@ console.log('searching for... ' ,search)
       });
     });
     setFeaturedJobs(jobConverter);
+}
   }, [])
 
   async function trackJob(jobDetails, userId, applied) {
