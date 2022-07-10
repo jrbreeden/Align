@@ -6,7 +6,7 @@ export default function JobCard({
   job,
   status,
   user,
-  markJobAsApplied,
+  markAsApplied,
   trackJob,
   stopTracking,
   isFetched,
@@ -94,7 +94,7 @@ export default function JobCard({
                       <button
                         className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
                         onClick={() => {
-                          markJobAsApplied(job._id, user._id);
+                          markAsApplied(job._id, user._id);
                         }}
                       >
                         Mark as Applied
