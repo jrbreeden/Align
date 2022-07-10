@@ -19,7 +19,7 @@ export default function FeaturedJobs({ user, markJobAsApplied }) {
   );
 
 
-  })
+  
   useEffect(async () => {
     console.log('my user tags are' , user)
     let search = ''

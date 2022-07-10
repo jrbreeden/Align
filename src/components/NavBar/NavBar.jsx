@@ -69,6 +69,17 @@ export default function NavBar({ active, user, setUser }) {
                         'bg-blue-800 px-4 py-1 rounded'
                       }`}
                     >
+                      Featured Jobs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/search-jobs"
+                      className={`text-white bg-none ${
+                        location.pathname === '/search-jobs' &&
+                        'bg-blue-800 px-4 py-1 rounded'
+                      }`}
+                    >
                       Search Jobs
                     </Link>
                   </li>

@@ -7,7 +7,6 @@ import {
   stopTrackingJob,
 } from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
-
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import {getResume} from '../../utilities/resume-service'
 import { testData , words } from '../../utilities/helpers/optimizeResumeTestData'
@@ -114,7 +113,6 @@ export default function AppliedJobsPage({ user }) {
                   : null}
               </div>
             </div>
-          </div>
         </animated.div>
       )}
     </Spring>

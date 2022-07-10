@@ -101,9 +101,9 @@ export default function SearchJobs({user , markJobAsApplied}) {
                     </div>
                   </div>
                 </div>
-                {featuredJobs.length > 0 && (
+                {featuredJobs.length === 0 && (
                   <h1 className="text-4xl font-bold text-center mt-8">
-                    Featured Jobs
+                    No jobs found with that search...
                   </h1>
                   
                 )}
