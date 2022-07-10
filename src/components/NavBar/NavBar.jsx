@@ -27,24 +27,25 @@ export default function NavBar({ active, user, setUser }) {
 
   return (
     <>
-      <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
-        <div class="container flex flex-wrap justify-between items-center mx-auto">
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+        <div className="container flex flex-wrap justify-between items-center mx-auto">
           <div className="flex gap-x-10">
-            <Link to="/profle" class="flex items-center">
-              <img src={Logo} class="mr-3 h-6 sm:h-9" alt="" />
+            <Link to="/profle" className="flex items-center">
+              <img src={Logo} className="mr-3 h-6 sm:h-9" alt="" />
             </Link>
             {user && (
               <div
-                class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
+                className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
                 id="mobile-menu-2"
               >
-                <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                   <li>
                     <Link
                       to="/profile"
-                      class={`${
-                        location.pathname === '/profile' && 'bg-red-200'
-                      } block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                      className={`text-white bg-none ${
+                        location.pathname === '/profile' &&
+                        'bg-blue-800 px-4 py-1 rounded'
+                      }`}
                     >
                       Profile
                     </Link>
@@ -52,9 +53,10 @@ export default function NavBar({ active, user, setUser }) {
                   <li>
                     <Link
                       to="/construction"
-                      class={`${
-                        location.pathname === '/construction' && 'bg-red-200'
-                      } block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                      className={`text-white bg-none ${
+                        location.pathname === '/construction' &&
+                        'bg-blue-800 px-4 py-1 rounded'
+                      }`}
                     >
                       Resume Builder
                     </Link>
@@ -62,9 +64,10 @@ export default function NavBar({ active, user, setUser }) {
                   <li>
                     <Link
                       to="/featured-jobs"
-                      class={`${
-                        location.pathname === '/featured-jobs' && 'bg-red-200'
-                      } block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                      className={`text-white bg-none ${
+                        location.pathname === '/featured-jobs' &&
+                        'bg-blue-800 px-4 py-1 rounded'
+                      }`}
                     >
                       Search Jobs
                     </Link>
@@ -77,16 +80,17 @@ export default function NavBar({ active, user, setUser }) {
           <div className="left nav-items">
             {!user && (
               <div
-                class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
+                className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
                 id="mobile-menu-2"
               >
-                <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                   <li>
                     <Link
                       to="/signup"
-                      class={`${
-                        location.pathname === '/signup' && 'bg-red-200'
-                      } block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                      className={`text-white bg-none ${
+                        location.pathname === '/signup' &&
+                        'bg-blue-800 px-4 py-1 rounded'
+                      }`}
                     >
                       Signup
                     </Link>
@@ -94,9 +98,10 @@ export default function NavBar({ active, user, setUser }) {
                   <li>
                     <Link
                       to="/login"
-                      class={`${
-                        location.pathname === '/login' && 'bg-red-200'
-                      } block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                      className={`text-white bg-none ${
+                        location.pathname === '/login' &&
+                        'bg-blue-800 px-4 py-1 rounded'
+                      }`}
                     >
                       Login
                     </Link>
@@ -104,20 +109,20 @@ export default function NavBar({ active, user, setUser }) {
                 </ul>
               </div>
             )}
-            <div class={`${!user && 'hidden'}flex items-center md:order-2`}>
+            <div className={`${!user && 'hidden'}flex items-center md:order-2`}>
               <button
                 type="button"
                 class={`${
                   !user && 'hidden'
                 } flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600`}
                 id="user-menu-button"
-                aria-expanded="false"
-                data-dropdown-toggle="dropdown"
+                ariaExpanded="false"
+                dataDropdown-toggle="dropdown"
                 onClick={() => setIsShow(!isShow)}
               >
-                <span class="sr-only">Open user menu</span>
+                <span className="sr-only">Open user menu</span>
                 <img
-                  class="w-8 h-8 rounded-full"
+                  className="w-8 h-8 rounded-full"
                   src={sample}
                   alt="user photo"
                 />
@@ -125,23 +130,23 @@ export default function NavBar({ active, user, setUser }) {
 
               {/* <!-- Dropdown menu --> */}
               <div
-                class={`${
+                className={`${
                   !isShow && 'hidden'
                 } z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 absolute`}
                 id="dropdown"
               >
-                <div class="py-3 px-4">
+                <div className="py-3 px-4">
                   <span class="block text-sm text-gray-900 dark:text-white">
                     {user && user.name}
                   </span>
-                  <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
+                  <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
                     jim@gmail.com
                   </span>
                 </div>
-                <ul class="py-1" aria-labelledby="dropdown">
+                <ul className="py-1" aria-labelledby="dropdown">
                   <li>
                     <button
-                      class="w-full block py-2 px-4 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-500 dark:hover:text-white"
+                      className="w-full block py-2 px-4 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-500 dark:hover:text-white"
                       onClick={handleLogOut}
                     >
                       Sign out
@@ -156,7 +161,7 @@ export default function NavBar({ active, user, setUser }) {
                 aria-controls="mobile-menu-2"
                 aria-expanded="false"
               >
-                <span class="sr-only">Open main menu</span>
+                <span className="sr-only">Open main menu</span>
                 <svg
                   class="w-6 h-6"
                   aria-hidden="true"
