@@ -266,7 +266,7 @@ const words = [
     'fullstack',
     'node.js',
     'api',
-    'reserach',
+    'research',
     'algorithms',
     'research'
 ]

@@ -1,6 +1,5 @@
-const tags = require('./remotiveTags')
-
 export default function lineTagger(line){
+    const tags = require('./remotiveTags')
 
     const isValidChar = (char)=>{
         return /^[a-zA-Z0-9]+$/.test(char)
@@ -11,8 +10,15 @@ export default function lineTagger(line){
 
     for(let word of words){
         word=word.toLowerCase()
-        isValidChar(word[0]) ? null : word = word.slice(1,word.length) 
-        isValidChar(word[word.length-1]) ? null : word = word.slice(0,word.length-1)
+
+        if(!isValidChar(word[0])){
+            word = word.slice(1,word.length) 
+        }
+
+        if(!isValidChar(word[word.length-1])){
+            word = word.slice(0,word.length-1)
+        }
+
         pWords.push(word)
     }
 

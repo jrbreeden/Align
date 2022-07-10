@@ -536,6 +536,7 @@ module.exports = [
     "fresno",
     "front",
     "front end",
+    'front-end',
     "front end programming",
     "frontend",
     "frontend automation",

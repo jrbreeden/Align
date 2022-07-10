@@ -16,6 +16,9 @@ export default function ProjectsSection({
   handleSubmit,
   setValue,
   errors,
+  lineTagger,
+  userTags, 
+  setUserTags,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -84,10 +87,16 @@ export default function ProjectsSection({
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
+    const tags = lineTagger(lineItem.body)
+    let newTags = {...userTags}
+    tags.forEach((tag)=>{
+      newTags.includes(tag)? newTags[tag]++ : newTags[tag]=1
+    })
+    setUserTags(newTags)
     setShowLineItemInput(false);
     setProjectSubSection((prevState) => ({
       ...prevState,
-      lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
+      lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 , tags:tags}],
     }));
     setLineItem('');
   };

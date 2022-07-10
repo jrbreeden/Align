@@ -33,7 +33,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
     skillScoreList.sort(function (a, b) {
       return b[0] - a[0]
     })
-    //console.log('my skill score list is ' , skillScoreList)
+    console.log('my skill score list is ' , skillScoreList)
 
     currentSpace += 12 + 7 + 11 * Math.ceil(skillScoreList.slice(0, max).map((line) => line[1].skill).join(' | ').length / 100)
     if (skillScoreList.length > max) {

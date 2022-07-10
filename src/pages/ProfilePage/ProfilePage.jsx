@@ -47,9 +47,11 @@ export default function AppliedJobsPage({ user }) {
   async function handleClick() {
     const userResume = await getResume({id:user._id})
     //console.log('this was returned for the user resume ' , userResume)
-    console.log('making resume from ' , testData , words)
+    //console.log('making resume from ' , testData , words)
     const optRes = optimizeResume( words, userResume)
-    console.log('optRes is , ' ,optRes)
+    //console.log('optRes is , ' ,optRes)
+
+    //optimized resume is for speific job downloads.
     resumeConstructor(optRes)
   }
   return (
@@ -65,7 +67,7 @@ export default function AppliedJobsPage({ user }) {
             <div className="p-16">
             <button 
             className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" 
-            onClick={handleClick}>Download Resume</button>
+            onClick={handleClick}>Download Master Resume</button>
               </div>
               <div className="p-16">
                 <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>

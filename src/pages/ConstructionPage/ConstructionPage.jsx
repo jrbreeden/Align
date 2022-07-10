@@ -15,11 +15,13 @@ import SkillsSection from '../../components/Sections/SkillsSection/SkillsSection
 import ProjectsSection from '../../components/Sections/ProjectsSection/ProjectSection';
 import HistorySection from '../../components/Sections/HistorySection/HistorySection';
 import EducationSection from '../../components/Sections/EducationSection/EducationSection';
-
 // ! SERVICES
 import { getResume } from '../../utilities/resume-service';
+import lineTagger from '../../utilities/helpers/lineTagger'
 
 export default function ConstructionPage({ user }) {
+  const [ userTags, setUserTags] = useState({})
+
   const {
     register,
     handleSubmit,
@@ -226,6 +228,9 @@ export default function ConstructionPage({ user }) {
             handleSubmit={handleSubmit}
             setValue={setValue}
             errors={errors}
+            lineTagger={lineTagger}
+            userTags={userTags} 
+            setUserTags={setUserTags}
           />
         );
 
@@ -238,6 +243,9 @@ export default function ConstructionPage({ user }) {
             setValue={setValue}
             errors={errors}
             {...projectSectionProps}
+            lineTagger={lineTagger}
+            userTags={userTags} 
+            setUserTags={setUserTags}
           />
         );
 
@@ -250,6 +258,9 @@ export default function ConstructionPage({ user }) {
             setValue={setValue}
             errors={errors}
             {...workHistorySectionProps}
+            lineTagger={lineTagger}
+            userTags={userTags} 
+            setUserTags={setUserTags}
           />
         );
 
