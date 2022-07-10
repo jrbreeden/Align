@@ -14,6 +14,9 @@ export default function PersonalInfoSection({
   handleSubmit,
   setValue,
   errors,
+  lineTagger,
+  userTags, 
+  setUserTags,
 }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -30,6 +33,12 @@ export default function PersonalInfoSection({
 
   const handleFormSubmit = (data, e) => {
     console.log(data);
+    const tags = lineTagger(data.skill)
+    let newTags = {...userTags}
+    tags.forEach((tag)=>{
+      newTags[tag]? newTags[tag]++ : newTags[tag]=1
+    })
+    setUserTags(newTags)
     if (Object.keys(errors).length === 0) {
       e.preventDefault();
       setSkills((prevSkills) => [
@@ -38,6 +47,7 @@ export default function PersonalInfoSection({
           _id: uuidv4(),
           skill: skill.skill,
           priority: parseInt(skill.priority),
+          tags: tags,
         },
       ]);
       setSkill({ _id: '', skill: '', priority: 0 });

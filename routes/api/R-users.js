@@ -11,4 +11,6 @@ router.post('/login', usersCtrl.login);
 // GET /api/users/check-token
 router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken);
 
+router.post('/update-usertags' , usersCtrl.updateUserTags)
+
 module.exports = router;
