@@ -45,7 +45,7 @@ export default function AppliedJobsPage({ user }) {
   }, [response]);
   
   async function handleClick() {
-    //const userResume = await getResume({id:user._id})
+    const userResume = await getResume({id:user._id})
     //console.log('this was returned for the user resume ' , userResume)
     console.log('making resume from ' , testData , words)
     const optRes = optimizeResume( words, testData)
