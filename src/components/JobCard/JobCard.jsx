@@ -11,7 +11,13 @@ export default function JobCard({
   stopTracking,
   isFetched,
   isLoading,
+  jobsWatched
 }) {
+  let isTracked = false
+  console.log('jobs watched card is ' , jobsWatched)
+  if(isFetched && (jobsWatched.tracked.filter((wJob)=>wJob.job_link === job.job_link).length || jobsWatched.applied.filter((wJob)=>wJob.job_link === job.job_link).length)){
+      isTracked = true
+  }
   return (
     <>
       {isLoading ? (
@@ -62,7 +68,7 @@ export default function JobCard({
                 </div>
 
                 <div className="flex gap-x-4">
-                  {isFetched ? (
+                  {isFetched && !isTracked? (
                     <>
                       <button
                         className="hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
@@ -72,16 +78,16 @@ export default function JobCard({
                       >
                         Track this Job
                       </button>
-                      <button
+{/*                       <button
                         className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
                         onClick={() => {
                           trackJob(job, user._id, true);
                         }}
                       >
                         Mark as Applied
-                      </button>
+                      </button> */}
                     </>
-                  ) : job.date_applied === null ? (
+                  ) : job.date_applied === null && !isFetched ? (
                     <>
                       <button
                         className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
@@ -100,7 +106,7 @@ export default function JobCard({
                         Mark as Applied
                       </button>
                     </>
-                  ) : (
+                  ) : !isFetched ? (
                     <>
                       <button
                         className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
@@ -111,7 +117,7 @@ export default function JobCard({
                         Stop Tracking
                       </button>
                     </>
-                  )}
+                  ): null}
                 </div>
               </div>
             </animated.div>

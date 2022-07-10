@@ -81,7 +81,7 @@ export default function FeaturedJobs({ user, setUser, getUser, markAsApplied, st
               )}
               <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8" >
                 {featuredJobs.map((job) => (
-                  <JobCard job={job} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true} />
+                  <JobCard job={job} jobsWatched={jobsWatched} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true} />
                 ))}
               </div>
             </div>
