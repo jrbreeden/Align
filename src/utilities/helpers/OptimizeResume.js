@@ -11,7 +11,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
   }
   //rough esimation for personal section and statement section sizes. Est 115 chars/line at 11pt .5marg
   currentSpace += (28 + 11 + 11 + 7 + 2)
-  currentSpace += (12 + (11 * Math.ceil(statement.body.length / 115)) + 7)
+  currentSpace += (12 + (11 * Math.ceil(statement.body.length / 100)) + 7)
   console.log('started with space ', maxLinesSpace)
   console.log('my remaining space is after initial sections is ', maxLinesSpace - currentSpace)
   //console.log('my skills are ' , skills)
@@ -35,7 +35,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
     })
     //console.log('my skill score list is ' , skillScoreList)
 
-    currentSpace += 12 + 7 + 11 * Math.ceil(skillScoreList.slice(0, max).map((line) => line[1].skill).join(' | ').length / 115)
+    currentSpace += 12 + 7 + 11 * Math.ceil(skillScoreList.slice(0, max).map((line) => line[1].skill).join(' | ').length / 100)
     if (skillScoreList.length > max) {
       return skillScoreList.slice(0, max).map((skill) => skill[1])
     } else {
@@ -49,7 +49,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
     education.subSections.forEach((sub) => {
       currentSpace += 12
       sub.lineItems.forEach((bullet) => {
-        currentSpace += 11 * Math.ceil(bullet.body.length / 110)
+        currentSpace += 11 * Math.ceil(bullet.body.length / 100)
       })
     })
     return education
@@ -107,7 +107,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
       while (i < subSect.lineItems.length && subSect.lineItems[i].score > 0 && pSubSect.lineItems.length < 4 && (maxLinesSpace - currentSpace) > 18) {
         console.log('lineItem i', subSect.lineItems[i])
         pSubSect.lineItems.push(subSect.lineItems[i])
-        currentSpace += (11 * Math.ceil(subSect.lineItems[i].body.length / 110))
+        currentSpace += (11 * Math.ceil(subSect.lineItems[i].body.length / 100))
         i++
       }
       console.log('this subsect,  p subsect is ', subSect, pSubSect)
