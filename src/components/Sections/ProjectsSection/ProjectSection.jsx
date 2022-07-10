@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import LineItems from '../../LineItems/LineItems';
-// import ProjectsView from '../../Review/ProjectsView/ProjectsView';
 import SectionView from '../../SectionView/SectionView';
+import Modal from '../../Modal/Modal';
+import { useState, useEffect } from 'react';
 
 export default function ProjectsSection({
   section,
@@ -12,6 +12,10 @@ export default function ProjectsSection({
   setProjects,
   projectSubSection,
   setProjectSubSection,
+  register,
+  handleSubmit,
+  setValue,
+  errors,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -19,11 +23,63 @@ export default function ProjectsSection({
   const [lineItemIdx, setLineItemIdx] = useState(null);
   const [subSectionIdx, setSubSectionIdx] = useState(null);
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const resetSubSectionsFields = () => {
+    setValue('subHeader', '');
+    setValue('dateStart', '');
+    setValue('dateEnd', '');
+  };
+
   const handleSubSectionChange = (e) => {
     setProjectSubSection((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleSubSectionSubmit = (data) => {
+    if (Object.keys(errors).length === 0) {
+      setProject((prevState) => ({
+        ...prevState,
+        header: project.header,
+        subSections: projectSubSection,
+      }));
+      let subSectionExists = false;
+      projects.forEach((proj) => {
+        if (proj._id === subSectionIdx) {
+          subSectionExists = true;
+        }
+      });
+
+      if (!subSectionExists) {
+        setProjects((prevState) => [...prevState, projectSubSection]);
+      } else {
+        setProjects((prevState) => [
+          ...prevState.map((proj) => {
+            if (proj._id === subSectionIdx) {
+              proj.lineItems = projectSubSection.lineItems;
+            }
+            return proj;
+          }),
+        ]);
+      }
+      setIsUpdating(false);
+      setSubSectionIdx(null);
+      setLineItem({ body: '', priority: 0 });
+      console.log(project.header);
+      // Reset ProjectSubSection
+      setProjectSubSection({
+        cond: { priority: 0, items: 0 },
+        subHeader: '',
+        dateStart: '',
+        dateEnd: '',
+        lineItems: [],
+      });
+      setModalIsOpen(true);
+      resetSubSectionsFields();
+      setTimeout(() => setModalIsOpen(false), 1000);
+    }
   };
 
   const handleLineItemSubmit = (e) => {
@@ -33,25 +89,24 @@ export default function ProjectsSection({
       ...prevState,
       lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }],
     }));
-    // projects.forEach((sub) => {
-    //   if (sub._id !== subSectionIdx) {
-    //     console.log(sub._id, subSectionIdx);
-
-    //   } else {
-    //     // setProjectSubSection(prevState => ({
-    //     //   ...prevState,
-    //     //   lineItems: [...prevState.lineItems, { body: lineItem.body, priority: 0 }]
-    //     // }))
-    //   }
-    // });
-    // setProjectSubSection((prevState) => ({
-    //   ...prevState,
-    //   lineItems: [...prevState.lineItems, projects.forEach(sub => {
-    //     return sub._id === subSectionIdx ? { body: lineItem.body, priority: 0 }
-    //   })],
-    // }));
     setLineItem('');
   };
+
+  useEffect(() => {
+    if (projectSubSection) {
+      setValue('subHeader', projectSubSection.subHeader);
+      setValue('dateStart', projectSubSection.dateStart.split('T')[0]);
+      setValue('dateEnd', projectSubSection.dateEnd.split('T')[0]);
+    }
+
+    // if (projectSubSection.lineItems.length === 0) {
+    //   errors.lineItems = {
+    //     message: 'Must have atleast 1 line item',
+    //     type: 'required',
+    //   };
+    // }
+    // console.log(errors)
+  }, [projectSubSection]);
 
   return (
     <Spring
@@ -60,9 +115,9 @@ export default function ProjectsSection({
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="flex flex-col bg-red-500 p-4 w-screen mx-8">
+          <div className="flex flex-col p-4 mx-8 rounded">
             {/* section priority level  */}
-            <div className="w-1/6 bg-pink-400">
+            {/* <div className="w-1/6 bg-pink-400">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="header"
@@ -100,16 +155,16 @@ export default function ProjectsSection({
                   </svg>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* MAIN DIV !!! */}
             <div
               className={`grid grid-cols-${
                 projectSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } bg-green-200 gap-x-20 justify-center`}
+              } gap-x-20 justify-center rounded`}
             >
               <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
+                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
                     {section === 'PersonalInfo'
                       ? 'Personal Info'.toUpperCase()
                       : section}{' '}
@@ -154,65 +209,129 @@ export default function ProjectsSection({
                       </svg>
                     </div>
                   </div>
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="header"
-                    >
-                      Header
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="subHeader"
-                      value={projectSubSection.subHeader}
-                      onChange={handleSubSectionChange}
-                      id="subHeader"
-                      type="text"
-                      placeholder="Enter Sub Section"
-                    />
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date Start
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateStart"
-                      value={projectSubSection.dateStart}
-                      onChange={handleSubSectionChange}
-                      id="dateStart"
-                      type="date"
-                    />
+                  {/* SUB SECTION FORM! */}
+                  <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="header"
+                      >
+                        Header
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="subHeader"
+                        // value={projectSubSection.subHeader}
+                        // onChange={handleSubSectionChange}
+                        {...register('subHeader', {
+                          value: projectSubSection.subHeader,
+                          onChange: handleSubSectionChange,
+                          required: 'Sub Header is required!',
+                          minLength: 3,
+                          maxLength: 40,
+                        })}
+                        id="subHeader"
+                        type="text"
+                        placeholder="Enter Sub Section"
+                      />
+                      {errors?.subHeader?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'minLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Must have atleast 3 characters
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'maxLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Cannot exceed 40 characters
+                        </p>
+                      )}
 
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date End
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateEnd"
-                      value={projectSubSection.dateEnd}
-                      onChange={handleSubSectionChange}
-                      id="dateEnd"
-                      type="date"
-                    />
-                  </div>
-                  {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="button"
-                      onClick={() => {
-                        setShowLineItemInput(true);
-                        setLineItemIdx(null);
-                        setLineItem({ body: '', priority: 0 });
-                      }}
-                    >
-                      Add New Line Item
-                    </button>
-                  )}
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date Start
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateStart"
+                        type="date"
+                        // value={projectSubSection.dateStart.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateStart', {
+                          value: projectSubSection.dateStart.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date Start is required!',
+                        })}
+                        id="dateStart"
+                      />
+                      {errors?.dateStart?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date End
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateEnd"
+                        // value={projectSubSection.dateEnd.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateEnd', {
+                          value: projectSubSection.dateEnd.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date End is required!',
+                        })}
+                        id="dateEnd"
+                        type="date"
+                      />
+                      {errors?.dateEnd?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      {showLineItemInput ? null : (
+                        <button
+                          className="w-5/12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2 bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      )}
+                      {showLineItemInput ? null : (
+                        <>
+                          <button
+                            className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="button"
+                            onClick={() => {
+                              setShowLineItemInput(true);
+                              setLineItemIdx(null);
+                              setLineItem({ body: '', priority: 0 });
+                            }}
+                          >
+                            Add New Line Item
+                          </button>
+                          {errors?.lineItems?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              {errors?.lineItems?.message}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </form>
+
                   {showLineItemInput && (
                     <form onSubmit={handleLineItemSubmit}>
                       {showLineItemInput && (
@@ -236,95 +355,51 @@ export default function ProjectsSection({
                           ></textarea>
                         </div>
                       )}
-                      {isUpdating && lineItemIdx !== null ? null : (
+                      <div className="flex items-center justify-between">
+                        {isUpdating && lineItemIdx !== null ? null : (
+                          <button
+                            className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="submit"
+                          >
+                            Submit
+                          </button>
+                        )}
+                        {isUpdating && lineItemIdx !== null && (
+                          <button
+                            className="w-5/12 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="button"
+                            onClick={() => {
+                              // alert(lineItem.body);
+                              setProjectSubSection((prevState) => {
+                                setShowLineItemInput(false);
+                                return {
+                                  ...prevState,
+                                  lineItems: prevState.lineItems.map(
+                                    (item, idx) => {
+                                      if (idx === lineItemIdx) {
+                                        item.body = lineItem.body;
+                                      }
+                                      return item;
+                                    }
+                                  ),
+                                };
+                              });
+                            }}
+                          >
+                            Update
+                          </button>
+                        )}
                         <button
-                          className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                          type="submit"
-                        >
-                          Submit
-                        </button>
-                      )}
-                      {isUpdating && lineItemIdx !== null && (
-                        <button
-                          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          className="w-5/12 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110"
                           type="button"
                           onClick={() => {
-                            // alert(lineItem.body);
-                            setProjectSubSection((prevState) => {
-                              setShowLineItemInput(false);
-                              return {
-                                ...prevState,
-                                lineItems: prevState.lineItems.map(
-                                  (item, idx) => {
-                                    if (idx === lineItemIdx) {
-                                      item.body = lineItem.body;
-                                    }
-                                    return item;
-                                  }
-                                ),
-                              };
-                            });
+                            setShowLineItemInput(false);
                           }}
                         >
-                          Update
+                          Cancel
                         </button>
-                      )}
-                      <button
-                        className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={() => {
-                          setShowLineItemInput(false);
-                        }}
-                      >
-                        Cancel
-                      </button>
+                      </div>
                     </form>
-                  )}
-                  {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-                      type="button"
-                      onClick={() => {
-                        setProject((prevState) => ({
-                          ...prevState,
-                          header: project.header,
-                          subSections: projectSubSection,
-                        }));
-                        let subSectionExists = false;
-                        projects.forEach((proj) => {
-                          if (proj._id === subSectionIdx) {
-                            subSectionExists = true;
-                          }
-                        });
-
-                        if (!subSectionExists) {
-                          setProjects((prevState) => [
-                            ...prevState,
-                            projectSubSection,
-                          ]);
-                        } else {
-                          // setProjects((prevState) => [
-                          //   ...prevState,
-                          //   projectSubSection,
-                          // ]);
-                          alert(subSectionIdx)
-                        }
-                        setIsUpdating(false);
-                        setSubSectionIdx(null);
-                        setLineItem({ body: '', priority: 0 });
-                        console.log(project.header);
-                        // Reset ProjectSubSection
-                        setProjectSubSection({
-                          cond: { priority: 0, items: 0 },
-                          subHeader: '',
-                          dateStart: '',
-                          dateEnd: '',
-                          lineItems: [],
-                        });
-                      }}
-                    >
-                      Submit
-                    </button>
                   )}
                 </div>
               </div>
@@ -353,6 +428,9 @@ export default function ProjectsSection({
               </div>
             </div>
           </div>
+          {modalIsOpen && (
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          )}
         </animated.div>
       )}
     </Spring>
