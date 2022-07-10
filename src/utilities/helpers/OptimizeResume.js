@@ -1,6 +1,5 @@
-
-function optimizeResume(jobKeywordList, resume, spaceConstraints = 1) {
-  //console.log('my resume is , ' ,resume)
+export default function optimizeResume(jobKeywordList, resume, spaceConstraints = 1) {
+  console.log('my resume is , ' ,resume)
   const { personal, statement, skills, projects, workHistory, education } = resume
   const sectionList = [projects, workHistory]
 
@@ -21,8 +20,11 @@ function optimizeResume(jobKeywordList, resume, spaceConstraints = 1) {
 
     for (let skill of skills) {
       let score = 0
-
-      skill.priority === 2 ? score += 10 : skill.priority === 1 ? score += 1 : null
+      if(skill.priority === 2){
+        score += 10
+      }else if(skill.priority === 1){
+        score += 1
+      }
       skill.tags.forEach(tag => jobKeywordList.includes(tag) ? score += 2 : null)
 
       skillScoreList.push([score, skill])
@@ -62,15 +64,15 @@ function optimizeResume(jobKeywordList, resume, spaceConstraints = 1) {
 
       sect.subSections.forEach((subSect) => {
 
-        subSect.score+= subSect.cond.priority === 2 ? 100 : subSect.cond.priority === 1 ? 3 : 0
+        subSect.score += subSect.cond.priority === 2 ? 100 : subSect.cond.priority === 1 ? 3 : 0
         subSect.lineItems.forEach((line) => {
-          line.score+=line.priority === 2 ? 100 : line.priority === 1 ? 3 : 0
+          line.score += line.priority === 2 ? 100 : line.priority === 1 ? 3 : 0
           line.tags.forEach((tag) => {
 
-            if(jobKeywordList.includes(tag)){
-            line.score++
-            subSect.score++
-          }
+            if (jobKeywordList.includes(tag)) {
+              line.score++
+              subSect.score++
+            }
           })
         })
         sectSubScoresList.push([subSect.score, subSect])
@@ -78,7 +80,7 @@ function optimizeResume(jobKeywordList, resume, spaceConstraints = 1) {
     })
 
     sectSubScoresList.sort(function (a, b) {
-      return b[0]-a[0] 
+      return b[0] - a[0]
     })
     console.log('my sectSub scores list', sectSubScoresList)
 
@@ -89,62 +91,65 @@ function optimizeResume(jobKeywordList, resume, spaceConstraints = 1) {
     let inclusionList = []
     //process all the subsections until all space is filled.
     //.filter(sect => sect[0]>99)
-      for(let sect of sectSubScoresList){
+    for (let sect of sectSubScoresList) {
       currentSpace += 12
-      
-      subSect = sect[1]
+      console.log('my sect is ' , sect)
+      let subSect = sect[1]
 
-      subSect.lineItems.sort(function(a,b){
-        return b.score-a.score
+      subSect.lineItems.sort(function (a, b) {
+        return b.score - a.score
       })
 
-      let pSubSect = {...subSect , lineItems:[]}
-      console.log('initial psub is ' , pSubSect)
+      let pSubSect = { ...subSect, lineItems: [] }
+      console.log('initial psub is ', pSubSect)
       let i = 0
-      
-      while(i < subSect.lineItems.length && subSect.lineItems[i].score>0 && pSubSect.lineItems.length<4 && (maxLinesSpace - currentSpace)>18 ){
-        console.log('lineItem i' , subSect.lineItems[i])
+
+      while (i < subSect.lineItems.length && subSect.lineItems[i].score > 0 && pSubSect.lineItems.length < 4 && (maxLinesSpace - currentSpace) > 18) {
+        console.log('lineItem i', subSect.lineItems[i])
         pSubSect.lineItems.push(subSect.lineItems[i])
-        currentSpace+=(11*Math.ceil(subSect.lineItems[i].body.length/110))
+        currentSpace += (11 * Math.ceil(subSect.lineItems[i].body.length / 110))
         i++
       }
       console.log('this subsect,  p subsect is ', subSect, pSubSect)
 
       inclusionList.push(pSubSect)
-      currentSpace+=7
-      console.log('curr space is ' , currentSpace)
-      if((maxLinesSpace - currentSpace) < 41){
+      currentSpace += 7
+      console.log('curr space is ', currentSpace)
+      if ((maxLinesSpace - currentSpace) < 41) {
         console.log('out of space!')
         break
       }
     }
 
-    console.log('inclusion list is ' ,inclusionList)
+    console.log('inclusion list is ', inclusionList)
 
     let outputArr = []
 
-    for(let sect of sectArr){
-      let sectReconst = {...sect , subSections:[]}
-      let sectContents = sect.subSections.map((subsect)=>subsect.subHeader)
-      for(let optimizedSubSect of inclusionList){
-        sectContents.includes(optimizedSubSect.subHeader) ? sectReconst.subSections.push(optimizedSubSect) : null
+    for (let sect of sectArr) {
+      let sectReconst = { ...sect, subSections: [] }
+      let sectContents = sect.subSections.map((subsect) => subsect.subHeader)
+      for (let optimizedSubSect of inclusionList) {
+        if(sectContents.includes(optimizedSubSect.subHeader)){
+          sectReconst.subSections.push(optimizedSubSect)
+        }
       }
       outputArr.push(sectReconst)
     }
-    console.log('optimized section output is ' , outputArr)
+    console.log('optimized section output is ', outputArr)
     return outputArr
   }
   //end of create sections function
 
-  output.skills = createSkills(12)
+  output.skills = createSkills(18)
   output.education = createEducation()
   console.log('r space after skills and education', maxLinesSpace - currentSpace)
   let optimalSections = createSections(sectionList)
 
-  for(let sect of optimalSections){
-    output[sect.header] = sect
-  }
-  console.log('Total output is ' , output)
+  //this is a bandaid
+    output.projects = optimalSections[0]
+    output.workHistory = optimalSections[1]
+
+  console.log('Total output is ', output)
   return output
 }
 
@@ -222,22 +227,22 @@ const testData = {
             priority: 2,
             body: 'Developed a front-end web app that allows users to see all food items based on the ingredients that the user searched for.',
             tags: ['front-end', 'developed'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Designed a structured query based on the users' input to retrieve data from the API and display the results`,
             tags: ['structured', 'api'],
-            score:0,
+            score: 0,
           },
           {
             priority: 0,
             body: 'Line for deletion',
             tags: [],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
+        score: 0,
       },
       {
         cond: { priority: 1, items: 2 },
@@ -249,16 +254,16 @@ const testData = {
             priority: 2,
             body: 'Developed a Full-Stack web app that allows users to keep track of their buy and sell transactions of stocks',
             tags: ['fullstack', 'web', 'transactions',],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Created reusable components using EJS partials and were incorporated into all the pages in the app.`,
             tags: ['reusable', 'components', 'ejs'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
+        score: 0,
       },
     ],
   },
@@ -277,16 +282,16 @@ const testData = {
             priority: 2,
             body: 'Developed fully functional applications utilizing a MERN stack with working knowledge in many other languages, frameworks, and development processes.',
             tags: ['frameworks', 'mern'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
             tags: ['industry', 'eletronic'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
+        score: 0,
       },
       {
         cond: { priority: 1, items: 2 },
@@ -298,17 +303,17 @@ const testData = {
             priority: 2,
             body: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.`,
             tags: ['fullstack', 'web', 'transactions', 'algorithms', 'node.js'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
             tags: ['variations', 'alteration', 'humour'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
-      },{
+        score: 0,
+      }, {
         cond: { priority: 2, items: 2 },
         subHeader: 'Software Engineer Fellow 2',
         dateStart: Date.now(),
@@ -318,17 +323,17 @@ const testData = {
             priority: 2,
             body: 'Developed fully functional applications utilizing a MERN stack with working knowledge in many other languages, frameworks, and development processes.',
             tags: ['frameworks', 'mern'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
             tags: ['industry', 'eletronic'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
-      },{
+        score: 0,
+      }, {
         cond: { priority: 1, items: 2 },
         subHeader: 'Software Engineer Fellow 3',
         dateStart: Date.now(),
@@ -338,17 +343,17 @@ const testData = {
             priority: 2,
             body: 'Developed fully functional applications utilizing a MERN stack with working knowledge in many other languages, frameworks, and development processes.',
             tags: ['frameworks', 'mern'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
             tags: ['industry', 'eletronic'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
-      },{
+        score: 0,
+      }, {
         cond: { priority: 1, items: 2 },
         subHeader: 'Software Engineer Fellow 4',
         dateStart: Date.now(),
@@ -358,16 +363,16 @@ const testData = {
             priority: 2,
             body: 'Developed fully functional applications utilizing a MERN stack with working knowledge in many other languages, frameworks, and development processes.',
             tags: ['frameworks', 'mern'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
             tags: ['industry', 'eletronic'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
+        score: 0,
       },
     ],
   },
@@ -386,16 +391,16 @@ const testData = {
             priority: 2,
             body: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
             tags: ['frameworks', 'mern'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.`,
             tags: ['translation', 'interested'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
+        score: 0,
       },
       {
         cond: { priority: 1, items: 2 },
@@ -407,18 +412,18 @@ const testData = {
             priority: 2,
             body: `All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.`,
             tags: ['generators', 'necessary', 'internet'],
-            score:0,
+            score: 0,
           },
           {
             priority: 1,
             body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
             tags: ['Excepteur', 'ipsum', 'laborum'],
-            score:0,
+            score: 0,
           },
         ],
-        score:0,
+        score: 0,
       },
     ],
   },
 }
-optimizeResume(words, testData, 1)
+//optimizeResume(words, testData, 1)
