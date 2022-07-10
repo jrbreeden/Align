@@ -129,8 +129,8 @@ export default function PersonalInfoSection({
                       onChange={handleChange}
                     >
                       <option value={0}>Normal</option>
-                      <option value={1}>Essential</option>
-                      <option value={2}>High Priority</option>
+                      <option value={1}>High Priority</option>
+                      <option value={2}>Essential</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg
