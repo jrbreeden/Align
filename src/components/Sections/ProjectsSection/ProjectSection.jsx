@@ -73,9 +73,7 @@ export default function ProjectsSection({
           ...prevState.map((proj) => {
             if (proj._id === subSectionIdx) {
               proj = projectSubSection;
-              // proj.lineItems = projectSubSection.lineItems;
-              // proj.subHeader = projectSubSection.subHeader
-              // proj.cond.priority = projectSubSection.subHeader
+
             }
             return proj;
           }),

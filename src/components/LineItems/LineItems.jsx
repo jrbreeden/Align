@@ -37,7 +37,7 @@ export default function LineItems({
             <ul className="bg-white rounded-lg border border-gray-200 w-full">
               {items.map((item, idx) => (
                 <li
-                  className={`px-6 py-2 border-b border-gray-200 w-full text-white font-bold rounded-t-lg cursor-pointer bg-${checkPriority(item.priority)}`}
+                  className={`px-6 py-2 border-b border-gray-200 w-full text-black font-bold rounded-t-lg cursor-pointer bg-${checkPriority(item.priority)}`}
                   onClick={() => {
                     setLineItem(item);
                     setShowLineItemInput(true);
