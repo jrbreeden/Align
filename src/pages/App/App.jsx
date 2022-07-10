@@ -26,7 +26,7 @@ export default function App() {
           />
           <Route
             path="/featured-jobs"
-            element={<FeaturedJobs user={user} setUser={setUser} exact />}
+            element={<FeaturedJobs user={user} setUser={setUser} getUser={getUser} exact />}
           />
                     <Route
             path="/search-jobs"

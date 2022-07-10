@@ -57,10 +57,11 @@ function createJWT(user) {
 
 function updateUserTags(req,res){
   console.log('in users controller to update user tags with ' , req.body)
-  User.updateOne({_id:req.body.id} , {$set:{tags:req.body.userTags}}).then(()=>{
+  User.updateOne({_id:req.body.id} , {$set:{tags:req.body.userTags}}).then((change)=>{
+    console.log('changed tags to ' , change)
     res.send(200)
   }).catch((err)=>{
-    console.log(err)
+    console.log('got an error updating tags' ,err)
     res.send(500)
   }) 
 }

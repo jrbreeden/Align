@@ -5,7 +5,7 @@ const addNewResume = async (req, res) => {
     skill = {skill: skill.skill, priority: skill.priority };
     return skill;
   });
-  console.log(req.body);
+  //console.log(req.body);
   let newResume;
 
   Resume.deleteOne({ user: req.body.user }).then((del) => {
@@ -13,7 +13,7 @@ const addNewResume = async (req, res) => {
     Resume.create(req.body)
       .then((response) => {
         newResume = response;
-        console.log('neewwResume', newResume);
+        //console.log('neewwResume', newResume);
         res.status(200);
       })
       .catch((err) => {

@@ -44,5 +44,6 @@ export function checkToken() {
 }
 
 export function updateUserTags(userTags,id){
+  console.log('attempting update user tags' , userTags , id)
   return usersAPI.updateUserTags(userTags,id)
 }
