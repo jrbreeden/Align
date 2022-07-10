@@ -376,7 +376,7 @@ export default function ConstructionPage({ user }) {
               user={user}
               errors={errors}
             />
-            <div className="flex items-center justify-center gap-x-96">
+            <div className="flex items-center justify-center gap-x-96 mb-40">
               {renderSection(currentSection)}
             </div>
           </div>

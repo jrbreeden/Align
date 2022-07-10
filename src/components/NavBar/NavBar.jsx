@@ -140,7 +140,7 @@ export default function NavBar({ active, user, setUser }) {
                     {user && user.name}
                   </span>
                   <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-                    jim@gmail.com
+                    {user && user.email}
                   </span>
                 </div>
                 <ul className="py-1" aria-labelledby="dropdown">
