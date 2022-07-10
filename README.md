@@ -2,7 +2,7 @@
 The app, Align, is a job agent that searches for jobs for a user based on the user's skillset.
 
 # Deployment Link
-https://alignresumes.herokuapp.com/
+
 
 # User Story
 * As a user, I don't want to search for jobs. I want my agent to present me with jobs that a good fit for my skillset.
