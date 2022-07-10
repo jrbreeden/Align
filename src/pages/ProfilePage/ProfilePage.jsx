@@ -10,7 +10,7 @@ import JobCard from '../../components/JobCard/JobCard';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import {getResume} from '../../utilities/resume-service'
 import { testData , words } from '../../utilities/helpers/optimizeResumeTestData'
-import optimizeResume from '../../utilities/helpers/optimizeResume'
+import optimizeResume from '../../utilities/helpers/OptimizeResume'
 
 
 export default function AppliedJobsPage({ user }) {
