@@ -58,7 +58,8 @@ export default function HistorySection({
         setWorkHistories((prevState) => [
           ...prevState.map((work) => {
             if (work._id === subSectionIdx) {
-              work.lineItems = workHistorySubSection.lineItems;
+              // work.lineItems = workHistorySubSection.lineItems;
+              work = workHistorySubSection;
             }
             return work;
           }),
@@ -346,7 +347,7 @@ export default function HistorySection({
                           ></textarea>
                         </div>
                       )}
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-4">
                         {isUpdating ? null : (
                           <button
                             className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"

@@ -9,13 +9,13 @@ export default function SectionView({
   sectionListSetter,
   setSubSection,
   setLineItem,
-  setSubSectionIdx
+  setSubSectionIdx,
 }) {
   return (
     <div className="h-auto w-full min-h-full bg-gray-200 py-8 px-4 border border-2 border-gray-300 drop-shadow-2xl rounded items-center justify-center">
       <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-        <li className="w-full px-4 py-2 text-xl rounded-t-lg dark:border-gray-600 text-center font-bold">
-          {section.toUpperCase()} DATA
+        <li className="w-full px-4 py-2 text-xl rounded-t-lg dark:border-gray-600 text-center font-bold oswald">
+          {section} Data Preview
         </li>
       </ul>
       <div className="font-sans flex flex-col bg-blue-darker w-full drop-shadow-2xl gap-y-4 mt-4 cursor-pointer">
@@ -39,12 +39,12 @@ export default function SectionView({
             return (
               <div
                 className={`overflow-hidden bg-white rounded w-full shadow-lg  leading-normal bg-${checkPriority(
-                  sectionVar.cond.priority
+                  sec.cond.priority
                 )}`}
               >
                 <div className="block group hover:bg-blue p-4 border-b">
                   <div className="flex items-center justify-between">
-                    <p className="font-bold text-lg mb-1 text-black ">
+                    <p className="font-bold text-lg mb-1 text-black oswald">
                       {sec.subHeader}
                     </p>
                     <div className="buttons flex gap-x-4">
