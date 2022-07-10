@@ -1,4 +1,4 @@
-import { AlignmentType, Document, TabStop, HeadingLevel, Packer, Paragraph, SectionType, maxRightTabStop, TabStopType, TextRun , TabStopPosition } from 'docx'
+import { AlignmentType, Document, TabStop, HeadingLevel, Packer, Paragraph, SectionType, maxRightTabStop, TabStopType, TextRun, TabStopPosition } from 'docx'
 import { saveAs } from 'file-saver'
 
 export default function resumeConstructor(resume) {
@@ -8,7 +8,11 @@ export default function resumeConstructor(resume) {
     //alert('in resume constructor')
 
     //console.log('Constructing from... ', personal, statement, skills, projects, workHistory, education)
-
+    const lineSpacing = {
+        before:0,
+        after:0,
+        line:220,
+    }
     const PROPERTIES = {
         page: {
             margin: {
@@ -17,15 +21,14 @@ export default function resumeConstructor(resume) {
                 bottom: '0.5in',
                 left: '0.5in',
             },
-            size:{
-                width:'8.5in',
-                height:'11in'
-            } 
+            size: {
+                width: '8.5in',
+                height: '11in'
+            }
         },
-        type: SectionType.CONTINUOUS,
     }
 
-    const HEADER = (headerText , alignment) => {
+    const HEADER = (headerText, alignment) => {
         return new Paragraph({
             alignment: alignment,
             children: [
@@ -36,13 +39,44 @@ export default function resumeConstructor(resume) {
                     bold: true,
                     color: '76a5af',
                 })
-            ]
+            ],spacing:lineSpacing
         })
     }
 
     const SUBHEADER = (subheaderText, dateStart, dateEnd) => {
-        let dateText
-        dateEnd && dateStart? dateText=`\t${dateStart}-${dateEnd}`: dateStart? dateText=`\t${dateStart}`: dateEnd?dateText=`\t${dateEnd}`:dateText=''
+
+        console.log('my dateStart, dateEnd is ', dateStart, dateEnd)
+        let dateText = ''
+
+        const monthMap = {
+            '01': 'Jan',
+            '02': 'Feb',
+            '03': 'Mar',
+            '04': 'Apr',
+            '05': 'May',
+            '06': 'Jun',
+            '07': 'Jul',
+            '08': 'Aug',
+            '09': 'Sep',
+            '10': 'Oct',
+            '11': 'Nov',
+            '12': 'Dec'
+        }
+
+        //console.log('converted date format start, end is ' , `${monthMap[dateStart.slice(5,7)]} ${dateStart.slice(0,4)}` , `${monthMap[dateEnd.slice(5,7)]} ${dateEnd.slice(0,4)}` )
+
+        if (dateStart) {
+            dateText += `\t${monthMap[dateStart.slice(5, 7)]} ${dateStart.slice(0, 4)}`
+            if (dateEnd) {
+                dateText += `-${monthMap[dateEnd.slice(5, 7)]} ${dateEnd.slice(0, 4)}`
+            }
+        } else if (dateEnd) {
+            dateText += `\t${monthMap[dateEnd.slice(5, 7)]} ${dateEnd.slice(0, 4)}`
+        } else {
+            dateText = ''
+        }
+
+        //dateEnd && dateStart? dateText=`\t${dateStart}-${dateEnd}`: dateStart? dateText=`\t${dateStart}`: dateEnd?dateText=`\t${dateEnd}`:dateText=''
         return new Paragraph({
             alignment: AlignmentType.LEFT,
             children: [
@@ -60,9 +94,10 @@ export default function resumeConstructor(resume) {
                 }),
             ],
             tabStops: [{
-                            type: TabStopType.RIGHT,
-                            position: '7.4in'
-                        }],
+                type: TabStopType.RIGHT,
+                position: '7.4in'
+            }],
+            spacing:lineSpacing
         })
     }
 
@@ -77,7 +112,8 @@ export default function resumeConstructor(resume) {
             ],
             bullet: {
                 level: 0
-            }
+            },
+            spacing:lineSpacing
         })
     }
 
@@ -89,13 +125,14 @@ export default function resumeConstructor(resume) {
     })
 
     const PARASPACER = new Paragraph({
-        children:[
+        children: [
             new TextRun({
                 font: 'Garamond',
                 text: '',
                 size: 14,
             })
-        ]
+        ],
+        spacing:lineSpacing
     })
 
     const MICROSPACER = new TextRun({
@@ -106,7 +143,7 @@ export default function resumeConstructor(resume) {
     })
 
     const createSectionSubSections = (section) => {
-        let output = [HEADER(section.header , AlignmentType.LEFT)]
+        let output = [HEADER(section.header, AlignmentType.LEFT)]
 
         for (let subsect of section.subSections) {
             output.push(SUBHEADER(subsect.subHeader, subsect.dateStart, subsect.dateEnd))
@@ -121,6 +158,7 @@ export default function resumeConstructor(resume) {
         properties: PROPERTIES,
         children: [
             new Paragraph({
+                spacing:lineSpacing,
                 alignment: AlignmentType.CENTER,
                 children: [
                     new TextRun({
@@ -129,7 +167,7 @@ export default function resumeConstructor(resume) {
                         size: 56,
                         bold: true,
                         color: '76a5af',
-                    }), 
+                    }),
                     MICROSPACER,
                     new TextRun({
                         font: 'Garamond',
@@ -138,7 +176,7 @@ export default function resumeConstructor(resume) {
                     }),
                     new TextRun({
                         font: 'Garamond',
-                        text: `${personal.link1? `${personal.link1}`:''}${personal.link2? `${' | '+personal.link2}`:''}${personal.link3? `${' | '+personal.link3}`:''}`,
+                        text: `${personal.link1 ? `${personal.link1}` : ''}${personal.link2 ? `${' | ' + personal.link2}` : ''}${personal.link3 ? `${' | ' + personal.link3}` : ''}`,
                         size: 22,
                         break: 1,
                     }),
@@ -151,8 +189,9 @@ export default function resumeConstructor(resume) {
     const sectStatement = {
         properties: PROPERTIES,
         children: [
-            HEADER(statement.header , AlignmentType.CENTER),
+            HEADER(statement.header, AlignmentType.CENTER),
             new Paragraph({
+                spacing: lineSpacing,
                 alignment: AlignmentType.LEFT,
                 children: [
                     new TextRun({
@@ -170,8 +209,9 @@ export default function resumeConstructor(resume) {
     const sectSkills = {
         properties: PROPERTIES,
         children: [
-            HEADER('Skills and Expertise' , AlignmentType.CENTER),
+            HEADER('Skills and Expertise', AlignmentType.CENTER),
             new Paragraph({
+                spacing:lineSpacing,
                 alignment: AlignmentType.CENTER,
                 children: [
                     new TextRun({
@@ -187,25 +227,34 @@ export default function resumeConstructor(resume) {
 
     const sectProjects = {
         properties: PROPERTIES,
-        children: createSectionSubSections(projects)
+        children: createSectionSubSections(projects),
+        spacing: lineSpacing,
     }
 
     const sectWorkHistory = {
         properties: PROPERTIES,
-        children: createSectionSubSections(workHistory)
+        children: createSectionSubSections(workHistory),
+        spacing:lineSpacing,
     }
 
     const sectEducation = {
         properties: PROPERTIES,
-        children: createSectionSubSections(education)
+        children: createSectionSubSections(education),
+        spacing:lineSpacing,
     }
 
+    const docUnifier = {
+        properties: PROPERTIES,
+        children: [...sectPersonal.children, ...sectStatement.children, ...sectSkills.children, ...sectProjects.children, ...sectWorkHistory.children, ...sectEducation.children]
+    }
     const doc = new Document({
-        creator:'Align',
-        description:'A beautiful (hopefully) Align optimized resume.',
+        creator: 'Align',
+        description: 'A beautiful (hopefully) Align optimized resume.',
         title: 'My Resume',
-        sections: [sectPersonal, sectStatement, sectSkills, sectProjects, sectWorkHistory, sectEducation]
+        sections: [docUnifier]
     })
+
+    console.log('this doc is ', doc)
 
     Packer.toBlob(doc).then((blob) => {
         saveAs(blob, 'blob.docx')

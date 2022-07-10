@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createResume } from '../../utilities/resume-service';
+import { updateUserTags } from '../../utilities/users-service'
 export default function StepperNav({
   user,
   step,
@@ -13,6 +14,7 @@ export default function StepperNav({
   setSections,
   resume,
   errors,
+  userTags,
 }) {
   const navigate = useNavigate();
 
@@ -215,6 +217,7 @@ export default function StepperNav({
                 // console.log(resume);
                 resume.user = user._id;
                 createResume(resume);
+                updateUserTags(userTags , user._id)
                 navigate('/profile', { replace: true });
               }}
             >
