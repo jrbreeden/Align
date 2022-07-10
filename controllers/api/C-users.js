@@ -9,6 +9,7 @@ module.exports = {
   login,
   checkToken,
   updateUserTags,
+  createNewJWT
 };
 
 function checkToken(req, res) {
@@ -53,6 +54,20 @@ function createJWT(user) {
     process.env.SECRET,
     { expiresIn: '24h' }
   );
+}
+
+function createNewJWT(id) {
+  User.findOne({_id:id}).then((user)=>{
+    console.log('new jwt created after resume')
+    return jwt.sign(
+      // data payload
+      { user },
+      process.env.SECRET,
+      { expiresIn: '24h' }
+    );
+  }).catch((err)=>{
+    console.log('error creating new jwt' , err)
+  })
 }
 
 function updateUserTags(req,res){
