@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import SkillsView from '../../Review/SkillsView/SkillsView';
 import { Spring, animated } from 'react-spring';
+import { useState, useEffect } from 'react';
+import Modal from '../../Modal/Modal';
 
 export default function PersonalInfoSection({
   section,
@@ -8,7 +10,20 @@ export default function PersonalInfoSection({
   setSkills,
   skill,
   setSkill,
+  register,
+  handleSubmit,
+  setValue,
+  errors,
+  lineTagger,
+  userTags, 
+  setUserTags,
 }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const resetFields = () => {
+    setValue('skill', '');
+  };
+
   const handleChange = (e) => {
     setSkill((prevState) => ({
       ...prevState,
@@ -16,17 +31,43 @@ export default function PersonalInfoSection({
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSkills((prevSkills) => [
-      ...prevSkills,
-      {
-        id: uuidv4(),
-        skill: skill.skill,
-        priority: parseInt(skill.priority),
-      },
-    ]);
-    setSkill({ id: '', skill: '', priority: 0 });
+  const handleFormSubmit = (data, e) => {
+    console.log(data);
+    const tags = lineTagger(data.skill)
+    let newTags = {...userTags}
+    tags.forEach((tag)=>{
+      newTags[tag]? newTags[tag]++ : newTags[tag]=1
+    })
+    setUserTags(newTags)
+    if (Object.keys(errors).length === 0) {
+      e.preventDefault();
+      setSkills((prevSkills) => [
+        ...prevSkills,
+        {
+          _id: uuidv4(),
+          skill: skill.skill,
+          priority: parseInt(skill.priority),
+          tags: tags,
+        },
+      ]);
+      setSkill({ _id: '', skill: '', priority: 0 });
+      setModalIsOpen(true);
+      resetFields();
+      setTimeout(() => setModalIsOpen(false), 1000);
+    }
+  };
+
+  const submitHandler = (e) => {
+    // e.preventDefault();
+    // setSkills((prevSkills) => [
+    //   ...prevSkills,
+    //   {
+    //     _id: uuidv4(),
+    //     skill: skill.skill,
+    //     priority: parseInt(skill.priority),
+    //   },
+    // ]);
+    // setSkill({ _id: '', skill: '', priority: 0 });
   };
   return (
     <Spring
@@ -46,18 +87,39 @@ export default function PersonalInfoSection({
               </ul>
 
               <div className="w-96">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(handleFormSubmit)}>
                   <div className="my-2 mt-8">
                     <input
                       className="shadow appearance-none border rounded w-5/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="skill"
                       type="text"
                       name="skill"
-                      value={skill.skill}
-                      onChange={handleChange}
+                      // value={skill.skill}
+                      // onChange={handleChange}
+                      {...register('skill', {
+                        value: skill.skill,
+                        onChange: handleChange,
+                        required: 'Skill is required!',
+                        minLength: 3,
+                        maxLengthL: 20,
+                      })}
                       placeholder="Enter Skill"
-                      required
                     />
+                    {errors?.skill?.type === 'required' && (
+                      <p className="text-white bg-red-500 w-10/12 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                        This field is required
+                      </p>
+                    )}
+                    {errors?.skill?.type === 'minLength' && (
+                      <p className="text-white bg-red-500 w-10/12 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                        Must have atleast 3 characters
+                      </p>
+                    )}
+                    {errors?.skill?.type === 'maxLength' && (
+                      <p className="text-white bg-red-500 w-10/12 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                        Cannot exceed 20 characters
+                      </p>
+                    )}
                   </div>
                   <div className="inline-block relative w-48 mr-2 mt-2">
                     <select
@@ -81,7 +143,7 @@ export default function PersonalInfoSection({
                     </div>
                   </div>
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50"
                     type="submit"
                   >
                     Add Skill
@@ -95,6 +157,9 @@ export default function PersonalInfoSection({
               setSkills={setSkills}
             />
           </div>
+          {modalIsOpen && (
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          )}
         </animated.div>
       )}
     </Spring>

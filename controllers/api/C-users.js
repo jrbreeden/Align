@@ -8,6 +8,8 @@ module.exports = {
   create,
   login,
   checkToken,
+  updateUserTags,
+  createNewJWT
 };
 
 function checkToken(req, res) {
@@ -31,7 +33,7 @@ async function login(req, res) {
 async function create(req, res) {
   try {
     let token
-    User.create(req.body).then((user)=>{
+    User.create({...req.body }).then((user)=>{
       token = createJWT(user);
       AppliedJobs.create([{user:user._id }]).then((aj)=>{
         console.log('new app jobs for user, ' ,aj)
@@ -52,4 +54,29 @@ function createJWT(user) {
     process.env.SECRET,
     { expiresIn: '24h' }
   );
+}
+
+function createNewJWT(id) {
+  User.findOne({_id:id}).then((user)=>{
+    console.log('new jwt created after resume')
+    return jwt.sign(
+      // data payload
+      { user },
+      process.env.SECRET,
+      { expiresIn: '24h' }
+    );
+  }).catch((err)=>{
+    console.log('error creating new jwt' , err)
+  })
+}
+
+function updateUserTags(req,res){
+  console.log('in users controller to update user tags with ' , req.body)
+  User.updateOne({_id:req.body.id} , {$set:{tags:req.body.userTags}}).then((change)=>{
+    console.log('changed tags to ' , change)
+    res.send(200)
+  }).catch((err)=>{
+    console.log('got an error updating tags' ,err)
+    res.send(500)
+  }) 
 }

@@ -6,7 +6,7 @@ import Joanna from '../../assets/images/Joanna.png';
 export default function Team() {
   return (
     <>
-      <section className="bg-white dark:bg-gray-900">
+      <section className="bg-white dark:bg-gray-900 rounded">
         <div className="container px-6 py-10 mx-auto">
           <h1 className="text-3xl font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
             Align Executive Team

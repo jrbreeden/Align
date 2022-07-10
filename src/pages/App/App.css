@@ -9,7 +9,13 @@
 
 }
 
+
 body {
   margin: 0;
   padding: 0;
+}
+
+.oswald {
+  font-family: 'Macondo', cursive;
+  font-family: 'Oswald', sans-serif;
 }

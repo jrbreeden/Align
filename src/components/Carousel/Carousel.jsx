@@ -3,19 +3,32 @@ import "./Carousel.css"
 
 import { images } from '../../utilities/helpers/CarouselData'
 
-function Carousel() {
+export default function Carousel() {
   return (
   <div className="carousel">
     <div className="carouselInner"></div>
   </div>
   )
+
+ //   <div className="mt-24 flex justify-center">
+   //   <div className='bg-gray-400 w-1/2 py-8 px-4 rounded'>
+     //   <Slider {...settings}>
+       //   <div>
+         //   <img className="h-96 w-full m-auto" src={images[0]} alt="" />
+//         </div>
+ //         <div>
+ //           <img className="h-96 m-auto" src={images[1]} alt="" />
+   //       </div>
+     //     <div>
+      //      <img className="h-96 m-auto" src={images[2]} alt="" />
+       //   </div>
+//        </Slider>
+//      </div>
+ //   </div>
+  );
 }
 
-export default Carousel
-
-
-
-
+//export default Carousel
 
  // import Slider from 'react-slick';
 

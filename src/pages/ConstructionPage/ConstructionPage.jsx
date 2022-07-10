@@ -3,6 +3,7 @@
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 // ! Components
 import Stepper from '../../components/Stepper.jsx/Stepper';
@@ -14,11 +15,20 @@ import SkillsSection from '../../components/Sections/SkillsSection/SkillsSection
 import ProjectsSection from '../../components/Sections/ProjectsSection/ProjectSection';
 import HistorySection from '../../components/Sections/HistorySection/HistorySection';
 import EducationSection from '../../components/Sections/EducationSection/EducationSection';
-
 // ! SERVICES
 import { getResume } from '../../utilities/resume-service';
+import lineTagger from '../../utilities/helpers/lineTagger'
 
 export default function ConstructionPage({ user }) {
+  const [ userTags, setUserTags] = useState(user.tags)
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
   const navigate = useNavigate();
   const [userResume, setUserResume] = useState(null);
   const [step, setStep] = useState(0);
@@ -175,6 +185,10 @@ export default function ConstructionPage({ user }) {
   });
 
   const renderSection = (section) => {
+    // register,
+    // handleSubmit,
+    // setValue,
+    // formState: { errors },
     switch (section) {
       case 'PersonalInfo':
         return (
@@ -182,6 +196,10 @@ export default function ConstructionPage({ user }) {
             section={section}
             personal={personal}
             setPersonal={setPersonal}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
           />
         );
 
@@ -191,6 +209,10 @@ export default function ConstructionPage({ user }) {
             section={section}
             statement={statement}
             setStatement={setStatement}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
           />
         );
 
@@ -202,20 +224,56 @@ export default function ConstructionPage({ user }) {
             setSkills={setSkills}
             skill={skill}
             setSkill={setSkill}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            lineTagger={lineTagger}
+            userTags={userTags} 
+            setUserTags={setUserTags}
           />
         );
 
       case 'Projects':
-        return <ProjectsSection section={section} {...projectSectionProps} />;
+        return (
+          <ProjectsSection
+            section={section}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            {...projectSectionProps}
+            lineTagger={lineTagger}
+            userTags={userTags} 
+            setUserTags={setUserTags}
+          />
+        );
 
       case 'History':
         return (
-          <HistorySection section={section} {...workHistorySectionProps} />
+          <HistorySection
+            section={section}
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            {...workHistorySectionProps}
+            lineTagger={lineTagger}
+            userTags={userTags} 
+            setUserTags={setUserTags}
+          />
         );
 
       case 'Education':
         return (
-          <EducationSection section={section} {...educationSectionProps} />
+          <EducationSection
+            register={register}
+            handleSubmit={handleSubmit}
+            setValue={setValue}
+            errors={errors}
+            section={section}
+            {...educationSectionProps}
+          />
         );
 
       default:
@@ -223,38 +281,35 @@ export default function ConstructionPage({ user }) {
     }
   };
 
-  // useEffect(() => {
-  //   if(!user) navigate("/login", { replace: true });
-  // });
-
   useEffect(() => {
     (async function fetchResume() {
-      const test = await getResume({ id: user._id });
-      if (test) {
+      const resumeData = await getResume({ id: user._id });
+      if (resumeData) {
         setResume({
-          id: test._id,
-          personal: test.personal,
-          statement: test.statement,
-          skills: test.skills,
-          projects: test.projects,
-          workHistory: test.workHistory,
-          education: test.education,
+          id: resumeData._id,
+          personal: resumeData.personal,
+          statement: resumeData.statement,
+          skills: resumeData.skills,
+          projects: resumeData.projects,
+          workHistory: resumeData.workHistory,
+          education: resumeData.education,
         });
-        setPersonal(test.personal);
-        setStatement(test.statement);
-        setSkills(test.skills);
+        setPersonal(resumeData.personal);
+        setStatement(resumeData.statement);
+        setSkills(resumeData.skills);
         setProjects((prevState) => [
           ...prevState,
-          ...test.projects.subSections,
+          ...resumeData.projects.subSections,
         ]);
         setWorkHistories((prevState) => [
           ...prevState,
-          ...test.workHistory.subSections,
+          ...resumeData.workHistory.subSections,
         ]);
         setEducations((prevState) => [
           ...prevState,
-          ...test.education.subSections,
+          ...resumeData.education.subSections,
         ]);
+        console.log(resume)
       }
     })();
   }, []);
@@ -310,7 +365,7 @@ export default function ConstructionPage({ user }) {
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="bg-gray-200">
+          <div>
             <div>
               <Stepper
                 step={step}
@@ -330,8 +385,10 @@ export default function ConstructionPage({ user }) {
               sections={sections}
               resume={resume}
               user={user}
+              errors={errors}
+              userTags={userTags}
             />
-            <div className="flex items-center justify-center gap-x-96 mt-20">
+            <div className="flex items-center justify-center gap-x-96 mb-40">
               {renderSection(currentSection)}
             </div>
           </div>

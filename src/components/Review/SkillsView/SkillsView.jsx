@@ -33,9 +33,9 @@ export default function SkillsView({ section, skills, setSkills }) {
         <div className="items">
           <div className="font-sans flex items-center justify-center bg-blue-darker w-full py-8 drop-shadow-2xl">
             <div className="overflow-hidden bg-white rounded max-w-xs w-full shadow-lg leading-normal">
-              {skills?.map(({ id, skill, priority }) => (
+              {skills?.map(({ _id, skill, priority }) => (
                 <div
-                  key={id}
+                  key={_id}
                   className={`block group bg-${checkPriority(
                     priority
                   )} p-4 border-b flex justify-between items-center`}
@@ -45,7 +45,7 @@ export default function SkillsView({ section, skills, setSkills }) {
                     className="text-black hover:text-white font-bold"
                     onClick={() => {
                       setSkills((prevSkills) =>
-                        [...prevSkills].filter((skill) => skill.id !== id)
+                        [...prevSkills].filter((skill) => skill._id !== _id)
                       );
                     }}
                   >

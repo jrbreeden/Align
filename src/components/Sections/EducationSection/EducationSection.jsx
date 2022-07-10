@@ -1,7 +1,8 @@
-import { useState } from 'react';
 import { Spring, animated } from 'react-spring';
 import SectionView from '../../SectionView/SectionView';
 import LineItems from '../../LineItems/LineItems';
+import Modal from '../../Modal/Modal';
+import { useState, useEffect } from 'react';
 
 export default function EducationSection({
   section,
@@ -11,12 +12,86 @@ export default function EducationSection({
   setEducations,
   educationSubSection,
   setEducationSubSection,
+  register,
+  handleSubmit,
+  setValue,
+  errors,
 }) {
   const [showLineItemInput, setShowLineItemInput] = useState(false);
   const [lineItem, setLineItem] = useState({ body: '', priority: 0 });
   const [isUpdating, setIsUpdating] = useState(false);
   const [lineItemIdx, setLineItemIdx] = useState(null);
   const [subSectionIdx, setSubSectionIdx] = useState(null);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const resetSubSectionsFields = () => {
+    setValue('subHeader', '');
+    setValue('dateStart', '');
+    setValue('dateEnd', '');
+    setValue('priority', 0);
+  };
+
+  const handlePriorityLevelChange = (e) => {
+    setEducationSubSection((prevState) => ({
+      ...prevState,
+      cond: {
+        ...prevState.cond,
+        priority: parseInt(e.target.value),
+      },
+    }));
+  };
+
+  const handleSubSectionChange = (e) => {
+    setEducationSubSection((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubSectionSubmit = (data) => {
+    if (Object.keys(errors).length === 0) {
+      setEducation((prevState) => ({
+        ...prevState,
+        header: education.header,
+        subSections: educationSubSection,
+      }));
+      let subSectionExists = false;
+      educations.forEach((edu) => {
+        if (edu._id === subSectionIdx) {
+          subSectionExists = true;
+        }
+      });
+
+      if (!subSectionExists) {
+        setEducations((prevState) => [...prevState, educationSubSection]);
+      } else {
+        setEducations((prevState) => [
+          ...prevState.map((edu) => {
+            if (edu._id === subSectionIdx) {
+              edu = educationSubSection;
+            }
+            return edu;
+          }),
+        ]);
+      }
+      setIsUpdating(false);
+      setSubSectionIdx(null);
+      setLineItem({ body: '', priority: 0 });
+      console.log(education.header);
+      // Reset ProjectSubSection
+      setEducationSubSection({
+        cond: { priority: 0, items: 0 },
+        subHeader: '',
+        dateStart: '',
+        dateEnd: '',
+        lineItems: [],
+      });
+      setModalIsOpen(true);
+      resetSubSectionsFields();
+      setTimeout(() => setModalIsOpen(false), 1000);
+    }
+  };
 
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +103,23 @@ export default function EducationSection({
     setLineItem('');
   };
 
+  useEffect(() => {
+    if (educationSubSection) {
+      setValue('subHeader', educationSubSection.subHeader);
+      setValue('dateStart', educationSubSection.dateStart.split('T')[0]);
+      setValue('dateEnd', educationSubSection.dateEnd.split('T')[0]);
+      setValue('priority', educationSubSection.cond.priority);
+    }
+
+    // if (educationSubSection.lineItems.length === 0) {
+    //   errors.lineItems = {
+    //     message: 'Must have atleast 1 line item',
+    //     type: 'required',
+    //   };
+    // }
+    // console.log(errors)
+  }, [educationSubSection]);
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -35,9 +127,9 @@ export default function EducationSection({
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="flex flex-col bg-orange-200 p-4 w-screen mx-8">
+          <div className="flex flex-col p-4 mx-8 rounded">
             {/* section priority level  */}
-            <div className="w-1/6 bg-pink-400">
+            {/* <div className="w-1/6 bg-pink-400">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="header"
@@ -75,16 +167,21 @@ export default function EducationSection({
                   </svg>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* MAIN DIV !!! */}
             <div
               className={`grid grid-cols-${
                 educationSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } bg-green-200 gap-x-20 justify-center`}
+              } gap-x-20 justify-center rounded ${
+                educations?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              }`}
             >
-              <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+              <div
+                className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded"
+                style={{ minWidth: '30vw', minHeight: '55vh' }}
+              >
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
+                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
                     {section === 'PersonalInfo'
                       ? 'Personal Info'.toUpperCase()
                       : section}{' '}
@@ -104,16 +201,12 @@ export default function EducationSection({
                     <select
                       className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-gray-500"
                       name="priority"
-                      value={educationSubSection.priority}
-                      onChange={(e) =>
-                        setEducationSubSection((prevState) => ({
-                          ...prevState,
-                          cond: {
-                            ...prevState.cond,
-                            priority: parseInt(e.target.value),
-                          },
-                        }))
-                      }
+                      // value={educationSubSection.priority}
+                      // onChange={handlePriorityLevelChange}
+                      {...register('priority', {
+                        value: educationSubSection.cond.priority,
+                        onChange: handlePriorityLevelChange,
+                      })}
                     >
                       <option value={0}>Normal</option>
                       <option value={1}>Essential</option>
@@ -129,76 +222,120 @@ export default function EducationSection({
                       </svg>
                     </div>
                   </div>
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="header"
-                    >
-                      Header
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="header"
-                      value={educationSubSection.subHeader}
-                      onChange={(e) =>
-                        setEducationSubSection((prevState) => ({
-                          ...prevState,
-                          subHeader: e.target.value,
-                        }))
-                      }
-                      id="header"
-                      type="text"
-                      placeholder="Enter Sub Section"
-                    />
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date Start
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateStart"
-                      value={educationSubSection.dateStart}
-                      onChange={(e) =>
-                        setEducationSubSection((prevState) => ({
-                          ...prevState,
-                          dateStart: e.target.value,
-                        }))
-                      }
-                      id="dateStart"
-                      type="date"
-                    />
+                  <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="header"
+                      >
+                        Header
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="header"
+                        // value={educationSubSection.subHeader}
+                        // onChange={handleSubSectionChange}
+                        {...register('subHeader', {
+                          value: educationSubSection.subHeader,
+                          onChange: handleSubSectionChange,
+                          required: 'Sub Header is required!',
+                          minLength: 3,
+                          maxLength: 40,
+                        })}
+                        id="header"
+                        type="text"
+                        placeholder="Enter Sub Section"
+                      />
+                      {errors?.subHeader?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'minLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Must have atleast 3 characters
+                        </p>
+                      )}
+                      {errors?.subHeader?.type === 'maxLength' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          Cannot exceed 40 characters
+                        </p>
+                      )}
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date Start
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateStart"
+                        // value={educationSubSection.dateStart.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateStart', {
+                          value: educationSubSection.dateStart.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date Start is required!',
+                        })}
+                        id="dateStart"
+                        type="date"
+                      />
+                      {errors?.dateStart?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
 
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                      htmlFor="header"
-                    >
-                      Date End
-                    </label>
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      name="dateEnd"
-                      value={educationSubSection.dateEnd}
-                      onChange={(e) =>
-                        setEducationSubSection((prevState) => ({
-                          ...prevState,
-                          dateEnd: e.target.value,
-                        }))
-                      }
-                      id="dateEnd"
-                      type="date"
-                    />
-                  </div>
-                  {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="button"
-                      onClick={() => setShowLineItemInput(true)}
-                    >
-                      Add New Line Item
-                    </button>
-                  )}
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        htmlFor="header"
+                      >
+                        Date End
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="dateEnd"
+                        // value={educationSubSection.dateEnd.split('T')[0]}
+                        // onChange={handleSubSectionChange}
+                        {...register('dateEnd', {
+                          value: educationSubSection.dateEnd.split('T')[0],
+                          onChange: handleSubSectionChange,
+                          required: 'Date End is required!',
+                        })}
+                        id="dateEnd"
+                        type="date"
+                      />
+                      {errors?.dateEnd?.type === 'required' && (
+                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                          This field is required
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      {showLineItemInput ? null : (
+                        <button
+                          className="w-5/12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2 bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
+                      )}
+                      {showLineItemInput ? null : (
+                        <button
+                          className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                          type="button"
+                          onClick={() => {
+                            setShowLineItemInput(true);
+                            setLineItemIdx(null);
+                            setLineItem({ body: '', priority: 0 });
+                          }}
+                        >
+                          Add New Line Item
+                        </button>
+                      )}
+                    </div>
+                  </form>
+
                   {showLineItemInput && (
                     <form onSubmit={handleLineItemSubmit}>
                       {showLineItemInput && (
@@ -222,100 +359,51 @@ export default function EducationSection({
                           ></textarea>
                         </div>
                       )}
-                     {isUpdating ? null : (
+                      <div className="flex items-center justify-between mt-4">
+                        {isUpdating && lineItemIdx !== null ? null : (
+                          <button
+                            className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="submit"
+                          >
+                            Submit
+                          </button>
+                        )}
+                        {isUpdating && lineItemIdx !== null && (
+                          <button
+                            className="w-5/12 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="button"
+                            onClick={() => {
+                              // alert(lineItem.body);
+                              setEducationSubSection((prevState) => {
+                                setShowLineItemInput(false);
+                                return {
+                                  ...prevState,
+                                  lineItems: prevState.lineItems.map(
+                                    (item, idx) => {
+                                      if (idx === lineItemIdx) {
+                                        item.body = lineItem.body;
+                                      }
+                                      return item;
+                                    }
+                                  ),
+                                };
+                              });
+                            }}
+                          >
+                            Update
+                          </button>
+                        )}
                         <button
-                          className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                          type="submit"
-                        >
-                          Submit
-                        </button>
-                      )}
-                      {isUpdating && (
-                        <button
-                          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          className="w-5/12 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110"
                           type="button"
                           onClick={() => {
-                            // alert(lineItem.body);
-                            setEducationSubSection((prevState) => {
-                              setShowLineItemInput(false);
-                              return {
-                                ...prevState,
-                                lineItems: prevState.lineItems.map(
-                                  (item, idx) => {
-                                    if (idx === lineItemIdx) {
-                                      item.body = lineItem.body;
-                                    }
-                                    return item;
-                                  }
-                                ),
-                              };
-                            });
+                            setShowLineItemInput(false);
                           }}
                         >
-                          Update
+                          Cancel
                         </button>
-                      )}
-                      {/* <button
-                        className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                      >
-                        Submitzz
-                      </button> */}
-                      <button
-                        className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={() => {
-                          setShowLineItemInput(false);
-                        }}
-                      >
-                        Cancel
-                      </button>
+                      </div>
                     </form>
-                  )}
-                  {showLineItemInput ? null : (
-                    <button
-                      className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-                      type="button"
-                      onClick={() => {
-                        setEducation((prevState) => ({
-                          ...prevState,
-                          header: education.header,
-                          subSections: educationSubSection,
-                        }));
-
-                        setEducations((prevState) => [
-                          ...prevState,
-                          educationSubSection,
-                        ]);
-                        let subSectionExists = false;
-                        educations.forEach((sub) => {
-                          if (sub._id === subSectionIdx) {
-                            subSectionExists = true;
-                          }
-                        });
-
-                        if (!subSectionExists) {
-                          setEducations((prevState) => [
-                            ...prevState,
-                            educationSubSection,
-                          ]);
-                        }
-                        setIsUpdating(false);
-                        setSubSectionIdx(null);
-                        setLineItem({ body: '', priority: 0 });
-                        console.log(education.header);
-                        // Reset ProjectSubSection
-                        setEducationSubSection({
-                          cond: { priority: 0, items: 0 },
-                          subHeader: '',
-                          dateStart: '',
-                          dateEnd: '',
-                          lineItems: [],
-                        });
-                      }}
-                    >
-                      Submit
-                    </button>
                   )}
                 </div>
               </div>
@@ -331,18 +419,23 @@ export default function EducationSection({
                 />
               )}
 
-              <div className="order-1">
-                <SectionView
-                  section={section}
-                  sectionVar={education}
-                  sectionList={educations}
-                  sectionListSetter={setEducations}
-                  setSubSection={setEducationSubSection}
-                  setSubSectionIdx={setSubSectionIdx}
-                />
-              </div>
+              {educations?.length > 0 && (
+                <div>
+                  <SectionView
+                    section={section}
+                    sectionVar={education}
+                    sectionList={educations}
+                    sectionListSetter={setEducations}
+                    setSubSection={setEducationSubSection}
+                    setSubSectionIdx={setSubSectionIdx}
+                  />
+                </div>
+              )}
             </div>
           </div>
+          {modalIsOpen && (
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          )}
         </animated.div>
       )}
     </Spring>

@@ -1,7 +1,9 @@
 import * as resumeAPI from './resume-api';
 
 export async function createResume(resume) {
-  const newResume = await resumeAPI.createResume(resume);
+  const token = await resumeAPI.createResume(resume);
+  localStorage.setItem('token', token);
+  console.log('updated token to' , token)
 }
 
 export async function getResume(id){
