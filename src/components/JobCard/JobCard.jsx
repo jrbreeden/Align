@@ -1,102 +1,123 @@
 import { Spring, animated } from 'react-spring';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { useState, useEffect } from 'react';
 
-export default function JobCard({ job, status, user, markJobAsApplied, trackJob , stopTracking , isFetched}) {
-
+export default function JobCard({
+  job,
+  status,
+  user,
+  markJobAsApplied,
+  trackJob,
+  stopTracking,
+  isFetched,
+  isLoading,
+}) {
   return (
-    <Spring
-      from={{ opacity: 0, marginLeft: -10 }}
-      to={{ opacity: 1, marginLeft: 0 }}
-    >
-      {(props) => (
-        <animated.div style={props}>
-          <div
-            className="flex flex-col justify-between items-left justify-around min-h-full bg-gray-200 p-8 border border-1 border-gray-300 drop-shadow-2xl rounded"
-            style={{ height: '30rem' , width:'30rem' }}
-          >
-            <div className="header flex items-base justify-between">
-              <a href={job.job_link}>
-                <h1 className="text-xl font-bold text-center mb-10">
-                  {job.position}
-                </h1>
-              </a>
-              <div className="font-bold overflow-hidden rounded-full w-14 h-14 flex items-center justify-center ml-4">
-                <img src={job.logoUrl} alt={job.company} />
+    <>
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center">
+          <ClipLoader color={'#ADF5FF'} loading={isLoading} size={150} />
+        </div>
+      ) : (
+        <Spring
+          from={{ opacity: 0, marginLeft: -10 }}
+          to={{ opacity: 1, marginLeft: 0 }}
+        >
+          {(props) => (
+            <animated.div style={props}>
+              <div
+                className="flex flex-col justify-between items-left justify-around min-h-full bg-gray-200 p-8 border border-1 border-gray-300 drop-shadow-2xl rounded"
+                style={{ height: '30rem', width: '30rem' }}
+              >
+                <div className="header flex items-base justify-between">
+                  <a href={job.job_link}>
+                    <h1 className="text-xl font-bold text-center oswald">
+                      {job.position}
+                    </h1>
+                  </a>
+                  <div className="font-bold overflow-hidden rounded-full w-14 h-14 flex items-center justify-center ml-4">
+                    <img src={job.logoUrl} alt={job.company} />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                  <h2>
+                    <span className="font-bold oswald">Company:</span>{' '}
+                    {job.company}
+                  </h2>
+                  <h2>
+                    <span className="font-bold oswald">Location:</span>{' '}
+                    {job.location}
+                  </h2>
+                  <h2>
+                    <span className="font-bold oswald">Job type:</span>{' '}
+                    {job.jobType}
+                  </h2>
+
+                  <h2>
+                    <span className="font-bold oswald">Date applied:</span>{' '}
+                    {job.date_applied
+                      ? job.date_applied
+                      : 'No application yet!'}
+                  </h2>
+                </div>
+
+                <div className="flex gap-x-4">
+                  {isFetched ? (
+                    <>
+                      <button
+                        className="hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
+                        onClick={() => {
+                          trackJob(job, user._id, false);
+                        }}
+                      >
+                        Track this Job
+                      </button>
+                      <button
+                        className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
+                        onClick={() => {
+                          trackJob(job, user._id, true);
+                        }}
+                      >
+                        Mark as Applied
+                      </button>
+                    </>
+                  ) : job.date_applied === null ? (
+                    <>
+                      <button
+                        className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
+                        onClick={() => {
+                          stopTracking(job._id, user._id);
+                        }}
+                      >
+                        Stop Tracking
+                      </button>
+                      <button
+                        className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
+                        onClick={() => {
+                          markJobAsApplied(job._id, user._id);
+                        }}
+                      >
+                        Mark as Applied
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110 mt-14"
+                        onClick={() => {
+                          stopTracking(job._id, user._id);
+                        }}
+                      >
+                        Stop Tracking
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <h2>
-                <span className="font-bold">Company:</span> {job.company}
-              </h2>
-              <h2>
-                <span className="font-bold">Location:</span> {job.location}
-              </h2>
-              <h2>
-                <span className="font-bold">Job type:</span> {job.jobType}
-              </h2>
-
-              <h2>
-                <span className="font-bold">Date applied:</span>{' '}
-                {job.date_applied ? job.date_applied : 'No application yet!'}
-              </h2>
-            </div>
-
-            <div className="flex gap-x-4">
-              {isFetched?
-               <>
-               <button
-                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                    onClick={() => {
-                      trackJob( job , user._id , false);
-                    }}
-                  >
-                    Track this Job
-                  </button>
-                                <button
-                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                    onClick={() => {
-                      trackJob( job , user._id, true);
-                    }}
-                  >
-                    Mark as Applied
-                  </button>
-               </>
-              
-              :job.date_applied === null ? (
-                <>
-                                 <button
-                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                    onClick={() => {
-                      stopTracking(job._id, user._id);
-                    }}
-                  >
-                    Stop Tracking
-                  </button>
-                 <button
-                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                    onClick={() => {
-                      markJobAsApplied(job._id, user._id);
-                    }}
-                  >
-                    Mark as Applied
-                  </button>
-                </>
-              ):(
-                <>
-                 <button
-                    className="bg-green-600 px-4 py-2 font-semibold rounded text-white hover:bg-green-500 mt-14"
-                    onClick={() => {
-                      stopTracking(job._id, user._id);
-                    }}
-                  >
-                    Stop Tracking
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </animated.div>
+            </animated.div>
+          )}
+        </Spring>
       )}
-    </Spring>
+    </>
   );
 }
