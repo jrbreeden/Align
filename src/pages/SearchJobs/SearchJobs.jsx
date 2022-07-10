@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import * as jobService from '../../utilities/jobs-service'
 
-export default function SearchJobs({user , markJobAsApplied}) {
+export default function SearchJobs({ user , setUser, getUser, markAsApplied , stopTracking, trackJob, jobsWatched , setResponse}) {
   const [featuredJobs, setFeaturedJobs] = useState(
     localStorage.getItem('featuredJobs')
       ? JSON.parse(localStorage.getItem('featuredJobs'))
@@ -45,13 +45,6 @@ export default function SearchJobs({user , markJobAsApplied}) {
     });
     setFeaturedJobs(jobConverter);
   }
-
-
-
-   async function trackJob(jobDetails , userId, applied) {
-    const trackedJob = jobService.trackJob(jobDetails , userId, applied)
-   }
-
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
@@ -110,7 +103,7 @@ export default function SearchJobs({user , markJobAsApplied}) {
 
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8" >
                   {featuredJobs.map((job) => (
-                    <JobCard job={job} markJobAsApplied={markJobAsApplied} trackJob={trackJob} user={user} isFetched={true}/>
+                    <JobCard job={job} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true}/>
                   ))}
                 </div>
               </div>

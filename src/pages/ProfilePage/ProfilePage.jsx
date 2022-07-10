@@ -1,11 +1,6 @@
 import Layout from '../../components/Layout/Layout';
 import { Spring, animated } from 'react-spring';
 import { useEffect, useState } from 'react';
-import {
-  getAppliedJobs,
-  markJobAsApplied,
-  stopTrackingJob,
-} from '../../utilities/jobs-service';
 import JobCard from '../../components/JobCard/JobCard';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import {getResume} from '../../utilities/resume-service'
@@ -13,46 +8,12 @@ import { testData , words } from '../../utilities/helpers/optimizeResumeTestData
 import optimizeResume from '../../utilities/helpers/optimizeResume'
 
 
-export default function AppliedJobsPage({ user }) {
-  const [jobsWatched, setJobsWatched] = useState({
-    tracked: [],
-    applied: [],
-  });
-
-  const [response, setResponse] = useState({});
-
-  const markAsApplied = async (job_id, user_id) => {
-    const jobsApplied = await markJobAsApplied(job_id, user_id);
-    setResponse(jobsApplied);
-  };
-
-  const stopTracking = async (job_id, user_id) => {
-    const jobToStopTracking = await stopTrackingJob(job_id, user_id);
-    setResponse(jobToStopTracking);
-  };
-
-  useEffect(() => {
-    (async function populateJobs() {
-      const jobsWatched = await getAppliedJobs({ id: user._id });
-
-      if (jobsWatched) {
-        const tracked = jobsWatched.appliedJobList.filter(
-          (job) => !job.date_applied
-        );
-        const applied = jobsWatched.appliedJobList.filter(
-          (job) => job.date_applied
-        );
-        setJobsWatched({ tracked: tracked, applied: applied });
-      }
-      console.log('my applied jobs are ', jobsWatched);
-    })();
-  }, [response]);
+export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied , stopTracking, trackJob, jobsWatched , setResponse}) {
 
   async function handleClick() {
     const userResume = await getResume({ id: user._id });
     console.log('this was returned for the user resume ', userResume);
     resumeConstructor(userResume);
-
   }
   return (
     <Spring
@@ -75,7 +36,7 @@ export default function AppliedJobsPage({ user }) {
                         <JobCard
                           job={tj}
                           status={1}
-                          markJobAsApplied={markAsApplied}
+                          markAsApplied={markAsApplied}
                           user={user}
                           stopTracking={stopTracking}
                           isFetched={false}
@@ -104,7 +65,7 @@ export default function AppliedJobsPage({ user }) {
                       <JobCard
                         job={aj}
                         status={2}
-                        markJobAsApplied={markAsApplied}
+                        markAsApplied={markAsApplied}
                         user={user}
                         stopTracking={stopTracking}
                         isFetched={false}

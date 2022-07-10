@@ -32,7 +32,7 @@ async function markJobAsApplied(req, res) {
       }
     );
     console.log(updatedJob);
-    res.status(200).json({ Message: 'Successfully updated job!' });
+    res.status(200).json({ Message: `Successfully updated job! ${Date.now()}` });
   } catch (error) {
     res.status(500).json({ Message: error.message });
   }
@@ -55,7 +55,7 @@ async function stopTracking(req,res){
 
   AppliedJobs.updateOne({user:req.body.user_id} , {$pull:{appliedJobList:{_id:req.body.job_id}}}).then((change)=>{
     console.log(change)
-    res.status(200).json({ Message: 'Successfully updated job!' });
+    res.status(200).json({ Message: `Successfully updated job! ${Date.now()}` });
   }).catch((err)=>{
     console.log('There was an error with stopping tracking. ' ,err)
     res.status(500).json({ Message: error.message });
@@ -64,7 +64,7 @@ async function stopTracking(req,res){
 }
 
 async function trackJob(req,res){
-  //console.log('in track job controller with ,', req.body)
+  console.log('in track job controller with ,', req.body)
 
   const jobList = await AppliedJobs.findOne({user:req.body.user})
 try{
@@ -90,12 +90,11 @@ try{
     console.log('Cant find that user')
     res.status(500).json({ Message: error.message })
   }
-  res.status(200).json({ Message: 'Successfully updated job!' });
+  res.status(200).json({ Message: `Successfully updated job! ${Date.now()}` });
 }catch(err){
   res.status(500).json({ Message: error.message });
 }
 }
-
 
 module.exports = {
   appliedJobs,
