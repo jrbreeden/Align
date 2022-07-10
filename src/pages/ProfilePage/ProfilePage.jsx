@@ -8,13 +8,31 @@ import { testData , words } from '../../utilities/helpers/optimizeResumeTestData
 import optimizeResume from '../../utilities/helpers/optimizeResume'
 
 
-export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied , stopTracking, trackJob, jobsWatched , setResponse}) {
+export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied , stopTracking, trackJob, jobsWatched , setResponse, getAppliedJobs, setJobsWatched}) {
 
   async function handleClick() {
     const userResume = await getResume({ id: user._id });
     console.log('this was returned for the user resume ', userResume);
     resumeConstructor(userResume);
   }
+
+  useEffect(() => {
+    if(user) {(async function populateJobs() {
+      const jobsWatched = await getAppliedJobs({ id: user._id });
+
+      if (jobsWatched) {
+        const tracked = jobsWatched.appliedJobList.filter(
+          (job) => !job.date_applied
+        );
+        const applied = jobsWatched.appliedJobList.filter(
+          (job) => job.date_applied
+        );
+        setJobsWatched({ tracked: tracked, applied: applied });
+      }
+      console.log('my applied jobs are initially ', jobsWatched);
+    })()}
+  }, [])
+
   return (
     <Spring
       from={{ opacity: 0, marginLeft: -1000 }}
