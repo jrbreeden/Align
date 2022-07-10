@@ -172,9 +172,14 @@ export default function EducationSection({
             <div
               className={`grid grid-cols-${
                 educationSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } gap-x-20 justify-center rounded`}
+              } gap-x-20 justify-center rounded ${
+                educations?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              }`}
             >
-              <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+              <div
+                className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded"
+                style={{ minWidth: '30vw', minHeight: '55vh' }}
+              >
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
                   <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
                     {section === 'PersonalInfo'
@@ -414,16 +419,18 @@ export default function EducationSection({
                 />
               )}
 
-              <div className="order-1">
-                <SectionView
-                  section={section}
-                  sectionVar={education}
-                  sectionList={educations}
-                  sectionListSetter={setEducations}
-                  setSubSection={setEducationSubSection}
-                  setSubSectionIdx={setSubSectionIdx}
-                />
-              </div>
+              {educations?.length > 0 && (
+                <div>
+                  <SectionView
+                    section={section}
+                    sectionVar={education}
+                    sectionList={educations}
+                    sectionListSetter={setEducations}
+                    setSubSection={setEducationSubSection}
+                    setSubSectionIdx={setSubSectionIdx}
+                  />
+                </div>
+              )}
             </div>
           </div>
           {modalIsOpen && (

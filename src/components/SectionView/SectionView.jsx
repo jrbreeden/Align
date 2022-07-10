@@ -12,7 +12,7 @@ export default function SectionView({
   setSubSectionIdx,
 }) {
   return (
-    <div className="h-auto w-full min-h-full bg-gray-200 py-8 px-4 border border-2 border-gray-300 drop-shadow-2xl rounded items-center justify-center">
+    <div className="h-auto w-full bg-gray-200 py-8 px-4 border border-2 border-gray-300 drop-shadow-2xl rounded items-center justify-center" style={{minWidth: '30vw', minHeight: '55vh'}}>
       <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
         <li className="w-full px-4 py-2 text-xl rounded-t-lg dark:border-gray-600 text-center font-bold oswald">
           {section} Data Preview

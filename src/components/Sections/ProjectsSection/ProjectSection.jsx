@@ -175,9 +175,14 @@ export default function ProjectsSection({
             <div
               className={`grid grid-cols-${
                 projectSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } gap-x-20 justify-center rounded`}
+              } gap-x-20 justify-center items-center rounded ${
+                projects?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              }`}
             >
-              <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+              <div
+                className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded"
+                style={{ minWidth: '30vw', minHeight: '55vh' }}
+              >
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
                   <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl oswald">
                     {section === 'PersonalInfo'
@@ -426,17 +431,19 @@ export default function ProjectsSection({
                 />
               )}
 
-              <div className="order-1">
-                <SectionView
-                  section={section}
-                  sectionVar={project}
-                  sectionList={projects}
-                  sectionListSetter={setProjects}
-                  setSubSection={setProjectSubSection}
-                  setSubSectionIdx={setSubSectionIdx}
-                  // setLineItem={setLineItem}
-                />
-              </div>
+              {projects?.length > 0 && (
+                <div>
+                  <SectionView
+                    section={section}
+                    sectionVar={project}
+                    sectionList={projects}
+                    sectionListSetter={setProjects}
+                    setSubSection={setProjectSubSection}
+                    setSubSectionIdx={setSubSectionIdx}
+                    // setLineItem={setLineItem}
+                  />
+                </div>
+              )}
             </div>
           </div>
           {modalIsOpen && (
