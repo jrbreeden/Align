@@ -17,7 +17,7 @@ export default function App() {
   return (
     <main className="App">
       {user ? (
-        <Layout active={true} setUser={setUser}>
+        <Layout active={true} setUser={setUser} user={user}>
         <Routes>
           <Route
             path="/construction"

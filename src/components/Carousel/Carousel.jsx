@@ -24,10 +24,10 @@ export default function Carousel() {
   };
   return (
     <div className="mt-24 flex justify-center">
-      <div className='bg-gray-200 w-1/2 py-8 rounded'>
+      <div className='bg-gray-400 w-1/2 py-8 px-4 rounded'>
         <Slider {...settings}>
           <div>
-            <img className="h-96 m-auto" src={images[0]} alt="" />
+            <img className="h-96 w-full m-auto" src={images[0]} alt="" />
           </div>
           <div>
             <img className="h-96 m-auto" src={images[1]} alt="" />
