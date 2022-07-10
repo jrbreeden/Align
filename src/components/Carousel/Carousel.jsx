@@ -25,7 +25,6 @@ export default function Carousel() {
 //        </Slider>
 //      </div>
  //   </div>
-  );
 }
 
 //export default Carousel
