@@ -29,6 +29,17 @@ export default function EducationSection({
     setValue('subHeader', '');
     setValue('dateStart', '');
     setValue('dateEnd', '');
+    setValue('priority', 0);
+  };
+
+  const handlePriorityLevelChange = (e) => {
+    setEducationSubSection((prevState) => ({
+      ...prevState,
+      cond: {
+        ...prevState.cond,
+        priority: parseInt(e.target.value),
+      },
+    }));
   };
 
   const handleSubSectionChange = (e) => {
@@ -58,7 +69,7 @@ export default function EducationSection({
         setEducations((prevState) => [
           ...prevState.map((edu) => {
             if (edu._id === subSectionIdx) {
-              edu = educationSubSection
+              edu = educationSubSection;
             }
             return edu;
           }),
@@ -97,6 +108,7 @@ export default function EducationSection({
       setValue('subHeader', educationSubSection.subHeader);
       setValue('dateStart', educationSubSection.dateStart.split('T')[0]);
       setValue('dateEnd', educationSubSection.dateEnd.split('T')[0]);
+      setValue('priority', educationSubSection.cond.priority);
     }
 
     // if (educationSubSection.lineItems.length === 0) {
@@ -184,16 +196,12 @@ export default function EducationSection({
                     <select
                       className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-gray-500"
                       name="priority"
-                      value={educationSubSection.priority}
-                      onChange={(e) =>
-                        setEducationSubSection((prevState) => ({
-                          ...prevState,
-                          cond: {
-                            ...prevState.cond,
-                            priority: parseInt(e.target.value),
-                          },
-                        }))
-                      }
+                      // value={educationSubSection.priority}
+                      // onChange={handlePriorityLevelChange}
+                      {...register('priority', {
+                        value: educationSubSection.cond.priority,
+                        onChange: handlePriorityLevelChange,
+                      })}
                     >
                       <option value={0}>Normal</option>
                       <option value={1}>Essential</option>
