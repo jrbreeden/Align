@@ -44,7 +44,7 @@ export default function NavBar({ active, user, setUser }) {
                       to="/profile"
                       className={`text-white bg-none ${
                         location.pathname === '/profile' &&
-                        'bg-blue-800 px-4 py-1 rounded'
+                        'bg-blue-800 px-4 py-2 rounded'
                       }`}
                     >
                       Profile
@@ -55,7 +55,7 @@ export default function NavBar({ active, user, setUser }) {
                       to="/construction"
                       className={`text-white bg-none ${
                         location.pathname === '/construction' &&
-                        'bg-blue-800 px-4 py-1 rounded'
+                        'bg-blue-800 px-4 py-2 rounded'
                       }`}
                     >
                       Resume Builder
@@ -66,7 +66,7 @@ export default function NavBar({ active, user, setUser }) {
                       to="/featured-jobs"
                       className={`text-white bg-none ${
                         location.pathname === '/featured-jobs' &&
-                        'bg-blue-800 px-4 py-1 rounded'
+                        'bg-blue-800 px-4 py-2 rounded'
                       }`}
                     >
                       Featured Jobs
@@ -77,7 +77,7 @@ export default function NavBar({ active, user, setUser }) {
                       to="/search-jobs"
                       className={`text-white bg-none ${
                         location.pathname === '/search-jobs' &&
-                        'bg-blue-800 px-4 py-1 rounded'
+                        'bg-blue-800 px-4 py-2 rounded'
                       }`}
                     >
                       Search Jobs
@@ -100,7 +100,7 @@ export default function NavBar({ active, user, setUser }) {
                       to="/signup"
                       className={`text-white bg-none ${
                         location.pathname === '/signup' &&
-                        'bg-blue-800 px-4 py-1 rounded'
+                        'bg-blue-800 px-4 py-2 rounded'
                       }`}
                     >
                       Signup
@@ -111,7 +111,7 @@ export default function NavBar({ active, user, setUser }) {
                       to="/login"
                       className={`text-white bg-none ${
                         location.pathname === '/login' &&
-                        'bg-blue-800 px-4 py-1 rounded'
+                        'bg-blue-800 px-4 py-2 rounded'
                       }`}
                     >
                       Login
