@@ -354,7 +354,7 @@ export default function ConstructionPage({ user }) {
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="bg-gray-200">
+          <div>
             <div>
               <Stepper
                 step={step}
@@ -376,7 +376,7 @@ export default function ConstructionPage({ user }) {
               user={user}
               errors={errors}
             />
-            <div className="flex items-center justify-center gap-x-96 mt-20">
+            <div className="flex items-center justify-center gap-x-96">
               {renderSection(currentSection)}
             </div>
           </div>

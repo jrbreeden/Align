@@ -18,8 +18,8 @@ export default function Stepper({
     <>
       <div className="mx-8 p-4">
         <div className="flex items-center">
-          <div className="flex items-center text-teal-600 relative">
-            <div className="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-teal-600">
+          <div className="flex items-center text-teal-300 relative">
+            <div className="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-teal-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
@@ -39,23 +39,23 @@ export default function Stepper({
                 />
               </svg>
             </div>
-            <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-600 font-bold">
+            <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-300 font-bold">
               Personal Info
             </div>
           </div>
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              stepperSection.Statement ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Statement ? 'border-teal-300' : 'border-gray-800'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              stepperSection.Statement ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Statement ? 'text-teal-300' : 'text-gray-800'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                stepperSection.Statement ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Statement ? 'border-teal-300' : 'border-gray-800'
               }`}
             >
               <svg
@@ -78,7 +78,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                stepperSection.Statement ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Statement ? 'text-teal-300' : 'text-gray-800'
               } font-bold`}
             >
               Statement
@@ -86,17 +86,17 @@ export default function Stepper({
           </div>
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              stepperSection.Skills ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Skills ? 'border-teal-300' : 'border-gray-800'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              stepperSection.Skills ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Skills ? 'text-teal-300' : 'text-gray-800'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                stepperSection.Skills ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Skills ? 'border-teal-300' : 'border-gray-800'
               }`}
             >
               <svg
@@ -119,7 +119,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                stepperSection.Skills ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Skills ? 'text-teal-300' : 'text-gray-800'
               } font-bold`}
             >
               Skills
@@ -127,17 +127,17 @@ export default function Stepper({
           </div>
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              stepperSection.Projects ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Projects ? 'border-teal-300' : 'border-gray-800'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              stepperSection.Projects ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Projects ? 'text-teal-300' : 'text-gray-800'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                stepperSection.Projects ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Projects ? 'border-teal-300' : 'border-gray-800'
               }`}
             >
               <svg
@@ -160,7 +160,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                stepperSection.Projects ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Projects ? 'text-teal-300' : 'text-gray-800'
               } font-bold`}
             >
               Projects
@@ -169,17 +169,17 @@ export default function Stepper({
 
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              stepperSection.History ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.History ? 'border-teal-300' : 'border-gray-800'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              stepperSection.History ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.History ? 'text-teal-300' : 'text-gray-800'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                stepperSection.History ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.History ? 'border-teal-300' : 'border-gray-800'
               }`}
             >
               <svg
@@ -202,7 +202,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                stepperSection.History ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.History ? 'text-teal-300' : 'text-gray-800'
               } font-bold`}
             >
               Work History
@@ -211,17 +211,17 @@ export default function Stepper({
 
           <div
             className={`flex-auto border-t-2 transition duration-500 ease-in-out ${
-              stepperSection.Education ? 'border-teal-600' : 'border-gray-300'
+              stepperSection.Education ? 'border-teal-300' : 'border-gray-800'
             }`}
           ></div>
           <div
             className={`flex items-center ${
-              stepperSection.Education ? 'text-teal-600' : 'text-gray-500'
+              stepperSection.Education ? 'text-teal-300' : 'text-gray-800'
             } relative`}
           >
             <div
               className={`rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2  ${
-                stepperSection.Education ? 'border-teal-600' : 'border-gray-300'
+                stepperSection.Education ? 'border-teal-300' : 'border-gray-800'
               }`}
             >
               <svg
@@ -246,7 +246,7 @@ export default function Stepper({
             </div>
             <div
               className={`absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase ${
-                stepperSection.Education ? 'text-teal-600' : 'text-gray-600'
+                stepperSection.Education ? 'text-teal-300' : 'text-gray-800'
               } font-bold`}
             >
               Education

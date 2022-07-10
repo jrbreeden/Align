@@ -115,10 +115,9 @@ export default function ProjectsSection({
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="flex flex-col bg-red-500 p-4 w-screen mx-8">
-            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          <div className="flex flex-col p-4 mx-8 rounded">
             {/* section priority level  */}
-            <div className="w-1/6 bg-pink-400">
+            {/* <div className="w-1/6 bg-pink-400">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="header"
@@ -156,16 +155,16 @@ export default function ProjectsSection({
                   </svg>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* MAIN DIV !!! */}
             <div
               className={`grid grid-cols-${
                 projectSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } bg-green-200 gap-x-20 justify-center`}
+              } gap-x-20 justify-center rounded`}
             >
               <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
+                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
                     {section === 'PersonalInfo'
                       ? 'Personal Info'.toUpperCase()
                       : section}{' '}
@@ -301,35 +300,38 @@ export default function ProjectsSection({
                         </p>
                       )}
                     </div>
-                    {showLineItemInput ? null : (
-                      <button
-                        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2"
-                        type="submit"
-                      >
-                        Submit
-                      </button>
-                    )}
-                  </form>
-                  {showLineItemInput ? null : (
-                    <>
-                      <button
-                        className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={() => {
-                          setShowLineItemInput(true);
-                          setLineItemIdx(null);
-                          setLineItem({ body: '', priority: 0 });
-                        }}
-                      >
-                        Add New Line Item
-                      </button>
-                      {errors?.lineItems?.type === 'required' && (
-                        <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                          {errors?.lineItems?.message}
-                        </p>
+                    <div className="flex items-center justify-between">
+                      {showLineItemInput ? null : (
+                        <button
+                          className="w-5/12 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2 bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110"
+                          type="submit"
+                        >
+                          Submit
+                        </button>
                       )}
-                    </>
-                  )}
+                      {showLineItemInput ? null : (
+                        <>
+                          <button
+                            className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="button"
+                            onClick={() => {
+                              setShowLineItemInput(true);
+                              setLineItemIdx(null);
+                              setLineItem({ body: '', priority: 0 });
+                            }}
+                          >
+                            Add New Line Item
+                          </button>
+                          {errors?.lineItems?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              {errors?.lineItems?.message}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </form>
+
                   {showLineItemInput && (
                     <form onSubmit={handleLineItemSubmit}>
                       {showLineItemInput && (
@@ -353,48 +355,50 @@ export default function ProjectsSection({
                           ></textarea>
                         </div>
                       )}
-                      {isUpdating && lineItemIdx !== null ? null : (
+                      <div className="flex items-center justify-between">
+                        {isUpdating && lineItemIdx !== null ? null : (
+                          <button
+                            className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="submit"
+                          >
+                            Submit
+                          </button>
+                        )}
+                        {isUpdating && lineItemIdx !== null && (
+                          <button
+                            className="w-5/12 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110"
+                            type="button"
+                            onClick={() => {
+                              // alert(lineItem.body);
+                              setProjectSubSection((prevState) => {
+                                setShowLineItemInput(false);
+                                return {
+                                  ...prevState,
+                                  lineItems: prevState.lineItems.map(
+                                    (item, idx) => {
+                                      if (idx === lineItemIdx) {
+                                        item.body = lineItem.body;
+                                      }
+                                      return item;
+                                    }
+                                  ),
+                                };
+                              });
+                            }}
+                          >
+                            Update
+                          </button>
+                        )}
                         <button
-                          className="w-1/2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                          type="submit"
-                        >
-                          Submit
-                        </button>
-                      )}
-                      {isUpdating && lineItemIdx !== null && (
-                        <button
-                          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          className="w-5/12 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110"
                           type="button"
                           onClick={() => {
-                            // alert(lineItem.body);
-                            setProjectSubSection((prevState) => {
-                              setShowLineItemInput(false);
-                              return {
-                                ...prevState,
-                                lineItems: prevState.lineItems.map(
-                                  (item, idx) => {
-                                    if (idx === lineItemIdx) {
-                                      item.body = lineItem.body;
-                                    }
-                                    return item;
-                                  }
-                                ),
-                              };
-                            });
+                            setShowLineItemInput(false);
                           }}
                         >
-                          Update
+                          Cancel
                         </button>
-                      )}
-                      <button
-                        className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={() => {
-                          setShowLineItemInput(false);
-                        }}
-                      >
-                        Cancel
-                      </button>
+                      </div>
                     </form>
                   )}
                 </div>
@@ -424,6 +428,9 @@ export default function ProjectsSection({
               </div>
             </div>
           </div>
+          {modalIsOpen && (
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          )}
         </animated.div>
       )}
     </Spring>

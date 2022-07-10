@@ -4,7 +4,6 @@ import StatementView from '../../Review/StatementView/StatementView';
 import { useState, useEffect } from 'react';
 import Modal from '../../Modal/Modal';
 
-
 export default function StatementSection({
   section,
   statement,
@@ -52,12 +51,11 @@ export default function StatementSection({
       >
         {(props) => (
           <animated.div style={props}>
-            <div className="flex gap-x-60">
-              <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
-              <div className="h-auto w-96 min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+            <div className="flex gap-x-60" style={{ width: '50vw' }}>
+              <div className="w-full min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
                 <div>
                   <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                    <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
+                    <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
                       {section === 'PersonalInfo'
                         ? 'Personal Info'.toUpperCase()
                         : section.toUpperCase()}
@@ -144,15 +142,18 @@ export default function StatementSection({
                     )}
                   </div>
                   <button
-                    className="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50"
                     type="submit"
                   >
                     Submit
                   </button>
                 </form>
               </div>
-              <StatementView section={section} statement={statement} />
+              {/* <StatementView section={section} statement={statement} /> */}
             </div>
+            {modalIsOpen && (
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          )}
           </animated.div>
         )}
       </Spring>

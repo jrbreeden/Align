@@ -57,11 +57,10 @@ export default function PersonalInfoSection({
     >
       {(props) => (
         <animated.div style={props}>
-          <div className="flex gap-x-60">
-            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
-            <div className="h-auto w-96 min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+          <div className="flex gap-x-60" style={{ width: '50vw' }}>
+            <div className="w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
               <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
+                <li className="w-full text-xl px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
                   {section === 'PersonalInfo'
                     ? 'Personal Info'.toUpperCase()
                     : section}
@@ -251,7 +250,7 @@ export default function PersonalInfoSection({
                     )}
                   </div>
                   <button
-                    className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 shadow-lg shadow-blue-500/50"
                     type="submit"
                   >
                     Submit
@@ -259,7 +258,7 @@ export default function PersonalInfoSection({
                 </form>
               </div>
             </div>
-            <PersonalInfoView
+            {/* <PersonalInfoView
               section={section}
               name={personal.name}
               email={personal.email}
@@ -267,8 +266,11 @@ export default function PersonalInfoSection({
               link1={personal.link1}
               link2={personal.link2}
               link3={personal.link3}
-            />
+            /> */}
           </div>
+          {modalIsOpen && (
+            <Modal isShow={modalIsOpen} closeModal={setModalIsOpen} />
+          )}
         </animated.div>
       )}
     </Spring>

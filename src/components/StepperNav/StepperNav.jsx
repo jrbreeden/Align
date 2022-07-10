@@ -178,7 +178,7 @@ export default function StepperNav({
   }, [errors]);
 
   return (
-    <div className="mx-8 mt-24">
+    <div className="mx-8 mt-16">
       <div className="flex p-2 justify-between">
         <div>
           <button
@@ -186,11 +186,10 @@ export default function StepperNav({
         hover:bg-gray-200  
         bg-gray-100 
         text-gray-700 
-        border duration-200 ease-in-out 
+        border duration-200 ease-in-out shadow-white-500/50 border-white
         border-gray-600 transition ${step === 0 && 'cursor-not-allowed'}`}
             onClick={() => {
               setStep((prevStep) => prevStep - 1);
-              console.log('bogo', steps[step]);
               setSections((prevSections) => ({
                 ...prevSections,
                 [`${steps[step]}`]: false,
@@ -201,12 +200,12 @@ export default function StepperNav({
             Previous
           </button>
         </div>
-        <div className="flex items-center">
-          <h1 className="text-gray-500 font-semibold text-xl">
+        {/* <div className="flex items-center">
+          <h1 className="text-gray-100 font-semibold text-xl">
             Step {step + 1}/{steps.length} -{' '}
             {steps[step] === 'PersonalInfo' ? 'Personal Info' : steps[step]}
           </h1>
-        </div>
+        </div> */}
         <div className="flex">
           {step === steps.length - 1 ? (
             <button
@@ -229,12 +228,10 @@ export default function StepperNav({
           ) : (
             <button
               className={`text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-              ${
-                Object.keys(errors).length === 0 ? 'bg-teal-500' : ' bg-black'
-              } 
+              ${Object.keys(errors).length === 0 ? 'bg-cyan-500' : ' bg-black'} 
               text-white 
               border duration-200 ease-in-out 
-              border-white transition`}
+              border-cyan-500 transition shadow-lg shadow-cyan-500/50 px-8`}
               onClick={() => {
                 setStep((prevStep) => prevStep + 1);
                 setSections((prevSections) => ({
