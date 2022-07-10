@@ -10,6 +10,7 @@ import ConstructionPage from '../ConstructionPage/ConstructionPage';
 import FeaturedJobs from '../FeaturedJobs/FeaturedJobs';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import Layout from '../../components/Layout/Layout';
+import SearchJobs from '../SearchJobs/SearchJobs'
 
 
 export default function App() {
@@ -26,6 +27,10 @@ export default function App() {
           <Route
             path="/featured-jobs"
             element={<FeaturedJobs user={user} setUser={setUser} exact />}
+          />
+                    <Route
+            path="/search-jobs"
+            element={<SearchJobs user={user} setUser={setUser} exact />}
           />
           <Route
             path="/profile"

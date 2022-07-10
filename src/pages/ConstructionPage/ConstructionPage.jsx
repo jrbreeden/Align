@@ -20,7 +20,7 @@ import { getResume } from '../../utilities/resume-service';
 import lineTagger from '../../utilities/helpers/lineTagger'
 
 export default function ConstructionPage({ user }) {
-  const [ userTags, setUserTags] = useState({})
+  const [ userTags, setUserTags] = useState(user.tags)
 
   const {
     register,
@@ -386,6 +386,7 @@ export default function ConstructionPage({ user }) {
               resume={resume}
               user={user}
               errors={errors}
+              userTags={userTags}
             />
             <div className="flex items-center justify-center gap-x-96">
               {renderSection(currentSection)}

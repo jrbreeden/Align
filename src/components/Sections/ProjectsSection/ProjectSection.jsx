@@ -90,7 +90,7 @@ export default function ProjectsSection({
     const tags = lineTagger(lineItem.body)
     let newTags = {...userTags}
     tags.forEach((tag)=>{
-      newTags.includes(tag)? newTags[tag]++ : newTags[tag]=1
+      newTags[tag]? newTags[tag]++ : newTags[tag]=1
     })
     setUserTags(newTags)
     setShowLineItemInput(false);

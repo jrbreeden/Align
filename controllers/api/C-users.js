@@ -8,6 +8,7 @@ module.exports = {
   create,
   login,
   checkToken,
+  updateUserTags,
 };
 
 function checkToken(req, res) {
@@ -52,4 +53,14 @@ function createJWT(user) {
     process.env.SECRET,
     { expiresIn: '24h' }
   );
+}
+
+function updateUserTags(req,res){
+  console.log('in users controller to update user tags with ' , req.body)
+  User.updateOne({_id:req.body.id} , {$set:{tags:req.body.userTags}}).then(()=>{
+    res.send(200)
+  }).catch((err)=>{
+    console.log(err)
+    res.send(500)
+  }) 
 }

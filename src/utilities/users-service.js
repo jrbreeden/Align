@@ -43,3 +43,6 @@ export function checkToken() {
   .then(dateStr => new Date(dateStr));
 }
 
+export function updateUserTags(userTags,id){
+  return usersAPI.updateUserTags(userTags,id)
+}

@@ -19,6 +19,7 @@ const userSchema = new Schema({
     minLength: 3,
     required: true
   },
+  tags:{type:Object, required:true, default:{}}
 }, {
   timestamps: true,
   toJSON: {

@@ -36,7 +36,7 @@ export default function PersonalInfoSection({
     const tags = lineTagger(data.skill)
     let newTags = {...userTags}
     tags.forEach((tag)=>{
-      newTags.includes(tag)? newTags[tag]++ : newTags[tag]=1
+      newTags[tag]? newTags[tag]++ : newTags[tag]=1
     })
     setUserTags(newTags)
     if (Object.keys(errors).length === 0) {
