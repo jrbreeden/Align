@@ -3,15 +3,23 @@ import { Spring, animated } from 'react-spring';
 import JobCard from '../../components/JobCard/JobCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import * as jobService from '../../utilities/jobs-service'
+import * as jobService from '../../utilities/jobs-service';
 
 export default function FeaturedJobs({ user, markJobAsApplied }) {
-  const [featuredJobs, setFeaturedJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
+  const [featuredJobs, setFeaturedJobs] = useState(
+    localStorage.getItem('featuredJobs')
+      ? JSON.parse(localStorage.getItem('featuredJobs'))
+      : []
+  );
+  const [search, setSearch] = useState(
+    localStorage.getItem('searchedKeyword')
+      ? JSON.parse(localStorage.getItem('searchedKeyword'))
+      : ''
+  );
 
-  useEffect(async()=>{
 
   })
-
   useEffect(async () => {
     console.log('my user tags are' , user)
     let search = ''
@@ -56,6 +64,7 @@ console.log('searching for... ' ,search)
   }, [])
 
   async function trackJob(jobDetails, userId, applied) {
+
     const trackedJob = jobService.trackJob(jobDetails, userId, applied)
   }
 

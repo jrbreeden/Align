@@ -32,6 +32,17 @@ export default function ProjectsSection({
     setValue('subHeader', '');
     setValue('dateStart', '');
     setValue('dateEnd', '');
+    setValue('priority', 0);
+  };
+
+  const handlePriorityLevelChange = (e) => {
+    setProjectSubSection((prevState) => ({
+      ...prevState,
+      cond: {
+        ...prevState.cond,
+        priority: parseInt(e.target.value),
+      },
+    }));
   };
 
   const handleSubSectionChange = (e) => {
@@ -61,7 +72,10 @@ export default function ProjectsSection({
         setProjects((prevState) => [
           ...prevState.map((proj) => {
             if (proj._id === subSectionIdx) {
-              proj.lineItems = projectSubSection.lineItems;
+              proj = projectSubSection;
+              // proj.lineItems = projectSubSection.lineItems;
+              // proj.subHeader = projectSubSection.subHeader
+              // proj.cond.priority = projectSubSection.subHeader
             }
             return proj;
           }),
@@ -106,6 +120,7 @@ export default function ProjectsSection({
       setValue('subHeader', projectSubSection.subHeader);
       setValue('dateStart', projectSubSection.dateStart.split('T')[0]);
       setValue('dateEnd', projectSubSection.dateEnd.split('T')[0]);
+      setValue('priority', projectSubSection.cond.priority);
     }
 
     // if (projectSubSection.lineItems.length === 0) {
@@ -169,11 +184,16 @@ export default function ProjectsSection({
             <div
               className={`grid grid-cols-${
                 projectSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } gap-x-20 justify-center rounded`}
+              } gap-x-20 justify-center items-center rounded ${
+                projects?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              }`}
             >
-              <div className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
+              <div
+                className="h-auto w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded"
+                style={{ minWidth: '30vw', minHeight: '55vh' }}
+              >
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
+                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl oswald">
                     {section === 'PersonalInfo'
                       ? 'Personal Info'.toUpperCase()
                       : section}{' '}
@@ -184,7 +204,7 @@ export default function ProjectsSection({
                 {/* PROJECT SECTION FORM */}
                 <div className="form mt-4">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2 oswald"
                     htmlFor="header"
                   >
                     Priority Level
@@ -193,16 +213,12 @@ export default function ProjectsSection({
                     <select
                       className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-gray-500"
                       name="priority"
-                      value={projectSubSection.priority}
-                      onChange={(e) =>
-                        setProjectSubSection((prevState) => ({
-                          ...prevState,
-                          cond: {
-                            ...prevState.cond,
-                            priority: parseInt(e.target.value),
-                          },
-                        }))
-                      }
+                      // value={projectSubSection.priority}
+                      // onChange={handlePriorityLevelChange}
+                      {...register('priority', {
+                        value: projectSubSection.cond.priority,
+                        onChange: handlePriorityLevelChange,
+                      })}
                     >
                       <option value={0}>Normal</option>
                       <option value={1}>Essential</option>
@@ -222,7 +238,7 @@ export default function ProjectsSection({
                   <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
                     <div className="mb-4">
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-2 oswald"
                         htmlFor="header"
                       >
                         Header
@@ -260,7 +276,7 @@ export default function ProjectsSection({
                       )}
 
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="header"
                       >
                         Date Start
@@ -285,8 +301,8 @@ export default function ProjectsSection({
                       )}
 
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
-                        htmlFor="header"
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
+                        htmlFor="dateEnd"
                       >
                         Date End
                       </label>
@@ -364,7 +380,7 @@ export default function ProjectsSection({
                           ></textarea>
                         </div>
                       )}
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-4">
                         {isUpdating && lineItemIdx !== null ? null : (
                           <button
                             className="w-5/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
@@ -424,17 +440,19 @@ export default function ProjectsSection({
                 />
               )}
 
-              <div className="order-1">
-                <SectionView
-                  section={section}
-                  sectionVar={project}
-                  sectionList={projects}
-                  sectionListSetter={setProjects}
-                  setSubSection={setProjectSubSection}
-                  setSubSectionIdx={setSubSectionIdx}
-                  // setLineItem={setLineItem}
-                />
-              </div>
+              {projects?.length > 0 && (
+                <div>
+                  <SectionView
+                    section={section}
+                    sectionVar={project}
+                    sectionList={projects}
+                    sectionListSetter={setProjects}
+                    setSubSection={setProjectSubSection}
+                    setSubSectionIdx={setSubSectionIdx}
+                    // setLineItem={setLineItem}
+                  />
+                </div>
+              )}
             </div>
           </div>
           {modalIsOpen && (

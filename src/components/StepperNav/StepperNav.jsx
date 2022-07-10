@@ -211,12 +211,7 @@ export default function StepperNav({
         <div className="flex">
           {step === steps.length - 1 ? (
             <button
-              className="text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-blue-600  
-        bg-blue-600 
-        text-blue-100 
-        border duration-200 ease-in-out 
-        border-blue-600 transition"
+              className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2 mb-2 bg-blue-500 shadow-lg shadow-blue-500/50 transition duration-200 ease-in-out hover:scale-110 px-8"
               onClick={() => {
                 // navigate('/profile', { replace: true });
                 // console.log(resume);
