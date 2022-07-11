@@ -96,18 +96,15 @@ export default function FeaturedJobs({
     >
       {(props) => (
         <animated.div style={props}>
-
-        <div className="flex flex-col w-full justify-center items-center">
+          <div className="flex flex-col w-full justify-center items-center">
             <div className="p-16">
               {featuredJobs.length > 0 && (
                 <h1 className="text-5xl font-bold text-center mb-14 text-white oswald">
                   Featured Jobs
                 </h1>
-                
               )}
               <br />
-              <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8" >
-
+              <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8">
                 {featuredJobs.map((job) => (
                   <JobCard
                     job={job}

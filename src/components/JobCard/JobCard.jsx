@@ -81,7 +81,7 @@ export default function JobCard({
                   {isFetched && !isTracked ? (
                     <>
                       <button
-                        className="hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-sky-500 shadow-lg shadow-sky-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-sky-500 shadow-lg shadow-sky-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={() => {
                           trackJob(job, user._id, false);
                         }}
@@ -89,7 +89,7 @@ export default function JobCard({
                         Track this Job
                       </button>
                       <button
-                        className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={() => {
                           handleClick(
                             job.tags,
@@ -100,7 +100,7 @@ export default function JobCard({
                         Download Optimized Resume
                       </button>
                       <button
-                        className="hover:bg-rose-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-rose-500 shadow-lg shadow-rose-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-rose-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-rose-500 shadow-lg shadow-rose-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={() => {
                           trackJob(job, user._id, true);
                         }}
@@ -110,7 +110,7 @@ export default function JobCard({
                     </>
                   ) : isFetched ? (
                     <button
-                      className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                      className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                       onClick={() => {
                         handleClick(
                           job.tags,
@@ -123,7 +123,7 @@ export default function JobCard({
                   ) : job.date_applied === null && !isFetched ? (
                     <>
                       <button
-                        className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={() => {
                           stopTracking(job._id, user._id);
                         }}
@@ -131,7 +131,7 @@ export default function JobCard({
                         Stop Tracking
                       </button>
                       <button
-                        className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-green-500 shadow-lg shadow-green-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={() => {
                           markAsApplied(job._id, user._id);
                         }}
@@ -139,7 +139,7 @@ export default function JobCard({
                         Mark as Applied
                       </button>
                       <button
-                        className="hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-sky-500 shadow-lg shadow-sky-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-sky-500 shadow-lg shadow-sky-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={handleClick}
                       >
                         Download Optimized Resume
@@ -148,7 +148,7 @@ export default function JobCard({
                   ) : !isFetched ? (
                     <>
                       <button
-                        className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110"
+                        className="hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-red-500 shadow-lg shadow-red-500/50 transition duration-200 ease-in-out hover:scale-110 mb-1"
                         onClick={() => {
                           stopTracking(job._id, user._id);
                         }}
