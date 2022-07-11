@@ -178,8 +178,7 @@ export default function EducationSection({
             <div
               className={`grid grid-cols-${
                 educationSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } gap-x-20 justify-center rounded ${
-                educations?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              } gap-x-20 justify-center rounded
               }`}
             >
               <div
@@ -187,7 +186,7 @@ export default function EducationSection({
                 style={{ minWidth: '30vw', minHeight: '55vh' }}
               >
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
+                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl oswald tracking-widest">
                     {section === 'PersonalInfo'
                       ? 'Personal Info'.toUpperCase()
                       : section}{' '}
@@ -198,7 +197,7 @@ export default function EducationSection({
                 {/* PROJECT SECTION FORM */}
                 <div className="form mt-4">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2 oswald"
                     htmlFor="header"
                   >
                     Priority Level
@@ -231,7 +230,7 @@ export default function EducationSection({
                   <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
                     <div className="mb-4">
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-2 oswald"
                         htmlFor="header"
                       >
                         Header
@@ -268,7 +267,7 @@ export default function EducationSection({
                         </p>
                       )}
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="header"
                       >
                         Date Start
@@ -293,7 +292,7 @@ export default function EducationSection({
                       )}
 
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="header"
                       >
                         Date End

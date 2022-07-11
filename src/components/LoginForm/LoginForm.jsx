@@ -18,6 +18,7 @@ export default function LoginForm({ setUser }) {
   }
 
   async function handleSubmit(evt) {
+    console.log('TESTING HERE!!')
     // Prevent form from being submitted to the server
     evt.preventDefault();
     try {

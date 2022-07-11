@@ -47,3 +47,7 @@ export function updateUserTags(userTags,id){
   console.log('attempting update user tags' , userTags , id)
   return usersAPI.updateUserTags(userTags,id)
 }
+
+export function getOneUser(id){
+  return usersAPI.getOneUser(id)
+}

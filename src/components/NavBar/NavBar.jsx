@@ -22,7 +22,6 @@ export default function NavBar({ active, user, setUser }) {
   useEffect(() => {
     console.log(location);
     setCurrentPath(location.pathname);
-    console.log('wtf', currentPath);
   }, [location]);
 
   return (

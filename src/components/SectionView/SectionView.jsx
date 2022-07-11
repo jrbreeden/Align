@@ -17,7 +17,7 @@ export default function SectionView({
       style={{ minWidth: '30vw', minHeight: '55vh' }}
     >
       <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-        <li className="w-full px-4 py-2 text-xl rounded-t-lg dark:border-gray-600 text-center font-bold oswald">
+        <li className="w-full px-4 py-2 text-xl rounded-t-lg dark:border-gray-600 text-center font-bold oswald tracking-widest">
           {section} Data Preview
         </li>
       </ul>
@@ -30,10 +30,10 @@ export default function SectionView({
                   return '[#169ed9]';
 
                 case 1:
-                  return '[#FF4000]';
+                  return '[#FFB627]';
 
                 case 2:
-                  return '[#FFB627]';
+                  return '[#FF4000]';
 
                 default:
                   return null;
@@ -47,7 +47,7 @@ export default function SectionView({
               >
                 <div className="block group hover:bg-blue p-4 border-b">
                   <div className="flex items-center justify-between">
-                    <p className="font-bold text-lg mb-1 text-black oswald">
+                    <p className="font-bold text-lg mb-1 text-black oswald tracking-widest">
                       {sec.subHeader}
                     </p>
                     <div className="buttons flex gap-x-4">

@@ -45,12 +45,7 @@ export default function StepperNav({
       <div className="flex p-2 justify-between">
         <div>
           <button
-            className={`text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-gray-200  
-        bg-gray-100 
-        text-gray-700 
-        border duration-200 ease-in-out shadow-white-500/50 border-white
-        border-gray-600 transition ${step === 0 && 'cursor-not-allowed'}`}
+            className={`hover:bg-rose-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-rose-500 shadow-lg shadow-rose-500/50 transition duration-200 ease-in-out hover:scale-110`}
             onClick={() => {
               setStep((prevStep) => prevStep - 1);
               setSections((prevSections) => ({
@@ -61,6 +56,7 @@ export default function StepperNav({
             disabled={step === 0}
           >
             Previous
+            {/* ${step === 0 && 'cursor-not-allowed'} */}
           </button>
         </div>
         {/* <div className="flex items-center">
@@ -80,10 +76,10 @@ export default function StepperNav({
           ) : (
             <button
               className={`text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-              ${Object.keys(errors).length === 0 ? 'bg-cyan-500' : ' bg-black'} 
+              ${Object.keys(errors).length === 0 ? 'bg-sky-500' : ' bg-black'} 
               text-white 
               border duration-200 ease-in-out 
-              border-cyan-500 transition shadow-lg shadow-cyan-500/50 px-8`}
+              border-sky-500 transition shadow-lg shadow-sky-500/50 px-8`}
               onClick={() => {
                 setStep((prevStep) => prevStep + 1);
                 setSections((prevSections) => ({

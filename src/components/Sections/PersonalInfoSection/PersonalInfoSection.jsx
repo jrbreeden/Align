@@ -60,7 +60,7 @@ export default function PersonalInfoSection({
           <div className="flex gap-x-60" style={{ width: '50vw'}} >
             <div className="w-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
               <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                <li className="w-full text-xl px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold">
+                <li className="w-full text-xl px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold oswald tracking-widest">
                   {section === 'PersonalInfo'
                     ? 'Personal Info'.toUpperCase()
                     : section}
@@ -101,7 +101,7 @@ export default function PersonalInfoSection({
                   </div>
                   <div className="mb-4">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="email"
                     >
                       Email
@@ -134,7 +134,7 @@ export default function PersonalInfoSection({
                   </div>
                   <div className="mb-4">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="phone"
                     >
                       Phone
@@ -168,7 +168,7 @@ export default function PersonalInfoSection({
 
                   <div className="mb-4">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="link1"
                     >
                       LinkedIn
@@ -196,7 +196,7 @@ export default function PersonalInfoSection({
 
                   <div className="mb-4">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="github"
                     >
                       Github
@@ -224,7 +224,7 @@ export default function PersonalInfoSection({
 
                   <div className="mb-4">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="portfolio"
                     >
                       Portfolio

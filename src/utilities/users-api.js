@@ -18,3 +18,7 @@ export function checkToken() {
 export function updateUserTags(userTags,id){
   return sendRequest(`${BASE_URL}/update-usertags` , 'POST' , {userTags , id})
 }
+
+export function getOneUser(id){
+  return sendRequest(`${BASE_URL}/${id}` , 'GET' , {id})
+}

@@ -5,7 +5,7 @@ import JobCard from '../../components/JobCard/JobCard';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import {getResume} from '../../utilities/resume-service'
 import { testData , words } from '../../utilities/helpers/optimizeResumeTestData'
-import optimizeResume from '../../utilities/helpers/optimizeResume'
+import optimizeResume from '../../utilities/helpers/OptimizeResume'
 
 
 export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied , stopTracking, trackJob, jobsWatched , setResponse, getAppliedJobs, setJobsWatched}) {
@@ -53,7 +53,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
             onClick={handleClick}>Download Master Resume</button>
               </div>
               <div className="p-16">
-                <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>
+                <h1 className="text-5xl font-bold text-center text-white oswald">Tracked Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                   {jobsWatched.tracked
                     ? jobsWatched.tracked.map((tj) => (
@@ -73,6 +73,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                   )}
                 </div>
               </div>
+
               <div className="p-16">
               <h1 className="text-4xl font-bold text-center">
                 Applied Jobs
