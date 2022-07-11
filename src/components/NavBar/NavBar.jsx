@@ -27,11 +27,11 @@ export default function NavBar({ active, user, setUser }) {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
-        <div className="container flex flex-wrap justify-between items-center mx-auto">
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800" >
+        <div className="container flex flex-wrap justify-between items-center mx-auto" style={{height:'8vh'}}>
           <div className="flex gap-x-10">
-            <Link to="/profle" className="flex items-center">
-              <img src={Logo} className="mr-3 h-6 sm:h-9" alt="" />
+            <Link to="/profle" className="flex items-center" >
+              <img src={Logo} className="mr-3 h-6 sm:h-9" alt="" style={{height:'8vh'}}/>
             </Link>
             {user && (
               <div

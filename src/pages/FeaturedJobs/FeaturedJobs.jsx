@@ -74,19 +74,15 @@ export default function FeaturedJobs({ user, setUser, getUser, markAsApplied, st
       {(props) => (
         <animated.div style={props}>
 
-          <div>
-            <div className="p-16 flex-col w-full justify-center items-center">
-              <div className="flex justify-center">
-                <div className="mb-3 xl:w-96">
-                  <div className="input-group relative flex items-stretch w-full mb-4">
-                  </div>
-                </div>
-              </div>
+        <div className="flex flex-col w-full justify-center items-center">
+            <div className="p-16">
               {featuredJobs.length > 0 && (
                 <h1 className="text-4xl font-bold text-center mt-8">
                   Featured Jobs
                 </h1>
+                
               )}
+              <br />
               <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8" >
                 {featuredJobs.map((job) => (
                   <JobCard job={job} jobsWatched={jobsWatched} handleClick={handleClick} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true} />
