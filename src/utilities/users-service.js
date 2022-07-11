@@ -48,6 +48,8 @@ export function updateUserTags(userTags,id){
   return usersAPI.updateUserTags(userTags,id)
 }
 
-export function getOneUser(id){
-  return usersAPI.getOneUser(id)
+export async function getOneUser(id){
+  const response = await usersAPI.getOneUser(id)
+  console.log('response for getOneUser is' , response)
+  return response
 }

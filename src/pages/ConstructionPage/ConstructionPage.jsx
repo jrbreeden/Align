@@ -18,10 +18,19 @@ import EducationSection from '../../components/Sections/EducationSection/Educati
 // ! SERVICES
 import { getResume } from '../../utilities/resume-service';
 import lineTagger from '../../utilities/helpers/lineTagger';
+import { getOneUser } from '../../utilities/users-service'
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export default function ConstructionPage({ user, setUser }) {
-  const [userTags, setUserTags] = useState({});
+  const [userTags, setUserTags] = useState([]);
+
+  useEffect(()=>{
+    (async function startState(){
+      const myFavoriteUser = await getOneUser(user._id)
+      setUserTags(myFavoriteUser.tags)
+      console.log('initialized user tags as ', myFavoriteUser.tags)
+    })()
+  }, [])
 
   const {
     register,

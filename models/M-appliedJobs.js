@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const jobDetails = new Schema({
-  position: { type: String, required: true },
-  company:{ type: String, required: true },
-  logoUrl: { type: String, required: true },
-  location: { type: String, required: true },
-  jobType: { type: String, required: true },
-  job_link: { type: String, required: true },
+  position: { type: String },
+  company:{ type: String },
+  logoUrl: { type: String },
+  location: { type: String },
+  jobType: { type: String },
+  job_link: { type: String },
   resume_link: { type: String, required: false },
-  job_date_posted: { type: Date, required: true },
+  job_date_posted: { type: Date },
   date_applied: { type: Date, required: false, default:null},
   tags:[{type:String , required:true , default:''}]
 })

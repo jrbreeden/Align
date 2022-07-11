@@ -34,10 +34,10 @@ export default function SkillsSection({
 
   const handleFormSubmit = (data, e) => {
     console.log(data);
-    const tags = lineTagger(data.skill);
-    let newTags = { ...userTags };
+    const tags = lineTagger(data.skill)
+    let newTags = [ ...userTags ];
     tags.forEach((tag) => {
-      newTags[tag] ? newTags[tag]++ : (newTags[tag] = 1);
+      newTags.push(tag)
     });
     setUserTags(newTags);
     if (Object.keys(errors).length === 0) {

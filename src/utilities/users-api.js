@@ -20,5 +20,5 @@ export function updateUserTags(userTags,id){
 }
 
 export function getOneUser(id){
-  return sendRequest(`${BASE_URL}/${id}` , 'GET' , {id})
+  return sendRequest(`${BASE_URL}/${id}` , 'GET')
 }

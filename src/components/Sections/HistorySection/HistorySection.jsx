@@ -100,9 +100,9 @@ export default function HistorySection({
   const handleLineItemSubmit = (e) => {
     e.preventDefault();
     const tags = lineTagger(lineItem.body);
-    let newTags = { ...userTags };
+    let newTags = [ ...userTags ];
     tags.forEach((tag) => {
-      newTags[tag] ? newTags[tag]++ : (newTags[tag] = 1);
+      newTags.push(tag)
     });
     setUserTags(newTags);
     setShowLineItemInput(false);

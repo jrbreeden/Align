@@ -15,6 +15,7 @@ export default function StepperNav({
   resume,
   errors,
   userTags,
+  setUserTags
 }) {
   const navigate = useNavigate();
 
