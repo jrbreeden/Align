@@ -4,7 +4,7 @@ import { Spring, animated } from 'react-spring';
 import JobCard from '../../components/JobCard/JobCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import optimizeResume 
+import optimizeResume from '../../utilities/helpers/optimizeResume';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor';
 import { getResume } from '../../utilities/resume-service';
 
