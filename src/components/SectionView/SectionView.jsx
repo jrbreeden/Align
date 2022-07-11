@@ -30,10 +30,10 @@ export default function SectionView({
                   return '[#169ed9]';
 
                 case 1:
-                  return '[#FF4000]';
+                  return '[#FFB627]';
 
                 case 2:
-                  return '[#FFB627]';
+                  return '[#FF4000]';
 
                 default:
                   return null;

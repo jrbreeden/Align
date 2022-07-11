@@ -17,10 +17,11 @@ import HistorySection from '../../components/Sections/HistorySection/HistorySect
 import EducationSection from '../../components/Sections/EducationSection/EducationSection';
 // ! SERVICES
 import { getResume } from '../../utilities/resume-service';
-import lineTagger from '../../utilities/helpers/lineTagger'
+import lineTagger from '../../utilities/helpers/lineTagger';
 
-export default function ConstructionPage({ user }) {
-  const [ userTags, setUserTags] = useState(user.tags)
+/* eslint-disable react-hooks/exhaustive-deps */
+export default function ConstructionPage({ user, setUser }) {
+  const [userTags, setUserTags] = useState({});
 
   const {
     register,
@@ -229,8 +230,9 @@ export default function ConstructionPage({ user }) {
             setValue={setValue}
             errors={errors}
             lineTagger={lineTagger}
-            userTags={userTags} 
+            userTags={userTags}
             setUserTags={setUserTags}
+            user={user}
           />
         );
 
@@ -244,7 +246,7 @@ export default function ConstructionPage({ user }) {
             errors={errors}
             {...projectSectionProps}
             lineTagger={lineTagger}
-            userTags={userTags} 
+            userTags={userTags}
             setUserTags={setUserTags}
           />
         );
@@ -259,7 +261,7 @@ export default function ConstructionPage({ user }) {
             errors={errors}
             {...workHistorySectionProps}
             lineTagger={lineTagger}
-            userTags={userTags} 
+            userTags={userTags}
             setUserTags={setUserTags}
           />
         );
@@ -309,7 +311,7 @@ export default function ConstructionPage({ user }) {
           ...prevState,
           ...resumeData.education.subSections,
         ]);
-        console.log(resume)
+        console.log(resume);
       }
     })();
   }, []);
@@ -385,6 +387,7 @@ export default function ConstructionPage({ user }) {
               sections={sections}
               resume={resume}
               user={user}
+              setUser={setUser}
               errors={errors}
               userTags={userTags}
             />

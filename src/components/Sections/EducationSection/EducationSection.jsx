@@ -178,8 +178,7 @@ export default function EducationSection({
             <div
               className={`grid grid-cols-${
                 educationSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } gap-x-20 justify-center rounded ${
-                educations?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              } gap-x-20 justify-center rounded
               }`}
             >
               <div

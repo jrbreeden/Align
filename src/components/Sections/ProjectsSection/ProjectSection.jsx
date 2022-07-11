@@ -189,8 +189,7 @@ export default function ProjectsSection({
             <div
               className={`grid grid-cols-${
                 projectSubSection?.lineItems?.length > 0 ? '3' : '2'
-              } gap-x-20 justify-center items-center rounded ${
-                projects?.length > 0 ? 'grid-cols-2' : 'grid-cols-1'
+              } gap-x-20 justify-center items-center rounded
               }`}
             >
               <div

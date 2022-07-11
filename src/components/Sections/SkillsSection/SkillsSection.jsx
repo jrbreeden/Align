@@ -4,7 +4,7 @@ import { Spring, animated } from 'react-spring';
 import { useState, useEffect } from 'react';
 import Modal from '../../Modal/Modal';
 
-export default function PersonalInfoSection({
+export default function SkillsSection({
   section,
   skills,
   setSkills,
@@ -15,8 +15,9 @@ export default function PersonalInfoSection({
   setValue,
   errors,
   lineTagger,
-  userTags, 
+  userTags,
   setUserTags,
+  user,
 }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -33,12 +34,12 @@ export default function PersonalInfoSection({
 
   const handleFormSubmit = (data, e) => {
     console.log(data);
-    const tags = lineTagger(data.skill)
-    let newTags = {...userTags}
-    tags.forEach((tag)=>{
-      newTags[tag]? newTags[tag]++ : newTags[tag]=1
-    })
-    setUserTags(newTags)
+    const tags = lineTagger(data.skill);
+    let newTags = { ...userTags };
+    tags.forEach((tag) => {
+      newTags[tag] ? newTags[tag]++ : (newTags[tag] = 1);
+    });
+    setUserTags(newTags);
     if (Object.keys(errors).length === 0) {
       e.preventDefault();
       setSkills((prevSkills) => [
@@ -101,7 +102,7 @@ export default function PersonalInfoSection({
                         onChange: handleChange,
                         required: 'Skill is required!',
                         minLength: 3,
-                        maxLengthL: 20,
+                        maxLength: 20,
                       })}
                       placeholder="Enter Skill"
                     />
