@@ -35,10 +35,11 @@ export default function StepperNav({
     resume.user = user._id;
     const resDone = await createResume(resume)
     if(resDone){
-      updateUserTags(userTags , user._id)
-      navigate('/profile', { replace: true });
+      const tagsDone = await updateUserTags(userTags , user._id)
+      if(tagsDone){
+        navigate('/profile', { replace: true })
+      }
     }
-
   }
 
   return (

@@ -4,10 +4,10 @@ const UserCtrl = require('./C-users')
 
 const addNewResume = async (req, res) => {
   req.body.skills = req.body.skills.map((skill) => {
-    skill = { skill: skill.skill, priority: skill.priority };
+    skill = { skill: skill.skill, priority: skill.priority , tags:skill.tags };
     return skill;
   });
-  //console.log(req.body);
+  console.log('resume controller skills',req.body.skills);
   Resume.deleteOne({ user: req.body.user }).then((del) => {
     console.log('deleted ', del);
     Resume.create(req.body)

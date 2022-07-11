@@ -1,7 +1,7 @@
 import { AlignmentType, Document, TabStop, HeadingLevel, Packer, Paragraph, SectionType, maxRightTabStop, TabStopType, TextRun, TabStopPosition } from 'docx'
 import { saveAs } from 'file-saver'
 
-export default function resumeConstructor(resume) {
+export default function resumeConstructor(resume , name) {
     const { personal, statement, skills, projects, workHistory, education } = resume
 
     //will need to include some sort of algorithmic scoring logic for each line within the docx.
@@ -265,7 +265,7 @@ export default function resumeConstructor(resume) {
     console.log('this doc is ', doc)
 
     Packer.toBlob(doc).then((blob) => {
-        saveAs(blob, 'blob.docx')
+        saveAs(blob, `${name}.docx`)
         console.log('Document created')
     })
 }

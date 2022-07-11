@@ -16,6 +16,12 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
     resumeConstructor(userResume);
   }
 
+  async function handleClickOptimized(keyWordsArr, name) {
+    const userResume = await getResume({ id: user._id });
+    console.log('this was returned for the user resume ', userResume);
+    resumeConstructor(optimizeResume(keyWordsArr, userResume) , name);
+  }
+
   useEffect(() => {
     if(user) {(async function populateJobs() {
       const jobsWatched = await getAppliedJobs({ id: user._id });
@@ -58,6 +64,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                           user={user}
                           stopTracking={stopTracking}
                           isFetched={false}
+                          handleClick={handleClickOptimized}
                         />
                       ))
                     : null}
@@ -87,6 +94,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                         user={user}
                         stopTracking={stopTracking}
                         isFetched={false}
+                        handleClick={handleClickOptimized}
                       />
                     ))
                   : null}
