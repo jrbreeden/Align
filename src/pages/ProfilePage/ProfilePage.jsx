@@ -83,7 +83,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                 {jobsWatched.applied
                   ? jobsWatched.applied.map((aj) => (
                       <JobCard
-                      job={aj} handleClick={handleClick} jobsWatched={jobsWatched} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true}
+                      job={aj} handleClick={handleClick} jobsWatched={jobsWatched} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={false}
                       />
                     ))
                   : null}
