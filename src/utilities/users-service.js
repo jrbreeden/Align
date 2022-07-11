@@ -10,8 +10,10 @@ export async function signUp(userData) {
 
 export async function login(credentials) {
   const token = await usersAPI.login(credentials);
-  localStorage.setItem('token', token);
-  return getUser();
+  if (token) {
+    localStorage.setItem('token', token);
+    return getUser();
+  }
 }
 
 export function getToken() {
@@ -39,17 +41,16 @@ export function logOut() {
 /*-- This is not necessary in your MERN-Stack projects ---*/
 /*-- It's only to see how to send a token to the server ---*/
 export function checkToken() {
-  return usersAPI.checkToken()
-  .then(dateStr => new Date(dateStr));
+  return usersAPI.checkToken().then((dateStr) => new Date(dateStr));
 }
 
-export function updateUserTags(userTags,id){
-  console.log('attempting update user tags' , userTags , id)
-  return usersAPI.updateUserTags(userTags,id)
+export function updateUserTags(userTags, id) {
+  console.log('attempting update user tags', userTags, id);
+  return usersAPI.updateUserTags(userTags, id);
 }
 
-export async function getOneUser(id){
-  const response = await usersAPI.getOneUser(id)
-  console.log('response for getOneUser is' , response)
-  return response
+export async function getOneUser(id) {
+  const response = await usersAPI.getOneUser(id);
+  console.log('response for getOneUser is', response);
+  return response;
 }

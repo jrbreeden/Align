@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiDelete } from 'react-icons/fi';
 import { BiEdit } from 'react-icons/bi';
+import moment from 'moment';
 
 export default function SectionView({
   section,
@@ -48,7 +49,7 @@ export default function SectionView({
                 <div className="block group hover:bg-blue p-4 border-b">
                   <div className="flex items-center justify-between">
                     <p className="font-bold text-lg mb-1 text-black oswald tracking-widest">
-                      {sec.subHeader}
+                      {sec.subHeader} - <span className="text-gray-500">{moment(new Date(sec.dateStart)).format('L')} - {moment(new Date(sec.dateEnd)).format('L')}</span>
                     </p>
                     <div className="buttons flex gap-x-4">
                       <button

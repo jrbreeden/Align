@@ -29,7 +29,7 @@ export default function JobCard({
   return (
     <>
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-10 mt-20">
           <ClipLoader color={'#ADF5FF'} loading={isLoading} size={150} />
         </div>
       ) : (

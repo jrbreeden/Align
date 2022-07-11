@@ -244,7 +244,7 @@ export default function ProjectsSection({
                         className="block text-gray-700 text-sm font-bold mb-2 oswald"
                         htmlFor="header"
                       >
-                        Header
+                        Project Title<span className='text-red-600'>*</span>
                       </label>
                       <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -260,7 +260,7 @@ export default function ProjectsSection({
                         })}
                         id="subHeader"
                         type="text"
-                        placeholder="Enter Sub Section"
+                        placeholder="Enter Project Title"
                       />
                       {errors?.subHeader?.type === 'required' && (
                         <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
@@ -282,7 +282,7 @@ export default function ProjectsSection({
                         className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="header"
                       >
-                        Date Start
+                        Date Start<span className='text-red-600'>*</span>
                       </label>
                       <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -307,7 +307,7 @@ export default function ProjectsSection({
                         className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="dateEnd"
                       >
-                        Date End
+                        Date End<span className='text-red-600'>*</span>
                       </label>
                       <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

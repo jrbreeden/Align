@@ -19,6 +19,7 @@ export default function FeaturedJobs({
   jobsWatched,
   setResponse,
 }) {
+
   const [isLoading, setIsLoading] = useState(false);
   const [featuredJobs, setFeaturedJobs] = useState([]
 /*     localStorage.getItem('featuredJobs')

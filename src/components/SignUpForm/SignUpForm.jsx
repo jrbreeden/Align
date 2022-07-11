@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { signUp } from '../../utilities/users-service';
 import { Spring, animated } from 'react-spring';
 import { Link, useNavigate } from 'react-router-dom';
 import signupImg from '../../assets/images/signupImg.jpg';
+import { useForm } from 'react-hook-form';
 
 export default function SignUpForm({ setUser }) {
   const [data, setData] = useState({
@@ -15,9 +16,18 @@ export default function SignUpForm({ setUser }) {
   });
 
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch,
+  } = useForm();
+  const password = useRef({});
+  password.current = watch('password', '');
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+  const handleFormSubmit = async (data) => {
+    // evt.preventDefault();
     try {
       // We don't want to send the confirm or error properties
       // Let's make a copy of this.state (we never want to directly modify the state obj)
@@ -26,7 +36,7 @@ export default function SignUpForm({ setUser }) {
       delete formData.confirm;
       const user = await signUp(formData);
       setUser(user);
-      if (user) navigate('/construction');
+      if (user) navigate('/construction', { replace: true });
     } catch {
       // An error occurred
       setData({ ...data, error: 'Sign Up Failed - Try Again!' });
@@ -88,7 +98,7 @@ export default function SignUpForm({ setUser }) {
                     </div>
 
                     <div className="mt-8">
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit(handleFormSubmit)}>
                         <div>
                           <label
                             for="name"
@@ -99,12 +109,28 @@ export default function SignUpForm({ setUser }) {
                           <input
                             type="text"
                             name="name"
-                            value={data.name}
-                            onChange={handleChange}
-                            id="email"
+                            // value={data.name}
+                            // onChange={handleChange}
+                            {...register('name', {
+                              value: data.email,
+                              onChange: handleChange,
+                              required: 'Name is required',
+                              minLength: 3,
+                            })}
+                            id="name"
                             placeholder="e.g. John Doe"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                           />
+                          {errors?.name?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              This field is required
+                            </p>
+                          )}
+                          {errors?.name?.type === 'minLength' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              Must have atleast 3 characters
+                            </p>
+                          )}
                         </div>
                         <div>
                           <label
@@ -116,12 +142,22 @@ export default function SignUpForm({ setUser }) {
                           <input
                             type="email"
                             name="email"
-                            value={data.email}
-                            onChange={handleChange}
+                            // value={data.email}
+                            // onChange={handleChange}
+                            {...register('email', {
+                              value: data.email,
+                              onChange: handleChange,
+                              required: 'Email is required',
+                            })}
                             id="email"
                             placeholder="Align@executive.com"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                           />
+                          {errors?.email?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              This field is required
+                            </p>
+                          )}
                         </div>
 
                         <div className="mt-6">
@@ -143,32 +179,22 @@ export default function SignUpForm({ setUser }) {
                           <input
                             type="password"
                             name="password"
-                            value={data.password}
-                            onChange={handleChange}
+                            // value={data.password}
+                            // onChange={handleChange}
+                            {...register('password', {
+                              value: data.password,
+                              onChange: handleChange,
+                              required: 'Password is required',
+                            })}
                             id="password"
                             placeholder="Enter Password"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                           />
-                        </div>
-                        <div className="mt-6">
-                          <div className="flex justify-between mb-2">
-                            <label
-                              for="password"
-                              className="text-sm text-gray-600 dark:text-gray-200"
-                            >
-                              Confirm Password
-                            </label>
-                          </div>
-
-                          <input
-                            type="password"
-                            name="confirm"
-                            value={data.confirm}
-                            onChange={handleChange}
-                            id="password"
-                            placeholder="Confirm Password"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                          />
+                          {errors?.password?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              This field is required
+                            </p>
+                          )}
                         </div>
 
                         <div className="mt-6">
