@@ -46,7 +46,7 @@ export default function StepperNav({
       <div className="flex p-2 justify-between">
         <div>
           <button
-            className={`hover:bg-rose-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-rose-500 shadow-lg shadow-rose-500/50 transition duration-200 ease-in-out hover:scale-110`}
+            className={`hover:bg-rose-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-rose-500 shadow-lg shadow-rose-500/50 transition duration-200 ease-in-out hover:scale-110 cursor-pointer`}
             onClick={() => {
               setStep((prevStep) => prevStep - 1);
               setSections((prevSections) => ({
