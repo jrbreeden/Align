@@ -18,13 +18,16 @@ import {
   stopTrackingJob,
 } from '../../utilities/jobs-service';
 import * as jobService from '../../utilities/jobs-service';
+import { useInsertionEffect } from 'react';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
+
   const [jobsWatched, setJobsWatched] = useState({
     tracked: [],
     applied: [],
   });
+
   const [response, setResponse] = useState({});
 
   const markAsApplied = async (job_id, user_id) => {
@@ -60,6 +63,7 @@ export default function App() {
     })()}
   }, [response]);
 
+
   return (
     <main className="App">
       <Carousel />
@@ -80,7 +84,7 @@ export default function App() {
           />
           <Route
             path="/profile"
-            element={<ProfilePage user={user} setUser={setUser} getUser={getUser} markAsApplied={markAsApplied} stopTracking={stopTracking} trackJob={trackJob}  jobsWatched={jobsWatched} setResponse={setResponse} />}
+            element={<ProfilePage getAppliedJobs={getAppliedJobs} setJobsWatched={setJobsWatched} user={user} setUser={setUser} getUser={getUser} markAsApplied={markAsApplied} stopTracking={stopTracking} trackJob={trackJob}  jobsWatched={jobsWatched} setResponse={setResponse} />}
           />
           <Route path="/*" element={<Navigate to='/profile'/>} exact />
         </Routes>
