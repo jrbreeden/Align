@@ -4,14 +4,9 @@ import { Spring, animated } from 'react-spring';
 import JobCard from '../../components/JobCard/JobCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
-<<<<<<< HEAD
-import { getUser } from '../../utilities/users-service';
-import { updateUserTags } from '../../utilities/users-service';
-=======
-import optimizeResume from '../../utilities/helpers/optimizeResume';
+import optimizeResume from '../../utilities/helpers/OptimizeResume';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor';
-import {getResume} from '../../utilities/resume-service'
->>>>>>> 9f4719e754eb2877bfc06af7409e1d57ba2abaea
+import { getResume } from '../../utilities/resume-service';
 
 export default function FeaturedJobs({
   user,
@@ -30,12 +25,24 @@ export default function FeaturedJobs({
       : []
   );
 
+  async function handleClick() {
+    const userResume = await getResume({ id: user._id });
+    console.log('this was returned for the user resume ', userResume);
+    resumeConstructor(userResume, `${user.name}_Master_Resume`);
+  }
+
+  async function handleClickOptimized(keyWordsArr, name) {
+    const userResume = await getResume({ id: user._id });
+    console.log('this was returned for the user resume ', userResume);
+    resumeConstructor(optimizeResume(keyWordsArr, userResume), name);
+  }
+
   useEffect(async () => {
     let search = '';
     try {
       const fetchedUser = await getUser(user._id);
       if (fetchedUser) {
-        console.log(fetchedUser)
+        console.log(fetchedUser);
         console.log('my user tags are', fetchedUser.tags);
         if (fetchedUser?.tags) {
           if (Object.keys(fetchedUser?.tags).length > 2) {
@@ -60,7 +67,6 @@ export default function FeaturedJobs({
 
           const response = await jobs.json();
 
-<<<<<<< HEAD
           const jobConverter = [];
           response.jobs.forEach((job) => {
             jobConverter.push({
@@ -82,32 +88,6 @@ export default function FeaturedJobs({
       console.log(error);
     }
   }, [user]);
-=======
-      const jobConverter = [];
-      response.jobs.forEach((job) => {
-        jobConverter.push({
-          position: job.title,
-          company: job.company_name,
-          logoUrl: job.company_logo,
-          location: job.candidate_required_location,
-          jobType: job.job_type,
-          job_link: job.url,
-          resume_link: null,
-          job_date_posted: job.publication_date,
-          date_applied: null,
-          tags:job.tags
-        });
-      });
-      setFeaturedJobs(jobConverter);
-    }
-  }, [])
-
-  async function handleClick(keyWordsArr , name) {
-    const userResume = await getResume({ id: user._id });
-    console.log('this was returned for the user resume ', userResume);
-    resumeConstructor(optimizeResume(keyWordsArr,userResume), name);
-  }
->>>>>>> 9f4719e754eb2877bfc06af7409e1d57ba2abaea
 
   return (
     <Spring
@@ -124,24 +104,21 @@ export default function FeaturedJobs({
                 </div>
               </div>
               {featuredJobs.length > 0 && (
-                <h1 className="text-4xl font-bold text-center mt-8">
+                <h1 className="text-5xl font-bold text-center mb-14 text-white oswald">
                   Featured Jobs
                 </h1>
               )}
               <div className="jobs-div grid grid-cols-3 grid-rows-auto justify-around gap-y-10 gap-x-8">
                 {featuredJobs.map((job) => (
-<<<<<<< HEAD
                   <JobCard
                     job={job}
                     jobsWatched={jobsWatched}
+                    handleClick={handleClick}
                     markAsApplied={markAsApplied}
                     trackJob={trackJob}
                     user={user}
                     isFetched={true}
                   />
-=======
-                  <JobCard job={job} jobsWatched={jobsWatched} handleClick={handleClick} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true} />
->>>>>>> 9f4719e754eb2877bfc06af7409e1d57ba2abaea
                 ))}
               </div>
             </div>

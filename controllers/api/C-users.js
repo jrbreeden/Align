@@ -3,18 +3,6 @@ const AppliedJobs = require('../../models/M-appliedJobs');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-<<<<<<< HEAD
-=======
-module.exports = {
-  create,
-  login,
-  checkToken,
-  updateUserTags,
-  createJWT,
-  createNewJWT
-};
->>>>>>> 9f4719e754eb2877bfc06af7409e1d57ba2abaea
-
 function checkToken(req, res) {
   console.log('req.user', req.user);
   res.json(req.exp);
@@ -96,8 +84,8 @@ async function createNewJWT(id) {
   } catch (error) {}
 }
 
-const getUser = async(req, res) => {
-  console.log('HOOO', req.params)
+const getUser = async (req, res) => {
+  console.log('HOOO', req.params);
   try {
     const user = User.findOne({ _id: req.params.id });
     if (user) {
@@ -121,12 +109,12 @@ function updateUserTags(req, res) {
     });
 }
 
-
 module.exports = {
   create,
   login,
   checkToken,
   updateUserTags,
+  createJWT,
   createNewJWT,
   getUser,
 };

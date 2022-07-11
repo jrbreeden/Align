@@ -55,7 +55,7 @@ export default function StatementSection({
               <div className="w-full min-h-full bg-gray-200 p-8 border border-2 border-gray-300 drop-shadow-2xl rounded">
                 <div>
                   <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                    <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
+                    <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-2xl oswald tracking-widest">
                       {section === 'PersonalInfo'
                         ? 'Personal Info'.toUpperCase()
                         : section.toUpperCase()}
@@ -66,7 +66,7 @@ export default function StatementSection({
                 <form onSubmit={handleSubmit(handleFormSubmit)}>
                   <div className="my-2 mt-8">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="title"
                     >
                       Header
@@ -105,7 +105,7 @@ export default function StatementSection({
                   </div>
                   <div className="inline-block relative w-full mr-2">
                     <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="body"
                     >
                       Body

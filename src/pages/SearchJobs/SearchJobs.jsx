@@ -4,7 +4,7 @@ import JobCard from '../../components/JobCard/JobCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import * as jobService from '../../utilities/jobs-service'
-import optimizeResume from '../../utilities/helpers/optimizeResume';
+import optimizeResume from '../../utilities/helpers/OptimizeResume';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor';
 import {getResume} from '../../utilities/resume-service'
 

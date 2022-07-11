@@ -53,7 +53,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
             onClick={handleClick}>Download Master Resume</button>
               </div>
               <div className="p-16">
-                <h1 className="text-4xl font-bold text-center">Tracked Jobs</h1>
+                <h1 className="text-5xl font-bold text-center text-white oswald">Tracked Jobs</h1>
                 <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                   {jobsWatched.tracked
                     ? jobsWatched.tracked.map((tj) => (
@@ -76,12 +76,12 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
             </div>
             <br />
             <br />
-            <div class="grid grid-cols-1 divide-y-[3px] divide-blue-400 text-center w-3/5">
+            <div class="grid grid-cols-1 divide-y-[3px] divide-blue-500 text-center w-1/2 mx-auto">
               <div></div>
               <div></div>
             </div>
             <div className="p-16">
-              <h1 className="text-4xl font-bold text-center oswald tracking-widest text-gray-200 mb-24">
+              <h1 className="text-5xl font-bold text-center oswald tracking-widest text-white mb-20">
                 Applied Jobs
               </h1>
               <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-between gap-y-10 gap-x-8">

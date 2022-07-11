@@ -197,7 +197,7 @@ export default function HistorySection({
                 style={{ minWidth: '30vw', minHeight: '55vh' }}
               >
                 <ul className="w-full text-sm font-medium text-gray-900 border border-gray-200 rounded-lg dark:bg-gray-300 dark:border-gray-400 dark:text-black">
-                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl">
+                  <li className="w-full px-4 py-2 rounded-t-lg dark:border-gray-600 text-center font-bold text-xl oswald tracking-widest">
                     {section === 'PersonalInfo'
                       ? 'Personal Info'.toUpperCase()
                       : section}{' '}
@@ -208,7 +208,7 @@ export default function HistorySection({
                 {/* PROJECT SECTION FORM */}
                 <div className="form mt-4">
                   <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2 oswald"
                     htmlFor="header"
                   >
                     Priority Level
@@ -241,7 +241,7 @@ export default function HistorySection({
                   <form onSubmit={handleSubmit(handleSubSectionSubmit)}>
                     <div className="mb-4">
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-2 oswald"
                         htmlFor="header"
                       >
                         Header
@@ -278,7 +278,7 @@ export default function HistorySection({
                         </p>
                       )}
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="header"
                       >
                         Date Start
@@ -303,7 +303,7 @@ export default function HistorySection({
                       )}
 
                       <label
-                        className="block text-gray-700 text-sm font-bold mb-2 mt-4"
+                        className="block text-gray-700 text-sm font-bold mb-2 mt-4 oswald"
                         htmlFor="header"
                       >
                         Date End
