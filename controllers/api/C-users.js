@@ -87,9 +87,9 @@ async function createNewJWT(id) {
 const getUser = async (req, res) => {
   console.log('HOOO', req.params);
   try {
-    const user = User.findOne({ _id: req.params.id });
+    const user = await User.findOne({ _id: req.params.id });
     if (user) {
-      res.sendStatus(200).json(user);
+      res.json(user);
     }
   } catch (error) {
     res.sendStatus(500).json({ Message: error });
