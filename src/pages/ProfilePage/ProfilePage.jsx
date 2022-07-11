@@ -71,7 +71,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                       ))
                     : null}
                   {jobsWatched.tracked.length === 0 && (
-                    <h1 className='text-center text-4xl oswald'>No Tracked Jobs Found!</h1>
+                    <h1 className='text-4xl font-bold text-center oswald text-gray-700 mt-20 tracking-widest'>No Tracked Jobs Found!</h1>
                   )}
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                     ))
                   : null}
                   {jobsWatched.applied.length === 0 && (
-                    <h1 className='text-center text-4xl oswald'>No Applied Jobs Found!</h1>
+                    <h1 className='text-4xl font-bold text-center oswald text-gray-700 mt-20 tracking-widest'>No Applied Jobs Found!</h1>
                   )}
               </div>
             </div>

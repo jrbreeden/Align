@@ -90,6 +90,12 @@ export default function SkillsSection({
               <div className="w-96">
                 <form onSubmit={handleSubmit(handleFormSubmit)}>
                   <div className="my-2 mt-8">
+                  <label
+                      className="block text-gray-700 text-sm font-bold mb-2 oswald"
+                      htmlFor="title"
+                    >
+                      Name<span className='text-red-600'>*</span>
+                    </label>
                     <input
                       className="shadow appearance-none border rounded w-5/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="skill"

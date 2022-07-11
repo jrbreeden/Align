@@ -7,13 +7,13 @@ import CTA from '../../components/CTA/CTA';
 
 export default function HomePage({ user }) {
   return (
-    <div className="MAIN DIV flex flex-col gap-y-72">
+    <div className="MAIN DIV flex flex-col">
       <div className="CTA">
         <CTA />
       </div>
-      <div className="CAROUSEL">
+      {/* <div className="CAROUSEL">
         <Carousel />
-      </div>
+      </div> */}
       <div className="TEAMS">
         <Team />
       </div>

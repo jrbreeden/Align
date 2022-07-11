@@ -69,7 +69,7 @@ export default function StatementSection({
                       className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="title"
                     >
-                      Header
+                      Header<span className='text-red-600'>*</span>
                     </label>
                     <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -108,7 +108,7 @@ export default function StatementSection({
                       className="block text-gray-700 text-sm font-bold mb-2 oswald"
                       htmlFor="body"
                     >
-                      Body
+                      Body<span className='text-red-600'>*</span>
                     </label>
                     <textarea
                       className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
