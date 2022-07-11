@@ -27,12 +27,6 @@ export default function FeaturedJobs({
       : [] */
   );
 
-  async function handleClick() {
-    const userResume = await getResume({ id: user._id });
-    console.log('this was returned for the user resume ', userResume);
-    resumeConstructor(userResume, `${user.name}_Master_Resume`);
-  }
-
   async function handleClickOptimized(keyWordsArr, name) {
     const userResume = await getResume({ id: user._id });
     console.log('this was returned for the user resume ', userResume);
@@ -106,7 +100,7 @@ return (
                 <JobCard
                   job={job}
                   jobsWatched={jobsWatched}
-                  handleClick={handleClick}
+                  handleClick={handleClickOptimized}
                   markAsApplied={markAsApplied}
                   trackJob={trackJob}
                   user={user}
