@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 ];
 
 
+
 export default function Carousel() {
   const settings = {
     dots: true,
@@ -21,7 +22,7 @@ export default function Carousel() {
   };
   return (
     <div className="mt-24 flex justify-center">
-      <div className='bg-gray-200 w-full py-8 rounded'>
+      <div className='bg-gray-200 w-1/2 py-8 rounded'>
         <Slider {...settings}>
           <div>
             <img className="h-96 m-auto" src={images[0]} alt="" />

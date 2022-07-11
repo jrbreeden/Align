@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Spring, animated } from 'react-spring';
 import * as usersService from '../../utilities/users-service';
-import loginImg from '../../assets/images/loginImg2.jpg'
+import loginImg from '../../assets/images/loginImg2.jpg';
+import { useForm } from 'react-hook-form';
 
 export default function LoginForm({ setUser }) {
   const [credentials, setCredentials] = useState({
@@ -11,24 +12,30 @@ export default function LoginForm({ setUser }) {
   });
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
     setError('');
   }
 
-  async function handleSubmit(evt) {
-    console.log('TESTING HERE!!')
+  async function handleFormSubmit(data) {
     // Prevent form from being submitted to the server
-    evt.preventDefault();
+    // e.preventDefault();
     try {
       // The promise returned by the signUp service method
       // will resolve to the user object included in the
       // payload of the JSON Web Token (JWT)
-      const user = await usersService.login(credentials);
+      const user = await usersService.login(data);
       setUser(user);
       if (user) navigate('/profile');
-    } catch {
+    } catch (error) {
+      console.log(error);
       setError('Log In Failed - Try Again!');
     }
   }
@@ -44,14 +51,13 @@ export default function LoginForm({ setUser }) {
             <div className="bg-none flex items-center justify-center w-full rounded overflow-hidden mt-20">
               <div
                 className="flex justify-center bg-gray-900 h-full w-1/2 rounded"
-                style={{ height: '50vh' }}
+                style={{ height: '60vh' }}
               >
                 <div
                   className="hidden bg-cover lg:block lg:w-2/3 rounded"
                   style={{
                     width: '60vh',
-                    backgroundImage:
-                    `url(${loginImg})`,
+                    backgroundImage: `url(${loginImg})`,
                   }}
                 >
                   <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
@@ -81,7 +87,7 @@ export default function LoginForm({ setUser }) {
                     </div>
 
                     <div className="mt-8">
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit(handleFormSubmit)}>
                         <div>
                           <label
                             for="email"
@@ -92,12 +98,22 @@ export default function LoginForm({ setUser }) {
                           <input
                             type="text"
                             name="email"
-                            value={credentials.email}
-                            onChange={handleChange}
+                            // value={credentials.email}
+                            // onChange={handleChange}
+                            {...register('email', {
+                              value: credentials.email,
+                              onChange: handleChange,
+                              required: 'Email is required',
+                            })}
                             id="email"
                             placeholder="Align@Executive.com"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                           />
+                          {errors?.email?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              This field is required
+                            </p>
+                          )}
                         </div>
 
                         <div className="mt-6">
@@ -119,12 +135,29 @@ export default function LoginForm({ setUser }) {
                           <input
                             type="password"
                             name="password"
-                            value={credentials.password}
-                            onChange={handleChange}
+                            // value={credentials.password}
+                            // onChange={handleChange}
+                            {...register('password', {
+                              value: credentials.password,
+                              onChange: handleChange,
+                              required: 'Password is required!',
+                              minLength: 3,
+                              maxLength: 20,
+                            })}
                             id="password"
                             placeholder="Enter Password"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                           />
+                          {errors?.password?.type === 'required' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              This field is required
+                            </p>
+                          )}
+                          {errors?.password?.type === 'minLength' && (
+                            <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
+                              Must have atleast 3 characters
+                            </p>
+                          )}
                         </div>
 
                         <div className="mt-6">

@@ -100,7 +100,7 @@ export default function SearchJobs({ user, setUser, getUser, markAsApplied, stop
               </form>
               <br />
               {featuredJobs.length === 0 && (
-                <h1 className="text-4xl font-bold text-center oswald">
+                <h1 className="text-4xl font-bold text-center oswald text-gray-300 mt-20 tracking-widest">
                   No jobs found with that search...
                 </h1>
               )}
