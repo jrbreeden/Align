@@ -22,6 +22,7 @@ The app, Align, is a job agent that searches for jobs for a user based on the us
 * CSS
 * Tailwind CSS
 * JavaScript
+* docx library
 * React.js
 * Remotive API
 * Express
