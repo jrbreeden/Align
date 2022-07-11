@@ -50,8 +50,9 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
             <div className="p-16">
             <button 
             className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center justify-center" 
+
             onClick={handleClick}
-            style={{height:'10vh' , width:'20vw', fontSize:'2vh'}}>Download Master Resume</button>
+            style={{height:'8vh' , width:'18vw', fontSize:'2vh'}}>Download Master Resume</button>
               </div>
               <div className="p-16">
                 <h1 className="text-5xl font-bold text-center text-white oswald">Tracked Jobs</h1>
@@ -70,13 +71,13 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                       ))
                     : null}
                   {jobsWatched.tracked.length === 0 && (
-                    <h1 className='text-center text-2xl'>No Tracked Jobs Found!</h1>
+                    <h1 className='text-center text-4xl oswald'>No Tracked Jobs Found!</h1>
                   )}
                 </div>
               </div>
 
               <div className="p-16">
-              <h1 className="text-5xl font-bold text-center text-white oswald">
+              <h1 className="text-5xl font-bold text-center text-white oswald mb-8">
                 Applied Jobs
               </h1>
               <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
@@ -87,6 +88,9 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                       />
                     ))
                   : null}
+                  {jobsWatched.applied.length === 0 && (
+                    <h1 className='text-center text-4xl oswald'>No Applied Jobs Found!</h1>
+                  )}
               </div>
             </div>
             </div>

@@ -82,7 +82,6 @@ export default function FeaturedJobs({
   console.log(error);
 }
 }, []);
-
 return (
   <Spring
     from={{ opacity: 0, marginLeft: -1000 }}
