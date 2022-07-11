@@ -76,7 +76,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
               </div>
 
               <div className="p-16">
-              <h1 className="text-5xl font-bold text-center text-white oswald">
+              <h1 className="text-5xl font-bold text-center text-white oswald mb-8">
                 Applied Jobs
               </h1>
               <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
@@ -87,6 +87,9 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                       />
                     ))
                   : null}
+                  {jobsWatched.applied.length === 0 && (
+                    <h1 className='text-center text-4xl oswald'>No Applied Jobs Found!</h1>
+                  )}
               </div>
             </div>
             </div>
