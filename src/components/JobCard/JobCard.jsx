@@ -140,7 +140,11 @@ export default function JobCard({
                       </button>
                       <button
                         className="hover:bg-sky-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-sky-500 shadow-lg shadow-sky-500/50 transition duration-200 ease-in-out hover:scale-110"
-                        onClick={handleClick}
+                        onClick={() => {
+                          handleClick(
+                            job.tags,
+                            `${user.name} ${job.position} ${job.company}`
+                          )}}
                       >
                         Download Optimized Resume
                       </button>
