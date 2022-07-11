@@ -20,10 +20,10 @@ export default function FeaturedJobs({
   setResponse,
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [featuredJobs, setFeaturedJobs] = useState(
-    localStorage.getItem('featuredJobs')
+  const [featuredJobs, setFeaturedJobs] = useState([]
+/*     localStorage.getItem('featuredJobs')
       ? JSON.parse(localStorage.getItem('featuredJobs'))
-      : []
+      : [] */
   );
 
   async function handleClick() {
