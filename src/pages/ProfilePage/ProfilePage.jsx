@@ -71,13 +71,15 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                       ))
                     : null}
                   {jobsWatched.tracked.length === 0 && (
-                    <h1 className='text-4xl font-bold text-center oswald text-gray-700 mt-20 tracking-widest'>No Tracked Jobs Found!</h1>
+
+                    <h1 className='text-center text-4xl oswald' style={{gridColumnStart:'2'}}>No Tracked Jobs Found!</h1>
+
                   )}
                 </div>
               </div>
 
               <div className="p-16">
-              <h1 className="text-5xl font-bold text-center text-white oswald mb-8">
+              <h1 className="text-5xl font-bold text-center text-white oswald mb-8" >
                 Applied Jobs
               </h1>
               <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
@@ -89,7 +91,8 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                     ))
                   : null}
                   {jobsWatched.applied.length === 0 && (
-                    <h1 className='text-4xl font-bold text-center oswald text-gray-700 mt-20 tracking-widest'>No Applied Jobs Found!</h1>
+                    <h1 className='text-center text-4xl oswald' style={{gridColumnStart:'2'}}>No Applied Jobs Found!</h1>
+
                   )}
               </div>
             </div>
