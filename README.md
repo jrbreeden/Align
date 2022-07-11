@@ -2,7 +2,7 @@
 The app, Align, is a job agent that searches for jobs for a user based on the user's skillset. It tracks the jobs you applied to and optimizes your resume for each job, so that you can be a standout candidate every time.
 
 # Deployment Link and Trello
-
+* https://align-jobs.herokuapp.com/
 * https://trello.com/b/xnZEOPmH/easy-hunt
 
 # User Story
