@@ -5,7 +5,7 @@ import JobCard from '../../components/JobCard/JobCard';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor'
 import {getResume} from '../../utilities/resume-service'
 import { testData , words } from '../../utilities/helpers/optimizeResumeTestData'
-import optimizeResume from '../../utilities/helpers/optimizeResume'
+import optimizeResume from '../../utilities/helpers/ResumeOptimizer';
 
 
 export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied , stopTracking, trackJob, jobsWatched , setResponse, getAppliedJobs, setJobsWatched}) {
@@ -50,7 +50,8 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
             <div className="p-16">
             <button 
             className="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" 
-            onClick={handleClick}>Download Master Resume</button>
+            onClick={handleClick}
+            style={{height:'10vh' , width:'20vw', fontSize:'2vh'}}>Download Master Resume</button>
               </div>
               <div className="p-16">
                 <h1 className="text-5xl font-bold text-center text-white oswald">Tracked Jobs</h1>
@@ -75,20 +76,14 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
               </div>
 
               <div className="p-16">
-              <h1 className="text-4xl font-bold text-center">
+              <h1 className="text-5xl font-bold text-center text-white oswald">
                 Applied Jobs
               </h1>
               <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                 {jobsWatched.applied
                   ? jobsWatched.applied.map((aj) => (
                       <JobCard
-                        job={aj}
-                        status={2}
-                        markAsApplied={markAsApplied}
-                        user={user}
-                        stopTracking={stopTracking}
-                        isFetched={false}
-                        handleClick={handleClickOptimized}
+                      job={aj} handleClick={handleClick} jobsWatched={jobsWatched} markAsApplied={markAsApplied} trackJob={trackJob} user={user} isFetched={true}
                       />
                     ))
                   : null}
