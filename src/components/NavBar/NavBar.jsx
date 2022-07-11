@@ -26,11 +26,19 @@ export default function NavBar({ active, user, setUser }) {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800" >
-        <div className="container flex flex-wrap justify-between items-center mx-auto" style={{height:'8vh'}}>
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+        <div
+          className="container flex flex-wrap justify-between items-center mx-auto"
+          style={{ height: '8vh' }}
+        >
           <div className="flex gap-x-10">
-            <Link to="/profle" className="flex items-center" >
-              <img src={Logo} className="mr-3 h-6 sm:h-9" alt="" style={{height:'8vh'}}/>
+            <Link to="/profle" className="flex items-center">
+              <img
+                src={Logo}
+                className="mr-3 h-6 sm:h-9"
+                alt=""
+                style={{ height: '8vh' }}
+              />
             </Link>
             {user && (
               <div
@@ -120,23 +128,38 @@ export default function NavBar({ active, user, setUser }) {
               </div>
             )}
             <div className={`${!user && 'hidden'}flex items-center md:order-2`}>
-              <button
-                type="button"
-                class={`${
-                  !user && 'hidden'
-                } flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600`}
-                id="user-menu-button"
-                ariaExpanded="false"
-                dataDropdown-toggle="dropdown"
-                onClick={() => setIsShow(!isShow)}
-              >
-                <span className="sr-only">Open user menu</span>
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src={sample}
-                  alt="user photo"
-                />
-              </button>
+              <div className='flex items-center gap-x-4'>
+                <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                  <li>
+                    <Link
+                      to="/login"
+                      className={`text-white bg-none ${
+                        location.pathname === '/login' &&
+                        'bg-blue-800 px-4 py-2 rounded'
+                      }`}
+                    >
+                      {user && `Welcome, ${user.name}`}
+                    </Link>
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  class={`${
+                    !user && 'hidden'
+                  } flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600`}
+                  id="user-menu-button"
+                  ariaExpanded="false"
+                  dataDropdown-toggle="dropdown"
+                  onClick={() => setIsShow(!isShow)}
+                >
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="w-8 h-8 rounded-full"
+                    src={sample}
+                    alt="user photo"
+                  />
+                </button>
+              </div>
 
               {/* <!-- Dropdown menu --> */}
               <div
