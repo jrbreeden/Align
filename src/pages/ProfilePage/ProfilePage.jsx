@@ -73,18 +73,12 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                   )}
                 </div>
               </div>
-            </div>
-            <br />
-            <br />
-            <div class="grid grid-cols-1 divide-y-[3px] divide-blue-500 text-center w-1/2 mx-auto">
-              <div></div>
-              <div></div>
-            </div>
-            <div className="p-16">
-              <h1 className="text-5xl font-bold text-center oswald tracking-widest text-white mb-20">
+
+              <div className="p-16">
+              <h1 className="text-4xl font-bold text-center">
                 Applied Jobs
               </h1>
-              <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-between gap-y-10 gap-x-8">
+              <div className="jobs-div grid grid-cols-3 grid-rows-auto mt-8 justify-around gap-y-10 gap-x-8">
                 {jobsWatched.applied
                   ? jobsWatched.applied.map((aj) => (
                       <JobCard
@@ -99,6 +93,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                     ))
                   : null}
               </div>
+            </div>
             </div>
         </animated.div>
       )}
