@@ -14,7 +14,6 @@ export default function HomePage({ user }) {
       <div className="CAROUSEL">
         <Carousel />
       </div>
-
       <div className="TEAMS">
         <Team />
       </div>

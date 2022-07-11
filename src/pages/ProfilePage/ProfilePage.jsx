@@ -70,7 +70,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
                       ))
                     : null}
                   {jobsWatched.tracked.length === 0 && (
-                    <h1 className='text-center text-2xl'>No Tracked Jobs Found!</h1>
+                    <h1 className='text-center text-4xl oswald'>No Tracked Jobs Found!</h1>
                   )}
                 </div>
               </div>
