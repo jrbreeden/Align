@@ -32,7 +32,7 @@ The app, Align, is a job agent that searches for jobs for a user based on the us
 * Heroku
 
 # ERD
-<img src="src/assets/images/Slide1.jpg" >
+<img src="src/assets/images/ERD.png" >
 
 # Icebox
 * Coverletter Autofill
