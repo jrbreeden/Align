@@ -11,6 +11,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
   }
   //rough esimation for personal section and statement section sizes. Est 115 chars/line at 11pt .5marg
   currentSpace += (28 + 11 + 11 + 7 + 2)
+  console.log('i have tags ' , jobKeywordList)
   currentSpace += (12 + (11 * Math.ceil(statement.body.length / 100)) + 7)
   console.log('started with space ', maxLinesSpace)
   console.log('my remaining space is after initial sections is ', maxLinesSpace - currentSpace)

@@ -70,6 +70,7 @@ export default function FeaturedJobs({
           resume_link: null,
           job_date_posted: job.publication_date,
           date_applied: null,
+          tags:job.tags,
         });
       });
       setFeaturedJobs(jobConverter);

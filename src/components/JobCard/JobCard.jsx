@@ -16,7 +16,7 @@ export default function JobCard({
   handleClick,
 }) {
   let isTracked = false;
-  console.log('jobs watched card is ', jobsWatched);
+  console.log('job for this card is ', job);
   if (
     isFetched &&
     (jobsWatched.tracked.filter((wJob) => wJob.job_link === job.job_link)
