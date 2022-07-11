@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import optimizeResume from '../../utilities/helpers/ResumeOptimizer';
 import resumeConstructor from '../../utilities/helpers/ResumeConstructor';
 import { getResume } from '../../utilities/resume-service';
+import{getOneUser} from '../../utilities/users-service'
 
 export default function FeaturedJobs({
   user,
