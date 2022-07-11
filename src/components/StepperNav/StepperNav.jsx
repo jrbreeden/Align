@@ -31,14 +31,12 @@ export default function StepperNav({
     console.log(errors);
   }, [errors]);
 
-  async function handleComplete(){
+  async function handleComplete() {
     resume.user = user._id;
     const resDone = await createResume(resume)
-    if(resDone){
-      const tagsDone = await updateUserTags(userTags , user._id)
-      if(tagsDone){
-        navigate('/profile', { replace: true })
-      }
+    if (resDone) {
+      updateUserTags(userTags, user._id)
+      navigate('/profile', { replace: true })
     }
   }
 

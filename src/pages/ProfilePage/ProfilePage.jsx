@@ -13,7 +13,7 @@ export default function AppliedJobsPage({ user , setUser, getUser, markAsApplied
   async function handleClick() {
     const userResume = await getResume({ id: user._id });
     console.log('this was returned for the user resume ', userResume);
-    resumeConstructor(userResume);
+    resumeConstructor(userResume , `${user.name}_Master_Resume`);
   }
 
   async function handleClickOptimized(keyWordsArr, name) {
