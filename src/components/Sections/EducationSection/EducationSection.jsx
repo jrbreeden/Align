@@ -245,7 +245,7 @@ export default function EducationSection({
                           onChange: handleSubSectionChange,
                           required: 'Sub Header is required!',
                           minLength: 3,
-                          maxLength: 40,
+                          maxLength: 60,
                         })}
                         id="header"
                         type="text"
@@ -263,7 +263,7 @@ export default function EducationSection({
                       )}
                       {errors?.subHeader?.type === 'maxLength' && (
                         <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                          Cannot exceed 40 characters
+                          Cannot exceed 60 characters
                         </p>
                       )}
                       <label
@@ -280,7 +280,6 @@ export default function EducationSection({
                         {...register('dateStart', {
                           value: educationSubSection.dateStart.split('T')[0],
                           onChange: handleSubSectionChange,
-                          required: 'Date Start is required!',
                         })}
                         id="dateStart"
                         type="date"
@@ -305,7 +304,6 @@ export default function EducationSection({
                         {...register('dateEnd', {
                           value: educationSubSection.dateEnd.split('T')[0],
                           onChange: handleSubSectionChange,
-                          required: 'Date End is required!',
                         })}
                         id="dateEnd"
                         type="date"

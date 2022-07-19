@@ -108,7 +108,7 @@ export default function SkillsSection({
                         onChange: handleChange,
                         required: 'Skill is required!',
                         minLength: 3,
-                        maxLength: 20,
+                        maxLength: 30,
                       })}
                       placeholder="Enter Skill"
                     />
@@ -124,7 +124,7 @@ export default function SkillsSection({
                     )}
                     {errors?.skill?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 w-10/12 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Cannot exceed 20 characters
+                        Cannot exceed 30 characters
                       </p>
                     )}
                   </div>

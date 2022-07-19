@@ -3,7 +3,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
   const { personal, statement, skills, projects, workHistory, education } = resume
   const sectionList = [projects, workHistory]
 
-  const maxLinesSpace = 63 * spaceConstraints * 11
+  const maxLinesSpace = 61 * spaceConstraints * 11
   let currentSpace = 0
   let output = {
     personal: personal,
@@ -105,7 +105,7 @@ export default function optimizeResume(jobKeywordList, resume, spaceConstraints 
       console.log('initial psub is ', pSubSect)
       let i = 0
 
-      while (i < subSect.lineItems.length && (subSect.lineItems[i].score > 0 || i < 4) && pSubSect.lineItems.length < 4 && (maxLinesSpace - currentSpace) > 26) {
+      while (i < subSect.lineItems.length && (subSect.lineItems[i].score > 0 || i < 5) && pSubSect.lineItems.length < 4 && (maxLinesSpace - currentSpace) > 26) {
         console.log('lineItem i', subSect.lineItems[i])
         pSubSect.lineItems.push(subSect.lineItems[i])
         currentSpace += (11 * Math.ceil(subSect.lineItems[i].body.length / 100))

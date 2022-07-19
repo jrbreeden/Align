@@ -38,6 +38,7 @@ export default function resumeConstructor(resume , name) {
                     size: 24,
                     bold: true,
                     color: '76a5af',
+                    underline: true,
                 })
             ],spacing:lineSpacing
         })

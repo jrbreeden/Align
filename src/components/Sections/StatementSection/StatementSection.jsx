@@ -120,7 +120,7 @@ export default function StatementSection({
                         onChange: handleChange,
                         required: 'Body is required!',
                         minLength: 10,
-                        maxLength: 300,
+                        maxLength: 700,
                       })}
                       rows="10"
                       placeholder="Enter Body"
@@ -137,7 +137,7 @@ export default function StatementSection({
                     )}
                     {errors?.body?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Cannot exceed 300 characters
+                        Cannot exceed 700 characters
                       </p>
                     )}
                   </div>

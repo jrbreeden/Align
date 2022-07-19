@@ -181,7 +181,7 @@ export default function PersonalInfoSection({
                       {...register('link1', {
                         value: personal.link1,
                         onChange: handleChange,
-                        maxLength: 20,
+                        maxLength: 50,
                       })}
                       id="link1"
                       type="text"
@@ -189,7 +189,7 @@ export default function PersonalInfoSection({
                     />
                     {errors?.link1?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Cannot exceed 20 characters
+                        Cannot exceed 50 characters
                       </p>
                     )}
                   </div>
@@ -209,7 +209,7 @@ export default function PersonalInfoSection({
                       {...register('link2', {
                         value: personal.link2,
                         onChange: handleChange,
-                        maxLength: 20,
+                        maxLength: 50,
                       })}
                       id="link2"
                       type="text"
@@ -217,7 +217,7 @@ export default function PersonalInfoSection({
                     />
                     {errors?.link2?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Cannot exceed 20 characters
+                        Cannot exceed 50 characters
                       </p>
                     )}
                   </div>
@@ -237,7 +237,7 @@ export default function PersonalInfoSection({
                       {...register('link3', {
                         value: personal.link3,
                         onChange: handleChange,
-                        maxLength: 20,
+                        maxLength: 50,
                       })}
                       id="link3"
                       type="text"
@@ -245,7 +245,7 @@ export default function PersonalInfoSection({
                     />
                     {errors?.link3?.type === 'maxLength' && (
                       <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                        Cannot exceed 20 characters
+                        Cannot exceed 50 characters
                       </p>
                     )}
                   </div>

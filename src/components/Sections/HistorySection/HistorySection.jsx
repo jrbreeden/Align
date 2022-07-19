@@ -256,7 +256,7 @@ export default function HistorySection({
                           onChange: handleSubSectionChange,
                           required: 'Sub Header is required!',
                           minLength: 3,
-                          maxLength: 40,
+                          maxLength: 60,
                         })}
                         id="header"
                         type="text"
@@ -274,7 +274,7 @@ export default function HistorySection({
                       )}
                       {errors?.subHeader?.type === 'maxLength' && (
                         <p className="text-white bg-red-500 text-center mt-1 rounded font-bold px-2 py-1 text-sm">
-                          Cannot exceed 40 characters
+                          Cannot exceed 60 characters
                         </p>
                       )}
                       <label

@@ -72,7 +72,6 @@ const statementSchema = new Schema({
   },
 });
 
-
 const personalSchema = new Schema({
   name: { type: String, required: true, min: 2, max: 30 },
   email: { type: String, required: true },
