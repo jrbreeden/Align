@@ -54,5 +54,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "description": "The app, Align, is a job agent that searches for jobs for a user based on the user's skillset. It tracks the jobs you applied to and optimizes your resume for each job, so that you can be a standout candidate every time.",
+  "main": "crud-helper.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
